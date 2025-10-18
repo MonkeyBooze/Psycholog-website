@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block title %}Kontakt – Umów Wizytę u Psychologa Opole | {{ SITE_NAME }}{% endblock %}
+{% block description %}Skontaktuj się z gabinetem psychologicznym w Opolu i Nysie. Umów wizytę telefonicznie +48 606 841 722 lub przez formularz. Odpowiadamy w ciągu 24h.{% endblock %}
+{% block content %}
+
+<!-- Contact Hero Section -->
+<section class="contact-hero section">
+  <div class="container">
+    <div class="section-header">
+      <h1>Kontakt</h1>
+      <p>Skontaktuj się z nami, aby umówić wizytę lub zadać pytanie. Odpowiemy w ciągu 24 godzin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Content Section -->
+<section class="contact-content section-small bg-light">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Contact Information -->
+      <div class="contact-info-section">
+        <h2>Informacje kontaktowe</h2>
+        
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 12A10 10 0 1 1 12 2a10 10 0 0 1 10 10Z" stroke="currentColor" stroke-width="2"/>
+              <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="contact-method-content">
+            <h3>Telefon</h3>
+            <p><a href="tel:+48606841722">+48 606 841 722</a></p>
+            <p class="contact-note">Dostępny: poniedziałek-sobota, 8:00-18:00</p>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9-9 4.03-9 9 4.03 9 9 9z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="contact-method-content">
+            <h3>Lokalizacja</h3>
+            <p>Opole, ul. Koraszewskiego </p>
+            <p>Nysa, ul. Bielawska 5/2</p>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="contact-method-content">
+            <h3>Godziny pracy</h3>
+            <p>Poniedziałek - Niedziela: 8:00 - 20:00</p>
+            <p class="contact-note">Możliwość konsultacji online poza godzinami pracy</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-section">
+        <div class="contact-form-wrapper">
+          <h2>Skontakuj się z nami</h2>
+          <form action="{% url 'book' %}" method="post" class="contact-form">
+            {% csrf_token %}
+            {{ form.hp_field }}
+
+            {% if form.non_field_errors %}
+              <div class="form-errors">
+                  {% for error in form.non_field_errors %}
+                      <p class="error-message">{{ error }}</p>
+                  {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="form-group">
+              <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+              {{ form.name }}
+              {% for error in form.name.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <div class="form-group">
+              <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+              {{ form.phone }}
+              {% for error in form.phone.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <div class="form-group">
+              <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+              {{ form.email }}
+              {% for error in form.email.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.preferred_date.id_for_label }}">{{ form.preferred_date.label }}</label>
+                {{ form.preferred_date }}
+                {% for error in form.preferred_date.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <div class="form-group">
+              <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+              {{ form.message }}
+              {% for error in form.message.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="{{ form.data_processing_consent.name }}" required style="display: none;">
+                <span class="checkmark"></span>
+                Akceptuję <a href="{% url 'privacy' %}" target="_blank">politykę prywatności</a> *
+              </label>
+              {% for error in form.data_processing_consent.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-full">Wyślij wiadomość</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Często zadawane pytania</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3>Jak przebiega pierwsza wizyta?</h3>
+        <p>Pierwsza wizyta to okazja do poznania się i omówienia Twojej sytuacji. Trwa około 60 minut i nie zobowiązuje do kontynuowania terapii.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Czy oferujecie konsultacje online?</h3>
+        <p>Tak, prowadzimy sesje online przez odpowiednie platformy. To wygodne rozwiązanie dla osób, które nie mogą dotrzeć do gabinetu lub preferują taki kontakt.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Ile kosztuje sesja?</h3>
+        <p>Cennik znajdziesz na stronie z cenami. Czasami cena ustalana jest indywidualnie w zależności od potrzeb.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Jak długo trwa terapia?</h3>
+        <p>Długość terapii jest indywidualna i zależy od Twoich potrzeb i celów. Niektórym wystarcza kilka sesji, inni potrzebują dłuższego wsparcia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /book/
+Disallow: /thanks/
+Disallow: /data-subject-rights/
+
+Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml

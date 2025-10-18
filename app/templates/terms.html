@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block title %}Regulamin – {{ SITE_NAME }}{% endblock %}
+{% block description %}Regulamin korzystania ze strony internetowej gabinetu psychologicznego. Poznaj zasady i warunki świadczenia usług.{% endblock %}
+
+{% block content %}
+<div class="section">
+  <div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h1>Regulamin świadczenia usług</h1>
+      <p><em>Ostatnia aktualizacja: [DATA]</em></p>
+
+      <h2>§ 1. Postanowienia ogólne</h2>
+      
+      <h3>1.1 Definicje</h3>
+      <p>Użyte w Regulaminie pojęcia oznaczają:</p>
+      <ul>
+        <li><strong>Usługodawca</strong> - [NAZWA FIRMY/IMIĘ I NAZWISKO], prowadzący gabinet psychologiczny</li>
+        <li><strong>Klient/Pacjent</strong> - osoba korzystająca z usług psychologicznych</li>
+        <li><strong>Strona internetowa</strong> - witryna dostępna pod adresem [DOMENA]</li>
+        <li><strong>Usługi</strong> - usługi psychologiczne świadczone przez Usługodawcę</li>
+      </ul>
+
+      <h3>1.2 Zakres zastosowania</h3>
+      <p>Niniejszy Regulamin określa zasady i warunki świadczenia usług psychologicznych oraz korzystania ze strony internetowej.</p>
+
+      <h2>§ 2. Usługodawca</h2>
+      
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h4>Dane Usługodawcy:</h4>
+        <ul>
+          <li><strong>Nazwa:</strong> [NAZWA FIRMY/IMIĘ I NAZWISKO]</li>
+          <li><strong>Adres:</strong> [ADRES GABINETU]</li>
+          <li><strong>NIP:</strong> [NUMER NIP]</li>
+          <li><strong>REGON:</strong> [NUMER REGON]</li>
+          <li><strong>Telefon:</strong> <a href="tel:+48606841722">+48 606 841 722</a></li>
+          <li><strong>Email:</strong> <a href="mailto:[EMAIL]">[EMAIL]</a></li>
+          <li><strong>Nr w rejestrze psychologów:</strong> [NUMER REJESTROWY]</li>
+        </ul>
+      </div>
+
+      <h2>§ 3. Rodzaje usług</h2>
+      
+      <h3>3.1 Usługi psychologiczne</h3>
+      <p>Usługodawca świadczy następujące usługi:</p>
+      <ul>
+        <li>Konsultacje psychologiczne indywidualne</li>
+        <li>Psychoterapia indywidualna</li>
+        <li>Terapia par</li>
+        <li>Konsultacje rodzinne</li>
+        <li>Diagnozy psychologiczne</li>
+        <li>Opinie psychologiczne</li>
+      </ul>
+
+      <h3>3.2 Forma świadczenia usług</h3>
+      <p>Usługi mogą być świadczone:</p>
+      <ul>
+        <li>Stacjonarnie w gabinecie psychologicznym</li>
+        <li>Zdalnie przy użyciu platform komunikacyjnych (po wcześniejszym uzgodnieniu)</li>
+      </ul>
+
+      <h2>§ 4. Zawarcie umowy</h2>
+      
+      <h3>4.1 Proces umówienia wizyty</h3>
+      <ol>
+        <li>Klient kontaktuje się z Usługodawcą telefonicznie, mailowo lub przez formularz na stronie</li>
+        <li>Ustalany jest termin pierwszej konsultacji</li>
+        <li>Klient potwierdza wizytę</li>
+        <li>Umowa zostaje zawarta z chwilą potwierdzenia terminu przez Usługodawcę</li>
+      </ol>
+
+      <h3>4.2 Wymagania wobec Klienta</h3>
+      <p>Klient oświadcza, że:</p>
+      <ul>
+        <li>Posiada pełną zdolność do czynności prawnych</li>
+        <li>W przypadku osób nieletnich - posiada zgodę opiekuna prawnego</li>
+        <li>Podane dane są prawdziwe i aktualne</li>
+      </ul>
+
+      <h2>§ 5. Ceny i płatności</h2>
+      
+      <h3>5.1 Cennik</h3>
+      <p>Aktualny cennik dostępny jest na stronie internetowej w sekcji <a href="/cennik">Cennik</a>.</p>
+
+      <h3>5.2 Formy płatności</h3>
+      <ul>
+        <li>Gotówka (w gabinecie)</li>
+        <li>Przelew bankowy</li>
+        <li>Płatność kartą (w gabinecie)</li>
+      </ul>
+
+      <h3>5.3 Warunki płatności</h3>
+      <ul>
+        <li>Płatność następuje po zakończeniu sesji (w przypadku płatności gotówką lub kartą)</li>
+        <li>W przypadku przelewu - przed rozpoczęciem sesji lub w terminie 7 dni</li>
+        <li>Faktury wystawiane są na życzenie Klienta</li>
+      </ul>
+
+      <h2>§ 6. Obowiązki stron</h2>
+      
+      <h3>6.1 Obowiązki Usługodawcy</h3>
+      <ul>
+        <li>Świadczenie usług z należytą starannością</li>
+        <li>Zachowanie tajemnicy zawodowej</li>
+        <li>Poinformowanie o metodach i celach terapii</li>
+        <li>Prowadzenie dokumentacji zgodnie z przepisami</li>
+        <li>Przestrzeganie Kodeksu Etyczno-Zawodowego Psychologa</li>
+      </ul>
+
+      <h3>6.2 Obowiązki Klienta</h3>
+      <ul>
+        <li>Punktualne przychodzenie na umówione sesje</li>
+        <li>Poinformowanie o odwołaniu wizyty minimum 24h wcześniej</li>
+        <li>Uiszczanie należności za usługi</li>
+        <li>Przekazywanie prawdziwych informacji</li>
+        <li>Informowanie o zmianach stanu zdrowia mogących wpłynąć na terapię</li>
+      </ul>
+
+      <h2>§ 7. Odwołanie i przełożenie wizyt</h2>
+      
+      <h3>7.1 Odwołanie przez Klienta</h3>
+      <ul>
+        <li>Wizytę można odwołać bez ponoszenia kosztów minimum 24h przed terminem</li>
+        <li>Odwołanie w krótszym terminie lub niestawienie się na wizytę = opłata w wysokości 50% ceny sesji</li>
+        <li>W uzasadnionych przypadkach (choroba, nagłe wypadki) opłata nie jest pobierana</li>
+      </ul>
+
+      <h3>7.2 Odwołanie przez Usługodawcę</h3>
+      <p>Usługodawca może odwołać wizytę w przypadku:</p>
+      <ul>
+        <li>Choroby lub innych ważnych przyczyn osobistych</li>
+        <li>Siły wyższej</li>
+        <li>W takim przypadku zostanie zaproponowany nowy termin</li>
+      </ul>
+
+      <h2>§ 8. Tajemnica zawodowa i ochrona danych</h2>
+      
+      <h3>8.1 Tajemnica zawodowa</h3>
+      <p>Usługodawca jest związany tajemnicą zawodową zgodnie z:</p>
+      <ul>
+        <li>Kodeksem Etyczno-Zawodowym Psychologa</li>
+        <li>Ustawą o zawodzie psychologa</li>
+        <li>Przepisami RODO</li>
+      </ul>
+
+      <h3>8.2 Wyjątki od tajemnicy zawodowej</h3>
+      <p>Zwolnienie z tajemnicy zawodowej może nastąpić:</p>
+      <ul>
+        <li>Za zgodą Klienta</li>
+        <li>W przypadkach przewidzianych przez prawo</li>
+        <li>W sytuacjach zagrożenia życia Klienta lub innych osób</li>
+      </ul>
+
+      <h2>§ 9. Reklamacje</h2>
+      
+      <h3>9.1 Składanie reklamacji</h3>
+      <p>Reklamacje można składać:</p>
+      <ul>
+        <li>Osobiście w gabinecie</li>
+        <li>Pisemnie na adres: [ADRES]</li>
+        <li>Mailowo na adres: <a href="mailto:[EMAIL]">[EMAIL]</a></li>
+      </ul>
+
+      <h3>9.2 Rozpatrywanie reklamacji</h3>
+      <p>Reklamacje są rozpatrywane w terminie 14 dni roboczych od dnia ich otrzymania.</p>
+
+      <h2>§ 10. Rozwiązanie współpracy</h2>
+      
+      <p>Współpraca może zostać zakończona przez:</p>
+      <ul>
+        <li><strong>Klienta</strong> - w dowolnym momencie bez podania przyczyny</li>
+        <li><strong>Usługodawcę</strong> - w przypadku:
+          <ul>
+            <li>Braku płatności za usługi</li>
+            <li>Naruszenia postanowień regulaminu przez Klienta</li>
+            <li>Agresywnego zachowania wobec Usługodawcy</li>
+            <li>Innych ważnych przyczyn zawodowych lub etycznych</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>§ 11. Odpowiedzialność</h2>
+      
+      <h3>11.1 Ograniczenia odpowiedzialności</h3>
+      <p>Usługodawca nie ponosi odpowiedzialności za:</p>
+      <ul>
+        <li>Skutki nieprzestrzegania przez Klienta zaleceń terapeutycznych</li>
+        <li>Działania Klienta podejmowane wbrew wskazaniom Usługodawcy</li>
+        <li>Szkody powstałe z przyczyn niezależnych od Usługodawcy</li>
+      </ul>
+
+      <h2>§ 12. Postanowienia końcowe</h2>
+      
+      <h3>12.1 Zmiany regulaminu</h3>
+      <p>Usługodawca zastrzega sobie prawo do zmiany regulaminu. Klienci zostaną poinformowani o zmianach mailowo lub podczas wizyty.</p>
+
+      <h3>12.2 Prawo właściwe</h3>
+      <p>W sprawach nieuregulowanych w niniejszym Regulaminie zastosowanie mają przepisy:</p>
+      <ul>
+        <li>Kodeksu cywilnego</li>
+        <li>Ustawy o prawach konsumenta</li>
+        <li>Ustawy o zawodzie psychologa</li>
+        <li>Rozporządzenia RODO</li>
+      </ul>
+
+      <h3>12.3 Rozstrzyganie sporów</h3>
+      <p>Ewentualne spory będą rozstrzygane przez sąd właściwy dla siedziby Usługodawcy.</p>
+
+      <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 30px 0;">
+        <h3>📞 Kontakt</h3>
+        <p>W przypadku pytań dotyczących regulaminu:</p>
+        <ul>
+          <li>Telefon: <a href="tel:+48606841722">+48 606 841 722</a></li>
+          <li>Email: <a href="mailto:[EMAIL]">[EMAIL]</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

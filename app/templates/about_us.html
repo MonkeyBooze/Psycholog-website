@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}O nas – Zespół Psychologów Opole | {{ SITE_NAME }}{% endblock %}
+{% block description %}Poznaj nasz zespół psychologów w Opolu i Nysie. Specjalizujemy się w diagnozie ADHD, spektrum autyzmu i terapii. Ponad 3 lata doświadczenia w pracy z neuroróżnorodnością.{% endblock %}
+{% block content %}
+
+<!-- About Hero Section -->
+<section class="about-hero section">
+  <div class="container">
+    <div class="about-hero-content">
+      <div class="about-hero-text">
+        <h1>O nas</h1>
+        <p class="lead">Jesteśmy doświadczonym zespołem specjalistów których łączy pasja do pomagania ludziom, uważność na ich potrzeby i wrażliwość w odkrywaniu ich potencjału.</p>
+      </div>
+      <div class="about-hero-image">
+        <img src="{% static 'images/Logo_with_signature.png' %}" alt="{{ SITE_NAME }} - Logo" class="about-main-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section section bg-light">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nasz zespół</h2>
+      <p>Poznaj specjalistów, którzy pomogą Ci w Twojej drodze do lepszego samopoczucia</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Jakub_Lewandowski.jpeg' %}" alt="Mgr Jakub Lewandowski" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Jakub Lewandowski</h3>
+          <p class="team-role">Psycholog i diagnosta</p>
+          <p class="team-description">Jestem specjalistą diagnozy ADHD i Autyzmu oraz interwencji kryzysowych i pracy z dorosłymi. Oferuję wsparcie w zrozumieniu procesów psychicznych, radzeniu sobie z trudnościami emocjonalnymi oraz rozwijaniu umiejętności społecznych. Dzięki indywidualnemu podejściu każdy pacjent otrzymuje pomoc dostosowaną do swoich potrzeb. </p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Justyna_Lewandowska.jpg' %}" alt="Mgr Justyna Lewandowska" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Justyna Lewandowska</h3>
+          <p class="team-role">Logopeda i diagnosta</p>
+          <p class="team-description">Jestem certyfikowanym diagnostą ADOS-2 i logopedą z 18 letnim doświadczeniem w pracy z osobami w spektrum autyzmu, dziećmi i dorosłymi. W pracy kieruję się wrażliwością i uważnością na potrzeby drugiego człowieka.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Dawid_Bocz.jpg' %}" alt="Mgr Dawid Bocz" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Dawid Bocz</h3>
+          <p class="team-role">Psycholog i diagnosta</p>
+          <p class="team-description">Jestem młodym, pełnym, pasji terapeutą z kilku letnim doświadczeniem w pracy z trudnymi dziećmi w Młodzieżowym Ośrodku Socjoterapii. Moja cierpliwość i umiejętność aktywnego słuchania pozwalają młodym ludziom czuć się zrozumianymi i bezpiecznymi.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Agata_Janicka.jpg' %}" alt="Mgr Agata Janicka" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Agata Janicka</h3>
+          <p class="team-role">Psycholog i diagnosta</p>
+          <p class="team-description">Jestem psychologiem pracującym z dziećmi, młodzieżą i dorosłymi. Na co dzień wspieram rozwój emocjonalny najmłodszych oraz towarzyszę dorosłym w odkrywaniu ich zasobów i radzeniu sobie z trudnościami. Prowadzę diagnozy psychologiczne, w tym diagnozę ADHD u dzieci i dorosłych.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Katarzyna_Kuś.jpg' %}" alt="Mgr Katarzyna Kuś" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Katarzyna Kuś</h3>
+          <p class="team-role">Psycholog i diagnosta</p>
+          <p class="team-description">Jestem magistrem psychologii klinicznej Uniwersytetu Opolskiego z przygotowaniem pedagogicznym oraz certyfikatem Trenera Umiejętności Społecznych. Regularnie uczestniczę w szkoleniach z zakresu pomocy psychologicznej, dbając o ciągły rozwój zawodowy. Pracuję w przedszkolach publicznych, gdzie wspieram dzieci oraz ich rodziców w zakresie rozwoju emocjonalno-społecznego. W pracy jestem otwarta na współpracę z dziećmi i dorosłymi, również z neuroróżnorodnościami.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Natalia_Paluch.jpg' %}" alt="Mgr Natalia Paluch" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Natalia Paluch</h3>
+          <p class="team-role">Psycholog i diagnosta</p>
+          <p class="team-description">Jestem psycholożką, absolwentką Uniwersytetu Opolskiego. W swojej pracy kieruję się empatią, uważnością i głębokim szacunkiem do każdej osoby, która zgłasza się po pomoc. Wierzę, że najważniejsze w relacji z pacjentem są zaufanie, autentyczność i bezpieczna przestrzeń do rozmowy.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="team-photo">
+          <img src="{% static 'images/Agata_Brzozowska.JPG' %}" alt="Mgr Agata Brzozowska" loading="lazy">
+        </div>
+        <div class="team-info">
+          <h3>Mgr Agata Brzozowska</h3>
+          <p class="team-role">Psycholog i diagnosta</p>
+          <p class="team-description">Pracuje z dorosłymi i dziećmi, prowadząc diagnozę oraz terapię w zakresie ADHD i spektrum autyzmu. Wspiera osoby, które pragną rozwijać swoje zasoby, lepiej radzić sobie z odczuwanymi trudnościami oraz szukające wsparcia w kryzysie, w oparciu o empatię i indywidualne podejście do każdego klienta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Details Section -->
+<section class="about-details section-small">
+  <div class="container">
+    <div class="about-details-content">
+      <div class="about-text-block">
+        <h2>Nasza historia</h2>
+        <p>Specjalizujemy się w diagnostyce neuroróżnorodności - ADHD i Autyzmu, terapii indywidualnej, konsultacjach psychologicznych oraz wsparciu online. Pracujemy z osobami doświadczającymi trudności emocjonalnych, problemów w relacjach oraz wyzwań życiowych.</p>
+        <p>Naszym celem jest tworzenie bezpiecznej przestrzeni, w której każda osoba czuje się zrozumiana i zaakceptowana. Wierzymy w rzetelne i naukowe podejście wobec neuroróżnorodności - nie traktujemy jej jako deficytu, lecz jako inny sposób funkcjonowania, który zasługuje na wsparcie i zrozumienie. Pracujemy z szacunkiem dla indywidualnych potrzeb każdego klienta, dostosowując metody terapeutyczne do jego unikalnego profilu.</p>
+        <p>Nasz zespół łączy wiedzę kliniczną z empatią i doświadczeniem w pracy z osobami neuroróżnorodnymi. Oferujemy nie tylko diagnozę, ale przede wszystkim kompleksowe wsparcie w codziennym funkcjonowaniu - od rozpoznania własnych potrzeb, przez budowanie strategii radzenia sobie, po wzmacnianie poczucia własnej wartości. Jesteśmy tu, aby pomóc Ci lepiej zrozumieć siebie i odnaleźć swoją drogę.</p>
+      </div>
+      
+      <div class="qualifications">
+        <h3>Kwalifikacje i doświadczenie</h3>
+        <ul class="qualifications-list">
+          <li>Tytuły naukowe - każdy nasz specjalista posiada dyplom magistra</li>
+          <li>Nasi specjaliści certyfikują się i stale rozwijają</li>
+          <li>Prowadzimy tylko akredytowane i sprawdzone metody diagnostyczne</li>
+          <li>Ponad 3 lat doświadczenia w pracy z pacjentami</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Approach Section -->
+<section class="approach-section section bg-light">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nasze podejście</h2>
+      <p>Wierzymy w indywidualne podejście do każdego pacjenta i tworzenie bezpiecznej przestrzeni dla rozwoju</p>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="approach-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>Empatia</h3>
+        <p>Każda sesja odbywa się w atmosferze zrozumienia i akceptacji, gdzie możesz czuć się bezpiecznie.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <h3>Profesjonalizm</h3>
+        <p>Korzystamy z nowoczesnych metod terapeutycznych opartych na aktualnej wiedzy naukowej.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>Skuteczność</h3>
+        <p>Współpracujemy razem nad osiągnięciem Twoich celów terapeutycznych w optymalnym dla Ciebie tempie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact CTA Section -->
+<section class="cta-section section-small">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Gotowy na pierwszą rozmowę?</h2>
+      <p>Skontaktuj się ze nami, aby umówić konsultację. Pierwszy kontakt jest zawsze bez zobowiązań.</p>
+      <div class="cta-buttons">
+        <a href="/kontakt/" class="btn btn-primary">Skontaktuj się</a>
+        <a href="tel:+48606841722" class="btn btn-secondary">Zadzwoń teraz</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

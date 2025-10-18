@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block title %}Prawa osób, których dane dotyczą – {{ SITE_NAME }}{% endblock %}
+{% block description %}Realizuj swoje prawa RODO - dostęp, sprostowanie, usunięcie danych osobowych. Formularz zgłoszenia praw osoby, której dane dotyczą.{% endblock %}
+
+{% block content %}
+<div class="section">
+  <div class="container">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h1>Twoje prawa dotyczące danych osobowych</h1>
+      <p class="lead">Zgodnie z RODO masz szereg praw dotyczących Twoich danych osobowych. Możesz skorzystać z nich w każdym momencie.</p>
+
+      <div class="grid-2" style="gap: 30px; margin: 40px 0;">
+        <div>
+          <h2>Jakie masz prawa?</h2>
+          
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>🔍 Prawo dostępu (art. 15 RODO)</h3>
+            <p>Możesz otrzymać informacje o tym, czy przetwarzamy Twoje dane, w jakich celach i przez jak długo.</p>
+          </div>
+
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>✏️ Prawo sprostowania (art. 16 RODO)</h3>
+            <p>Możesz żądać poprawienia nieprawidłowych lub uzupełnienia niekompletnych danych.</p>
+          </div>
+
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>🗑️ Prawo usunięcia (art. 17 RODO)</h3>
+            <p>Możesz żądać usunięcia swoich danych, gdy nie są już potrzebne lub wycofałeś zgodę.</p>
+          </div>
+
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>⏸️ Prawo ograniczenia (art. 18 RODO)</h3>
+            <p>Możesz ograniczyć przetwarzanie swoich danych w określonych sytuacjach.</p>
+          </div>
+
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>📋 Prawo przenoszenia (art. 20 RODO)</h3>
+            <p>Możesz otrzymać swoje dane w formacie umożliwiającym przeniesienie do innego administratora.</p>
+          </div>
+
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>🚫 Prawo sprzeciwu (art. 21 RODO)</h3>
+            <p>Możesz sprzeciwić się przetwarzaniu swoich danych w określonych przypadkach.</p>
+          </div>
+
+          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+            <h3>❌ Wycofanie zgody</h3>
+            <p>Możesz w dowolnym momencie wycofać zgodę na przetwarzanie danych.</p>
+          </div>
+        </div>
+
+        <div>
+          <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px var(--shadow);">
+            <h2>Formularz zgłoszenia</h2>
+            <p>Wypełnij formularz, aby skorzystać ze swoich praw:</p>
+
+            <form method="post" action="#" style="margin-top: 30px;">
+              {% csrf_token %}
+              
+              <div class="form-group">
+                <label for="request_type">Rodzaj żądania *</label>
+                <select id="request_type" name="request_type" required>
+                  <option value="">Wybierz rodzaj żądania</option>
+                  <option value="access">Dostęp do danych (art. 15)</option>
+                  <option value="rectification">Sprostowanie danych (art. 16)</option>
+                  <option value="erasure">Usunięcie danych (art. 17)</option>
+                  <option value="restriction">Ograniczenie przetwarzania (art. 18)</option>
+                  <option value="portability">Przenoszenie danych (art. 20)</option>
+                  <option value="objection">Sprzeciw (art. 21)</option>
+                  <option value="withdraw_consent">Wycofanie zgody</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="full_name">Imię i nazwisko *</label>
+                <input type="text" id="full_name" name="full_name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Adres email *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+
+              <div class="form-group">
+                <label for="identification">Sposób potwierdzenia tożsamości</label>
+                <textarea id="identification" name="identification" rows="3" placeholder="Opisz, w jaki sposób możemy potwierdzić Twoją tożsamość (np. numer PESEL, data wizyty, inne dane, które tylko Ty znasz)"></textarea>
+                <small style="color: #666; font-size: 0.9rem;">To pomoże nam bezpiecznie zweryfikować Twoją tożsamość.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="details">Szczegóły żądania</label>
+                <textarea id="details" name="details" rows="5" placeholder="Opisz szczegółowo swoje żądanie. W przypadku sprostowania - jakie dane wymagają korekty. W przypadku usunięcia - dlaczego dane powinny być usunięte."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="identity_confirmation" required>
+                  <span class="checkmark"></span>
+                  Oświadczam, że jestem osobą, której dane dotyczą, lub jestem upoważniony do działania w jej imieniu. *
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="data_processing_consent" required>
+                  <span class="checkmark"></span>
+                  Wyrażam zgodę na przetwarzanie podanych przeze mnie danych osobowych w celu realizacji mojego żądania zgodnie z <a href="/privacy/" target="_blank">Polityką Prywatności</a>. *
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" style="margin-top: 20px;">
+                Wyślij żądanie
+              </button>
+
+              <!-- Honeypot field -->
+              <input type="text" name="hp_field" style="display: none;">
+            </form>
+          </div>
+
+          <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <h4>⏱️ Czas realizacji</h4>
+            <p>Odpowiemy na Twoje żądanie w ciągu <strong>30 dni</strong> od daty otrzymania (może być przedłużony do 60 dni w uzasadnionych przypadkach).</p>
+          </div>
+
+          <div style="background: #d4edda; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #28a745;">
+            <h4>🔒 Bezpieczeństwo</h4>
+            <p>Przed realizacją żądania zawsze potwierdzimy Twoją tożsamość, aby chronić Twoje dane przed nieupoważnionym dostępem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin: 40px 0;">
+        <h2>Alternatywne sposoby kontaktu</h2>
+        <p>Oprócz formularza online możesz skontaktować się z nami również:</p>
+        
+        <div class="grid-3" style="gap: 30px; margin-top: 20px;">
+          <div style="text-align: center;">
+            <div style="background: var(--accent); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">📧</div>
+            <h4>Email</h4>
+            <p><a href="mailto:[EMAIL]">[EMAIL]</a></p>
+            <small>Temat: "RODO - żądanie realizacji praw"</small>
+          </div>
+
+          <div style="text-align: center;">
+            <div style="background: var(--info); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">📞</div>
+            <h4>Telefon</h4>
+            <p><a href="tel:+48606841722">+48 606 841 722</a></p>
+            <small>Pn-Pt 9:00-17:00</small>
+          </div>
+
+          <div style="text-align: center;">
+            <div style="background: var(--secondary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">✉️</div>
+            <h4>Poczta</h4>
+            <p>[ADRES GABINETU]</p>
+            <small>List polecony za potwierdzeniem odbioru</small>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #e3f2fd; padding: 25px; border-radius: 15px; margin: 30px 0;">
+        <h3>ℹ️ Dodatkowe informacje</h3>
+        <ul>
+          <li><strong>Bezpłatność:</strong> Realizacja praw RODO jest bezpłatna</li>
+          <li><strong>Odwołanie:</strong> Masz prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych</li>
+          <li><strong>Ograniczenia:</strong> Niektóre prawa mogą być ograniczone przez przepisy prawa (np. tajemnica lekarska)</li>
+          <li><strong>Dokumentacja:</strong> W przypadku złożonych żądań możemy poprosić o dodatkowe dokumenty potwierdzające tożsamość</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

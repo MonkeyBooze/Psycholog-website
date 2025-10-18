@@ -58,7 +58,11 @@ Gabinet Psychologiczny
                             fail_silently=True,
                         )
                     
-                    # Send notification to admin
+                    # Send notification to admin(s)
+                    admin_emails = getattr(settings, 'ADMIN_EMAILS', settings.EMAIL_FROM)
+                    if isinstance(admin_emails, str):
+                        admin_emails = [email.strip() for email in admin_emails.split(',')]
+
                     send_mail(
                         subject=f'Nowa wizyta - {appointment.name}',
                         message=f"""
@@ -80,7 +84,7 @@ ZGODY RODO:
 Skontaktuj się z klientem w ciągu 24h.
                         """,
                         from_email=settings.EMAIL_FROM,
-                        recipient_list=[settings.EMAIL_FROM],
+                        recipient_list=admin_emails,
                         fail_silently=True,
                     )
                     
@@ -245,7 +249,11 @@ Z poważaniem,
                         fail_silently=True,
                     )
                     
-                    # Send notification to admin
+                    # Send notification to admin(s)
+                    admin_emails = getattr(settings, 'ADMIN_EMAILS', settings.EMAIL_FROM)
+                    if isinstance(admin_emails, str):
+                        admin_emails = [email.strip() for email in admin_emails.split(',')]
+
                     send_mail(
                         subject=f'Nowe żądanie RODO - {dsr_request.tracking_number}',
                         message=f"""
@@ -260,7 +268,7 @@ Telefon: {dsr_request.phone or 'Nie podano'}
 Szczegóły w panelu administracyjnym.
                         """,
                         from_email=settings.EMAIL_FROM,
-                        recipient_list=[settings.EMAIL_FROM],
+                        recipient_list=admin_emails,
                         fail_silently=True,
                     )
             except Exception:

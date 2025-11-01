@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Q, F
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+import json
 from .forms import AppointmentForm, DataSubjectRightsForm
-from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory
+from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory, CookieConsent
 
 def home(request):
     form = AppointmentForm()
@@ -291,3 +294,37 @@ Szczegóły w panelu administracyjnym.
 
 def healthcheck(request):
     return HttpResponse("ok", content_type="text/plain", status=200)
+
+@csrf_exempt
+@require_POST
+def log_cookie_consent(request):
+    """Log user's cookie consent decision to database for audit trail"""
+    try:
+        data = json.loads(request.body)
+        analytics_consent = data.get('analytics', False)
+
+        # Get client information for audit
+        ip_address = get_client_ip(request)
+        user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]
+        session_key = request.session.session_key or ''
+
+        # Create consent log
+        CookieConsent.objects.create(
+            analytics_consent=analytics_consent,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            session_key=session_key
+        )
+
+        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+def get_client_ip(request):
+    """Helper function to get client's IP address"""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

@@ -200,5 +200,44 @@ class StaffMember(models.Model):
     
     class Meta:
         verbose_name = "Staff Member"
-        verbose_name_plural = "Staff Members" 
+        verbose_name_plural = "Staff Members"
         ordering = ['display_order', 'last_name']
+
+
+class CookieConsent(models.Model):
+    """Model to log user cookie consent decisions for GDPR compliance"""
+
+    # Consent choice
+    analytics_consent = models.BooleanField(
+        default=False,
+        help_text='Whether user consented to analytics cookies'
+    )
+
+    # Audit fields
+    ip_address = models.GenericIPAddressField(
+        null=True,
+        blank=True,
+        help_text='IP address of the user (for audit purposes)'
+    )
+    session_key = models.CharField(
+        max_length=40,
+        blank=True,
+        help_text='Session identifier to track consent changes'
+    )
+    user_agent = models.CharField(
+        max_length=500,
+        blank=True,
+        help_text='Browser user agent string'
+    )
+
+    # Timestamps
+    consented_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        consent_type = "Accepted analytics" if self.analytics_consent else "Declined analytics"
+        return f"{consent_type} - {self.consented_at.strftime('%Y-%m-%d %H:%M')}"
+
+    class Meta:
+        verbose_name = "Cookie Consent"
+        verbose_name_plural = "Cookie Consents"
+        ordering = ['-consented_at']

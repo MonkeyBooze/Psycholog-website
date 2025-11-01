@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Appointment, DataSubjectRightsRequest, BlogCategory, BlogPost, StaffMember
+from .models import Appointment, DataSubjectRightsRequest, BlogCategory, BlogPost, StaffMember, CookieConsent
 
 
 @admin.register(Appointment)
@@ -108,3 +108,29 @@ class StaffMemberAdmin(admin.ModelAdmin):
             'fields': ('is_active', 'display_order')
         })
     )
+
+
+@admin.register(CookieConsent)
+class CookieConsentAdmin(admin.ModelAdmin):
+    list_display = ['consented_at', 'analytics_consent', 'ip_address', 'session_key']
+    list_filter = ['analytics_consent', 'consented_at']
+    search_fields = ['ip_address', 'session_key']
+    readonly_fields = ['consented_at', 'analytics_consent', 'ip_address', 'session_key', 'user_agent']
+    date_hierarchy = 'consented_at'
+
+    fieldsets = (
+        ('Wybór użytkownika', {
+            'fields': ('analytics_consent', 'consented_at')
+        }),
+        ('Informacje audytowe', {
+            'fields': ('ip_address', 'session_key', 'user_agent')
+        })
+    )
+
+    def has_add_permission(self, request):
+        # Prevent manual creation - only logged via API
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        # Read-only for audit purposes
+        return False

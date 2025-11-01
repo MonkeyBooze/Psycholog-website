@@ -246,7 +246,28 @@
     function setCookieConsent(preferences) {
       try {
         localStorage.setItem('cookie_preferences', JSON.stringify(preferences));
+        // Log consent to server for audit trail
+        logConsentToServer(preferences);
       } catch(e) {}
+    }
+
+    function logConsentToServer(preferences) {
+      try {
+        fetch('/api/log-cookie-consent/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            analytics: preferences.analytics || false
+          })
+        }).catch(function(err) {
+          // Fail silently - logging is for audit purposes only
+          console.log('Cookie consent logging failed:', err);
+        });
+      } catch(e) {
+        // Fail silently
+      }
     }
 
     var banner = document.getElementById('cookie-banner');

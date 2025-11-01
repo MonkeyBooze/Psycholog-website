@@ -16,4 +16,5 @@ urlpatterns = [
     path('blog/kategoria/<slug:slug>/', views.blog_category, name='blog_category'),
     path('blog/<slug:slug>/', views.blog_post_detail, name='blog_post_detail'),
     path('health/', views.healthcheck, name='healthcheck'),
+    path('api/log-cookie-consent/', views.log_cookie_consent, name='log_cookie_consent'),
 ]

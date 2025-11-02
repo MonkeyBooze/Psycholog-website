@@ -53,7 +53,9 @@ def book(request):
                     )
 
                     if email_configured:
-                        logger.info("Sending confirmation emails...")
+                        logger.info(f"Email configured - attempting to send to {appointment.email}")
+                        logger.debug(f"SMTP settings - Host: {settings.EMAIL_HOST}, Port: {settings.EMAIL_PORT}, User: {settings.EMAIL_HOST_USER}")
+
                         # Send confirmation email to customer
                         if appointment.email:
                             send_mail(

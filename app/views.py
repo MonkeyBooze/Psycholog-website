@@ -44,8 +44,15 @@ def book(request):
 
                 # Send email notifications (only if email is properly configured)
                 try:
-                    # Check if email is actually configured (not empty string)
-                    if settings.EMAIL_HOST and settings.EMAIL_HOST.strip():
+                    # Check if email is actually configured (all required fields)
+                    email_configured = (
+                        settings.EMAIL_HOST and
+                        settings.EMAIL_HOST.strip() and
+                        settings.EMAIL_HOST_USER and
+                        settings.EMAIL_HOST_USER.strip()
+                    )
+
+                    if email_configured:
                         logger.info("Sending confirmation emails...")
                         # Send confirmation email to customer
                         if appointment.email:
@@ -255,7 +262,14 @@ def data_subject_rights(request):
             
             # Send confirmation email to user
             try:
-                if settings.EMAIL_HOST and settings.EMAIL_HOST.strip():
+                email_configured = (
+                    settings.EMAIL_HOST and
+                    settings.EMAIL_HOST.strip() and
+                    settings.EMAIL_HOST_USER and
+                    settings.EMAIL_HOST_USER.strip()
+                )
+
+                if email_configured:
                     send_mail(
                         subject=f'Potwierdzenie żądania RODO - {dsr_request.tracking_number}',
                         message=f"""

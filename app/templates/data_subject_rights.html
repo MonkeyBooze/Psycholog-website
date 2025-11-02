@@ -54,71 +54,67 @@
             <h2>Formularz zgłoszenia</h2>
             <p>Wypełnij formularz, aby skorzystać ze swoich praw:</p>
 
-            <form method="post" action="#" style="margin-top: 30px;">
+            <form method="post" style="margin-top: 30px;">
               {% csrf_token %}
-              
+              {{ form.hp_field }}
+
+              {% if form.non_field_errors %}
+                <div class="form-errors">
+                  {% for error in form.non_field_errors %}
+                    <p class="error-message">{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
               <div class="form-group">
-                <label for="request_type">Rodzaj żądania *</label>
-                <select id="request_type" name="request_type" required>
-                  <option value="">Wybierz rodzaj żądania</option>
-                  <option value="access">Dostęp do danych (art. 15)</option>
-                  <option value="rectification">Sprostowanie danych (art. 16)</option>
-                  <option value="erasure">Usunięcie danych (art. 17)</option>
-                  <option value="restriction">Ograniczenie przetwarzania (art. 18)</option>
-                  <option value="portability">Przenoszenie danych (art. 20)</option>
-                  <option value="objection">Sprzeciw (art. 21)</option>
-                  <option value="withdraw_consent">Wycofanie zgody</option>
-                </select>
+                <label for="{{ form.request_type.id_for_label }}">{{ form.request_type.label }}</label>
+                {{ form.request_type }}
+                {% for error in form.request_type.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <div class="form-group">
-                <label for="full_name">Imię i nazwisko *</label>
-                <input type="text" id="full_name" name="full_name" required>
+                <label for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }}</label>
+                {{ form.full_name }}
+                {% for error in form.full_name.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <div class="form-group">
-                <label for="email">Adres email *</label>
-                <input type="email" id="email" name="email" required>
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+                {% for error in form.email.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <div class="form-group">
-                <label for="phone">Telefon</label>
-                <input type="tel" id="phone" name="phone">
+                <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                {{ form.phone }}
+                {% for error in form.phone.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <div class="form-group">
-                <label for="identification">Sposób potwierdzenia tożsamości</label>
-                <textarea id="identification" name="identification" rows="3" placeholder="Opisz, w jaki sposób możemy potwierdzić Twoją tożsamość (np. numer PESEL, data wizyty, inne dane, które tylko Ty znasz)"></textarea>
-                <small style="color: #666; font-size: 0.9rem;">To pomoże nam bezpiecznie zweryfikować Twoją tożsamość.</small>
+                <label for="{{ form.identification.id_for_label }}">{{ form.identification.label }}</label>
+                {{ form.identification }}
+                <small style="color: #666; font-size: 0.9rem;">{{ form.identification.help_text }}</small>
+                {% for error in form.identification.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <div class="form-group">
-                <label for="details">Szczegóły żądania</label>
-                <textarea id="details" name="details" rows="5" placeholder="Opisz szczegółowo swoje żądanie. W przypadku sprostowania - jakie dane wymagają korekty. W przypadku usunięcia - dlaczego dane powinny być usunięte."></textarea>
+                <label for="{{ form.details.id_for_label }}">{{ form.details.label }}</label>
+                {{ form.details }}
+                {% for error in form.details.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <div class="form-group">
                 <label class="checkbox-label">
-                  <input type="checkbox" name="identity_confirmation" required>
+                  <input type="checkbox" name="{{ form.privacy_consent.name }}" required style="display: none;">
                   <span class="checkmark"></span>
-                  Oświadczam, że jestem osobą, której dane dotyczą, lub jestem upoważniony do działania w jej imieniu. *
+                  {{ form.privacy_consent.label }}
                 </label>
-              </div>
-
-              <div class="form-group">
-                <label class="checkbox-label">
-                  <input type="checkbox" name="data_processing_consent" required>
-                  <span class="checkmark"></span>
-                  Wyrażam zgodę na przetwarzanie podanych przeze mnie danych osobowych w celu realizacji mojego żądania zgodnie z <a href="/privacy/" target="_blank">Polityką Prywatności</a>. *
-                </label>
+                {% for error in form.privacy_consent.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
               </div>
 
               <button type="submit" class="btn btn-primary btn-full" style="margin-top: 20px;">
                 Wyślij żądanie
               </button>
-
-              <!-- Honeypot field -->
-              <input type="text" name="hp_field" style="display: none;">
             </form>
           </div>
 

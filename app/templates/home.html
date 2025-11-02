@@ -139,6 +139,14 @@
           <label for="id_message">Wiadomość</label>
           {{ form.message }}
         </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="{{ form.data_processing_consent.name }}" required style="display: none;">
+            <span class="checkmark"></span>
+            Akceptuję <a href="{% url 'privacy' %}" target="_blank">politykę prywatności</a> *
+          </label>
+          {% for error in form.data_processing_consent.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+        </div>
         <button type="submit" class="btn btn-primary btn-full">Wyślij zapytanie</button>
       </form>
       <div class="contact-info">

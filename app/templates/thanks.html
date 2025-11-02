@@ -1,6 +1,88 @@
 {% extends 'base.html' %}
-{% block title %}Dziękujemy – {{ SITE_NAME }}{% endblock %}
+{% load static %}
+{% block title %}Dziękujemy za kontakt – {{ SITE_NAME }}{% endblock %}
+{% block description %}Dziękujemy za zgłoszenie. Skontaktujemy się z Tobą w ciągu 24 godzin.{% endblock %}
+
 {% block content %}
-<h2>Dziękujemy!</h2>
-<p>Twoje zgłoszenie zostało przesłane. Skontaktujemy się wkrótce.</p>
+<!-- Success Page -->
+<section class="section" style="min-height: 60vh; display: flex; align-items: center; background: linear-gradient(135deg, #f0f8f7 0%, #e8f4f3 100%);">
+  <div class="container">
+    <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+
+      <!-- Success Icon -->
+      <div style="margin-bottom: 30px;">
+        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(4, 210, 195, 0.3);">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <h1 style="color: var(--primary); margin-bottom: 20px; font-size: 2.5rem;">Dziękujemy za kontakt!</h1>
+      <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; line-height: 1.8;">
+        Twoje zgłoszenie zostało pomyślnie przesłane.<br>
+        Skontaktujemy się z Tobą w ciągu <strong style="color: var(--accent);">24 godzin</strong>.
+      </p>
+
+      <!-- Info Cards -->
+      <div style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 40px;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 25px; color: var(--primary);">Co dalej?</h2>
+
+        <div style="display: grid; gap: 20px; text-align: left;">
+          <div style="display: flex; gap: 15px; align-items: start;">
+            <div style="background: #e8f4f3; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 20px;">📧</span>
+            </div>
+            <div>
+              <h3 style="font-size: 1.1rem; margin-bottom: 5px; color: var(--primary);">Sprawdzamy Twoją wiadomość</h3>
+              <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">Nasz zespół już zajmuje się Twoim zgłoszeniem.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 15px; align-items: start;">
+            <div style="background: #e8f4f3; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 20px;">📞</span>
+            </div>
+            <div>
+              <h3 style="font-size: 1.1rem; margin-bottom: 5px; color: var(--primary);">Skontaktujemy się z Tobą</h3>
+              <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">Odezwiemy się telefonicznie lub emailem, aby umówić termin wizyty.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 15px; align-items: start;">
+            <div style="background: #e8f4f3; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="font-size: 20px;">🤝</span>
+            </div>
+            <div>
+              <h3 style="font-size: 1.1rem; margin-bottom: 5px; color: var(--primary);">Umówimy termin</h3>
+              <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">Wspólnie ustalimy dogodny dla Ciebie termin konsultacji.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div style="background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%); border-radius: 15px; padding: 30px; color: white; margin-bottom: 30px;">
+        <h3 style="color: white; margin-bottom: 15px; font-size: 1.3rem;">Pilna sprawa?</h3>
+        <p style="margin-bottom: 20px; opacity: 0.95;">Możesz również skontaktować się z nami bezpośrednio:</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+          <a href="tel:+48606841722" style="background: rgba(255,255,255,0.2); padding: 12px 25px; border-radius: 8px; color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; backdrop-filter: blur(10px); display: inline-block;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+            📞 +48 606 841 722
+          </a>
+          <a href="mailto:jakub.lewandowski@psychoedukacjaopole.pl" style="background: rgba(255,255,255,0.2); padding: 12px 25px; border-radius: 8px; color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; backdrop-filter: blur(10px); display: inline-block;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+            ✉️ Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="/" class="btn btn-primary">Wróć na stronę główną</a>
+        <a href="/blog/" class="btn btn-secondary">Przejdź do bloga</a>
+      </div>
+
+    </div>
+  </div>
+</section>
 {% endblock %}

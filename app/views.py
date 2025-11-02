@@ -42,9 +42,11 @@ def book(request):
                 appointment.save()
                 logger.info(f"Appointment saved successfully: ID {appointment.id}")
 
-                # Send email notifications
+                # Send email notifications (only if email is properly configured)
                 try:
-                    if settings.EMAIL_HOST:
+                    # Check if email is actually configured (not empty string)
+                    if settings.EMAIL_HOST and settings.EMAIL_HOST.strip():
+                        logger.info("Sending confirmation emails...")
                         # Send confirmation email to customer
                         if appointment.email:
                             send_mail(
@@ -104,6 +106,9 @@ Skontaktuj się z klientem w ciągu 24h.
                             recipient_list=admin_emails,
                             fail_silently=True,
                         )
+                        logger.info("Emails sent successfully")
+                    else:
+                        logger.info("Email not configured - skipping email notifications")
                 except Exception as email_error:
                     # Log email error but don't fail the booking
                     logger.error(f"Email sending failed: {email_error}")
@@ -250,7 +255,7 @@ def data_subject_rights(request):
             
             # Send confirmation email to user
             try:
-                if settings.EMAIL_HOST:
+                if settings.EMAIL_HOST and settings.EMAIL_HOST.strip():
                     send_mail(
                         subject=f'Potwierdzenie żądania RODO - {dsr_request.tracking_number}',
                         message=f"""

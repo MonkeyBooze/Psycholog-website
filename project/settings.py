@@ -150,7 +150,7 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = env.int('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = True
-EMAIL_TIMEOUT = 3  # 3 second timeout for SMTP connections
+EMAIL_TIMEOUT = 1  # 1 second timeout for SMTP connections
 EMAIL_FROM = env('EMAIL_FROM', default='no-reply@example.com')
 
 # GA4 id passed to templates via context processor

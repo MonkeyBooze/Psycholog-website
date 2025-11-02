@@ -112,7 +112,7 @@
             
             <div class="form-group">
               <label class="checkbox-label">
-                <input type="checkbox" name="{{ form.data_processing_consent.name }}" required style="display: none;">
+                {{ form.data_processing_consent }}
                 <span class="checkmark"></span>
                 Akceptuję <a href="{% url 'privacy' %}" target="_blank">politykę prywatności</a> *
               </label>

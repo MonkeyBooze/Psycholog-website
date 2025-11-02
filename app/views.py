@@ -20,22 +20,23 @@ def book(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            # Save the appointment with GDPR consent data
-            appointment = form.save(commit=False)
-            appointment.data_processing_consent = form.cleaned_data.get('data_processing_consent', False)
-            appointment.marketing_consent = form.cleaned_data.get('marketing_consent', False)
-            if appointment.marketing_consent:
-                appointment.marketing_consent_date = timezone.now()
-            appointment.save()
-            
-            # Send email notifications
             try:
-                if settings.EMAIL_HOST:
-                    # Send confirmation email to customer
-                    if appointment.email:
-                        send_mail(
-                            subject='Potwierdzenie umówienia wizyty - Gabinet Psychologiczny',
-                            message=f"""
+                # Save the appointment with GDPR consent data
+                appointment = form.save(commit=False)
+                appointment.data_processing_consent = form.cleaned_data.get('data_processing_consent', False)
+                appointment.marketing_consent = form.cleaned_data.get('marketing_consent', False)
+                if appointment.marketing_consent:
+                    appointment.marketing_consent_date = timezone.now()
+                appointment.save()
+
+                # Send email notifications
+                try:
+                    if settings.EMAIL_HOST:
+                        # Send confirmation email to customer
+                        if appointment.email:
+                            send_mail(
+                                subject='Potwierdzenie umówienia wizyty - Gabinet Psychologiczny',
+                                message=f"""
 Szanowni Państwo {appointment.name},
 
 Dziękujemy za umówienie wizyty w naszym gabinecie psychologicznym.
@@ -55,20 +56,20 @@ W razie pytań prosimy o kontakt:
 
 Z poważaniem,
 Gabinet Psychologiczny
-                            """,
-                            from_email=settings.EMAIL_FROM,
-                            recipient_list=[appointment.email],
-                            fail_silently=True,
-                        )
-                    
-                    # Send notification to admin(s)
-                    admin_emails = getattr(settings, 'ADMIN_EMAILS', settings.EMAIL_FROM)
-                    if isinstance(admin_emails, str):
-                        admin_emails = [email.strip() for email in admin_emails.split(',')]
+                                """,
+                                from_email=settings.EMAIL_FROM,
+                                recipient_list=[appointment.email],
+                                fail_silently=True,
+                            )
 
-                    send_mail(
-                        subject=f'Nowa wizyta - {appointment.name}',
-                        message=f"""
+                        # Send notification to admin(s)
+                        admin_emails = getattr(settings, 'ADMIN_EMAILS', settings.EMAIL_FROM)
+                        if isinstance(admin_emails, str):
+                            admin_emails = [email.strip() for email in admin_emails.split(',')]
+
+                        send_mail(
+                            subject=f'Nowa wizyta - {appointment.name}',
+                            message=f"""
 NOWA WIZYTA UMÓWIONA:
 
 Osoba: {appointment.name}
@@ -85,21 +86,31 @@ ZGODY RODO:
 - Marketing: {'TAK' if appointment.marketing_consent else 'NIE'}
 
 Skontaktuj się z klientem w ciągu 24h.
-                        """,
-                        from_email=settings.EMAIL_FROM,
-                        recipient_list=admin_emails,
-                        fail_silently=True,
-                    )
-                    
-                    messages.success(request, 'Wizyta została umówiona pomyślnie! Otrzymali Państwo potwierdzenie na email.')
-                else:
-                    messages.success(request, 'Wizyta została umówiona pomyślnie!')
-                    
-            except Exception as e:
+                            """,
+                            from_email=settings.EMAIL_FROM,
+                            recipient_list=admin_emails,
+                            fail_silently=True,
+                        )
+                except Exception as email_error:
+                    # Log email error but don't fail the booking
+                    import logging
+                    logger = logging.getLogger(__name__)
+                    logger.error(f"Email sending failed: {email_error}")
+
                 messages.success(request, 'Wizyta została umówiona pomyślnie!')
-            
-            return redirect('thanks')
-        return render(request, 'home.html', {'form': form})
+                return redirect('thanks')
+
+            except Exception as e:
+                # Log the error for debugging
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Booking failed: {e}", exc_info=True)
+                messages.error(request, 'Wystąpił błąd podczas zapisywania. Spróbuj ponownie lub zadzwoń.')
+                return render(request, 'home.html', {'form': form})
+        else:
+            # Form is not valid - render with errors
+            messages.error(request, 'Proszę poprawić błędy w formularzu.')
+            return render(request, 'home.html', {'form': form})
     return redirect('home')
 
 def thanks(request):

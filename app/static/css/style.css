@@ -1032,8 +1032,10 @@ button:active {
 }
 
 .checkbox-label input[type="checkbox"] {
-  width: auto;
-  margin: 0;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .checkmark {

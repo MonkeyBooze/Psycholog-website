@@ -9,8 +9,11 @@ from django.db.models import Q, F
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import json
+import logging
 from .forms import AppointmentForm, DataSubjectRightsForm
 from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory, CookieConsent
+
+logger = logging.getLogger(__name__)
 
 def home(request):
     form = AppointmentForm()
@@ -18,16 +21,26 @@ def home(request):
 
 def book(request):
     if request.method == 'POST':
+        logger.info("Booking form submitted")
+        logger.debug(f"POST data: {request.POST}")
+
         form = AppointmentForm(request.POST)
+
         if form.is_valid():
+            logger.info("Form is valid")
             try:
                 # Save the appointment with GDPR consent data
                 appointment = form.save(commit=False)
                 appointment.data_processing_consent = form.cleaned_data.get('data_processing_consent', False)
                 appointment.marketing_consent = form.cleaned_data.get('marketing_consent', False)
+
+                logger.debug(f"Consent values - Processing: {appointment.data_processing_consent}, Marketing: {appointment.marketing_consent}")
+
                 if appointment.marketing_consent:
                     appointment.marketing_consent_date = timezone.now()
+
                 appointment.save()
+                logger.info(f"Appointment saved successfully: ID {appointment.id}")
 
                 # Send email notifications
                 try:
@@ -102,13 +115,13 @@ Skontaktuj się z klientem w ciągu 24h.
 
             except Exception as e:
                 # Log the error for debugging
-                import logging
-                logger = logging.getLogger(__name__)
                 logger.error(f"Booking failed: {e}", exc_info=True)
                 messages.error(request, 'Wystąpił błąd podczas zapisywania. Spróbuj ponownie lub zadzwoń.')
                 return render(request, 'home.html', {'form': form})
         else:
-            # Form is not valid - render with errors
+            # Form is not valid - log errors and render with errors
+            logger.warning(f"Form validation failed. Errors: {form.errors}")
+            logger.debug(f"Form data: {form.data}")
             messages.error(request, 'Proszę poprawić błędy w formularzu.')
             return render(request, 'home.html', {'form': form})
     return redirect('home')
@@ -304,7 +317,29 @@ Szczegóły w panelu administracyjnym.
     return render(request, 'data_subject_rights.html', {'form': form})
 
 def healthcheck(request):
-    return HttpResponse("ok", content_type="text/plain", status=200)
+    """Health check endpoint that also tests database connection"""
+    from django.db import connection
+
+    try:
+        # Test database connection
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+
+        # Get basic stats
+        appointment_count = Appointment.objects.count()
+
+        return HttpResponse(
+            f"ok - db connected - {appointment_count} appointments",
+            content_type="text/plain",
+            status=200
+        )
+    except Exception as e:
+        logger.error(f"Health check failed: {e}")
+        return HttpResponse(
+            f"error: {str(e)}",
+            content_type="text/plain",
+            status=500
+        )
 
 @csrf_exempt
 @require_POST

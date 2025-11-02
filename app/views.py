@@ -106,8 +106,6 @@ Skontaktuj się z klientem w ciągu 24h.
                         )
                 except Exception as email_error:
                     # Log email error but don't fail the booking
-                    import logging
-                    logger = logging.getLogger(__name__)
                     logger.error(f"Email sending failed: {email_error}")
 
                 messages.success(request, 'Wizyta została umówiona pomyślnie!')

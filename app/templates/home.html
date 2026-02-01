@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Psycholog Opole i Nysa | Diagnoza ADHD i Autyzmu | {{ SITE_NAME }}{% endblock %}
-{% block description %}Profesjonalny gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD, test ADOS (autyzm), TUS, terapia indywidualna i online. Specjalizacja: neuroróżnorodność. Tel: +48 606 841 722{% endblock %}
+{% block description %}Profesjonalny gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD, test ADOS (autyzm), TUS,
+terapia indywidualna i online. Specjalizacja: neuroróżnorodność. Tel: +48 606 841 722{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
@@ -10,19 +11,100 @@
     <div class="hero-content">
       <div class="hero-text">
         <h1>Profesjonalna pomoc psychologiczna w Nysie i Opolu</h1>
-        <p class="hero-subtitle">Wsparcie dopasowane do Twoich potrzeb. Oferujemy konsultacje psychologiczne, terapię oraz wsparcie online w komfortowych warunkach.</p>
+        <p class="hero-subtitle">Wsparcie dopasowane do Twoich potrzeb. Oferujemy konsultacje psychologiczne, terapię
+          oraz wsparcie online w komfortowych warunkach.</p>
         <div class="hero-buttons">
-          <a href="#booking" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'}); return false;" class="btn btn-primary">Umów wizytę</a>
+          <a href="#booking"
+            onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'}); return false;"
+            class="btn btn-primary">Umów wizytę</a>
           <a href="tel:+48606841722" class="btn btn-secondary">Zadzwoń teraz</a>
         </div>
       </div>
       <div class="hero-image">
-        <img src="{% static 'images/Logo_with_signature.png' %}" alt="{{ SITE_NAME }} - Logo" class="hero-img" loading="lazy">
+        <img src="{% static 'images/Logo_with_signature.png' %}" alt="{{ SITE_NAME }} - Logo" class="hero-img"
+          loading="lazy">
       </div>
     </div>
   </div>
 </section>
 
+
+
+<!-- Testimonials Section -->
+<section class="testimonials-section section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Opinie pacjentów</h2>
+      <p>Co mówią o nas osoby, którym pomogliśmy</p>
+    </div>
+    <div class="testimonials-wrapper">
+      <!-- Card 1 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Pani Natalia to bardzo uważna, empatyczna i profesjonalna psycholożka. Już od
+          pierwszego spotkania czuć atmosferę bezpieczeństwa i autentycznego zainteresowania drugą osobą. Potrafi
+          słuchać bez oceniania, a jednocześnie trafnie nazywa trudne emocje i pomaga je zrozumieć."</p>
+        <div class="testimonial-author">
+          Robert
+          <span class="testimonial-source">(ZnanyLekarz)</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Pani Agata jest bardzo miła i sympatyczna. Dokładnie i spokojnie wszystko wyjaśnia
+          a do tego ma bardzo dobry kontakt z młodymi pacjentami mój syn bardzo tą panią chwalił."</p>
+        <div class="testimonial-author">
+          J.W
+          <span class="testimonial-source">(ZnanyLekarz)</span>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Bardzo profesjonalne podejście do pacjenta. Wszystko szczegółowo wyjaśnione. Pani
+          Agata jest empatyczna oraz cierpliwa. Mogę z całą pewnością polecić tego specjalistę."</p>
+        <div class="testimonial-author">
+          Szymon
+          <span class="testimonial-source">(ZnanyLekarz)</span>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Pan Jakub jest osobą niezwykle empatyczną i potrafi stworzyć atmosferę pełną
+          zaufania oraz zrozumienia. Jego profesjonalizm i spokój sprawiają, że łatwo otworzyć się i poruszać nawet
+          trudne tematy. Zadaje trafne pytania, które skłaniają do refleksji i pomagają spojrzeć na problemy z innej
+          perspektywy."</p>
+        <div class="testimonial-author">
+          Agata
+          <span class="testimonial-source">(ZnanyLekarz)</span>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Pan Dawid jest godnym polecenia specjalistą, syn zadowolony, profesjonalne
+          podejście do młodzieży. Serdecznie polecam."</p>
+        <div class="testimonial-author">
+          K.Ch
+          <span class="testimonial-source">(ZnanyLekarz)</span>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Trafiłam do poradni w kryzysowym momencie i do Pani Katarzyny. Termin dostałam
+          bardzo szybko, co było dla mnie kluczowe. Terapia pomogła mi stanąć na nogi. Czuć, że pacjent jest tu
+          najważniejszy."</p>
+        <div class="testimonial-author">
+          Karolina
+          <span class="testimonial-source">(ZnanyLekarz)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Services Section -->
 <section class="services-section section">
@@ -35,7 +117,9 @@
       <div class="service-card">
         <div class="service-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              fill="currentColor" />
           </svg>
         </div>
         <h3>Terapia indywidualna</h3>
@@ -44,7 +128,8 @@
       <div class="service-card">
         <div class="service-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 6h-2l-1-2H6L5 6H3v2h1v11c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8h1V6zm-4 13H7V8h10v11z" fill="currentColor"/>
+            <path d="M21 6h-2l-1-2H6L5 6H3v2h1v11c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8h1V6zm-4 13H7V8h10v11z"
+              fill="currentColor" />
           </svg>
         </div>
         <h3>Konsultacje psychologiczne</h3>
@@ -53,16 +138,20 @@
       <div class="service-card">
         <div class="service-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z" fill="currentColor"/>
+            <path
+              d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"
+              fill="currentColor" />
           </svg>
         </div>
         <h3>Wsparcie online</h3>
-        <p>Wygodne sesje terapeutyczne z domu przez bezpieczną platformę - idealne rozwiązanie w dzisiejszych czasach.</p>
+        <p>Wygodne sesje terapeutyczne z domu przez bezpieczną platformę - idealne rozwiązanie w dzisiejszych czasach.
+        </p>
       </div>
       <div class="service-card">
         <div class="service-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
+              fill="none" />
           </svg>
         </div>
         <h3>ADHD</h3>
@@ -71,7 +160,9 @@
       <div class="service-card">
         <div class="service-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
+              fill="currentColor" />
           </svg>
         </div>
         <h3>Autyzm</h3>
@@ -80,29 +171,60 @@
       <div class="service-card">
         <div class="service-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/>
+            <path
+              d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+              fill="currentColor" />
           </svg>
         </div>
         <h3>TUS - Trening Umiejętności Społecznych</h3>
-        <p>Zajęcia grupowe (dzieci/młodzi/dorośli) rozwijające kompetencje społeczne i komunikacyjne w bezpiecznym środowisku.</p>
+        <p>Zajęcia grupowe (dzieci/młodzi/dorośli) rozwijające kompetencje społeczne i komunikacyjne w bezpiecznym
+          środowisku.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- About Section -->
-<section class="about-section section-small bg-light">
+<!-- Team Teaser Section -->
+<section class="team-teaser-section section bg-light">
   <div class="container">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>O nas</h2>
-        <p>Jesteśmy młodym, prężnym zespołem specjalistów, dla których nadrzędnym celem jest rozpowszwechnianie wiedzy na temat szeroko rozumianej neuroróżnorodności (spektrum autyzmu, ADHD, dysleksja).  Mamy zapał, chęć działania, otwarte głowy. Dokładamy wszelkich starań, by nasi Klienci czuli się bezpiecznie i zaopiekowani.</p>
-        <p>Naszą misją wskazanie drogi do zozumienia potrzeb osób neuroróżnorodnych, pomoc w rozwijaniu samoświadomości naszych Pacjentów oraz wsparcie dla ich najbliższych.</p>
-        <p>Neuroróżnorodność jest wielobarwna, wieloaspektowa i o tym chcemy rozmawiać, odkrywać wszystkie barwy.</p>
-        <a href="/o-nas/" class="btn btn-secondary">Dowiedz się więcej</a>
+    <div class="team-teaser-content">
+      <div class="team-teaser-intro">
+        <h2>Poznaj ludzi, którzy Cię zrozumieją</h2>
+        <p>Nasz zespół to nie tylko specjaliści, ale przede wszystkim ludzie pełni empatii. Łączymy rzetelną wiedzę
+          medyczną z otwartością na Twoje potrzeby. Zobacz, z kim będziesz pracować.</p>
+        <a href="/o-nas/" class="btn btn-primary">Poznaj cały zespół</a>
       </div>
-      <div class="about-image">
-        <img src="{% static 'images/Logo_with_signature.png' %}" alt="{{ SITE_NAME }} - Logo z podpisem" class="about-img logo-signature" loading="lazy">
+      <div class="team-teaser-grid">
+        <!-- Member 1 -->
+        <div class="team-member-preview">
+          <div class="member-photo">
+            <img src="{% static 'images/agata_brzozowska.jpg' %}" alt="Mgr Agata Brzozowska" class="team-avatar">
+          </div>
+          <div class="member-details">
+            <span class="member-name">Mgr Agata Brzozowska</span>
+            <span class="member-role">Psycholog Dzieci i Młodzieży</span>
+          </div>
+        </div>
+        <!-- Member 2 -->
+        <div class="team-member-preview">
+          <div class="member-photo">
+            <img src="{% static 'images/Jakub_Lewandowski.jpeg' %}" alt="Mgr Jakub Lewandowski" class="team-avatar">
+          </div>
+          <div class="member-details">
+            <span class="member-name">Mgr Jakub Lewandowski</span>
+            <span class="member-role">Psycholog, Terapia Indywidualna</span>
+          </div>
+        </div>
+        <!-- Member 3 -->
+        <div class="team-member-preview">
+          <div class="member-photo">
+            <img src="{% static 'images/Katarzyna_Kuś.jpg' %}" alt="Mgr Katarzyna Kuś" class="team-avatar">
+          </div>
+          <div class="member-details">
+            <span class="member-name">Mgr Katarzyna Kuś</span>
+            <span class="member-role">Psycholog, Diagnosta</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -164,7 +286,13 @@
           <p>Pon-Nd: 8:00-22:00</p>
         </div>
         <div class="booking-widget">
-          <a class="zl-facility-url" href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii" rel="nofollow" data-zlw-facility="spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii" data-zlw-type="facility-big-with-saas-only" data-zlw-saas-only="true" data-zlw-a11y-title="Widget umówienia wizyty lekarskiej">Spektrum Umysłu - Gabinety Psychoedukacji, Logopedii i Terapii</a><script>!function($_x,_s,id){var js,fjs=$_x.getElementsByTagName(_s)[0];if(!$_x.getElementById(id)){js = $_x.createElement(_s);js.id = id;js.src = "//platform.docplanner.com/js/widget.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","zl-widget-s");</script>
+          <a class="zl-facility-url"
+            href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+            rel="nofollow" data-zlw-facility="spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+            data-zlw-type="facility-big-with-saas-only" data-zlw-saas-only="true"
+            data-zlw-a11y-title="Widget umówienia wizyty lekarskiej">Spektrum Umysłu - Gabinety Psychoedukacji,
+            Logopedii i Terapii</a>
+          <script>!function ($_x, _s, id) { var js, fjs = $_x.getElementsByTagName(_s)[0]; if (!$_x.getElementById(id)) { js = $_x.createElement(_s); js.id = id; js.src = "//platform.docplanner.com/js/widget.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "zl-widget-s");</script>
         </div>
       </div>
     </div>

@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Diagnoza Autyzmu (ADOS-2) | {{ SITE_NAME }}{% endblock %}
+{% block description %}Profesjonalna diagnoza spektrum autyzmu w Opolu i Nysie. Złoty standard diagnostyczny ADOS-2.
+Badanie dzieci, młodzieży i dorosłych. Pełna opinia kliniczna.{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>Diagnoza spektrum autyzmu (ASD)</h1>
+            <p class="service-description">Kompleksowy proces diagnostyczny z wykorzystaniem protokołu obserwacji ADOS-2
+                — uznawanego na świecie za "złoty standard" w diagnozie autyzmu. Badanie prowadzone przez
+                certyfikowanych diagnostów.</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>2-3 spotkania</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h18v18H3z" />
+                        <path d="M3 9h18M9 3v18" />
+                    </svg>
+                    <span>Dla dzieci i dorosłych</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Od 600 zł</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Umów wizytę</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak wygląda proces diagnozy?</h2>
+            <p>Rzetelna diagnoza wymaga czasu i wieloaspektowej oceny</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Wywiad rozwojowy (ADI-R)</h3>
+                    <p>Szczegółowa rozmowa z rodzicami (w przypadku dzieci) lub pacjentem i bliską osobą (u dorosłych)
+                        na temat wczesnego rozwoju, historii objawów oraz funkcjonowania w różnych sferach życia.</p>
+                    <span class="step-duration">50-90 minut</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Badanie obserwacyjne ADOS-2</h3>
+                    <p>Standaryzowane badanie, podczas którego diagnosta proponuje specyficzne aktywności i zadania
+                        społeczne, obserwując reakcje i sposób komunikacji osoby badanej. Przebieg jest dostosowany do
+                        wieku i poziomu rozwoju językowego.</p>
+                    <span class="step-duration">45-60 minut</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Przekazanie diagnozy</h3>
+                    <p>Ostatnie spotkanie poświęcone jest omówieniu wyników, wydaniu pisemnej opinii z rozpoznaniem
+                        (zgodnym z ICD-10/ICD-11) oraz nakreśleniu planu dalszego wsparcia terapeutycznego.</p>
+                    <span class="step-duration">Gotowa w ciągu 14 dni</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section" style="background: var(--mystic);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Kiedy warto wykonać diagnozę?</h2>
+        </div>
+        <div class="who-content">
+            <p>Diagnozę w kierunku spektrum autyzmu (ASD) warto rozważyć, gdy obserwujesz u siebie lub swojego dziecka
+                trudności w nawiązywaniu i podtrzymywaniu relacji, specyficzne zainteresowania, przywiązanie do rutyny,
+                trudności z odczytywaniem emocji innych osób czy nadwrażliwość sensoryczną (na dźwięki, dotyk, światło).
+                U dorosłych często objawia się to poczuciem "niedopasowania", maskowaniem swoich naturalnych zachowań i
+                wyczerpaniem z powodu interakcji społecznych. Wczesna diagnoza pozwala na lepsze zrozumienie siebie i
+                dobór odpowiednich form wsparcia.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęstsze pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czym jest test ADOS-2?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>ADOS-2 (Autism Diagnostic Observation Schedule, 2nd Edition) to protokół obserwacji do
+                        diagnozowania autyzmu. Jest uznawany za najrzetelniejsze narzędzie diagnostyczne na świecie.
+                        Pozwala na ocenę komunikacji, interakcji społecznych oraz zabawy i wyobraźni w ustandaryzowanych
+                        warunkach.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy diagnozujecie tylko dzieci?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Nie, prowadzimy diagnozę pacjentów w każdym wieku – od małych dzieci (od 12 miesiąca życia),
+                        przez młodzież, aż po osoby dorosłe. Dla każdej grupy wiekowej dobieramy odpowiedni moduł
+                        badania ADOS-2.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Co zawiera opinia po diagnozie?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Opinia zawiera szczegółowy opis obserwacji z badania, wyniki w poszczególnych sferach rozwoju,
+                        wniosek diagnostyczny (rozpoznanie zgodne z klasyfikacją medyczną) oraz zalecenia do dalszej
+                        pracy terapeutycznej lub edukacyjnej (np. dla szkoły/przedszkola).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section" style="background: var(--mystic);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Usługi powiązane</h2>
+            <p>Wsparcie po diagnozie i inne formy pomocy</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="/trening-umiejetnosci-spolecznych/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <h3>Trening Umiejętności Społecznych (TUS)</h3>
+                <p>Grupowe zajęcia rozwijające kompetencje komunikacyjne i społeczne.</p>
+                <div class="service-specs">
+                    <span>Grupy wiekowe</span>
+                    <span>od 100 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-adhd/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3>Diagnoza ADHD</h3>
+                <p>Badanie w kierunku nadpobudliwości psychoruchowej z deficytem uwagi.</p>
+                <div class="service-specs">
+                    <span>2 spotkania</span>
+                    <span>od 400 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/terapia-indywidualna/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                </div>
+                <h3>Terapia indywidualna</h3>
+                <p>Wsparcie psychologiczne i terapeutyczne dla osób ze spektrum autyzmu.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 150 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

@@ -158,6 +158,10 @@ def diagnoza_adhd(request):
     form = AppointmentForm()
     return render(request, 'diagnoza_adhd.html', {'form': form})
 
+def diagnoza_autyzmu(request):
+    form = AppointmentForm()
+    return render(request, 'diagnoza_autyzmu.html', {'form': form})
+
 def blog(request):
     # Get filters from request
     category_slug = request.GET.get('category', '')

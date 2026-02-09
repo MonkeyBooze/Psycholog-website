@@ -1,14 +1,18 @@
 {% load static %}
 <!doctype html>
 <html lang="pl">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-  <meta name="description" content="{% block description %}Gabinet psychologiczny Spektrum Umysłu w Opolu i Nysie. Diagnoza ADHD, spektrum autyzmu (test ADOS), TUS, terapia indywidualna i konsultacje online. Zadzwoń: +48 606 841 722{% endblock %}">
+  <meta name="description"
+    content="{% block description %}Gabinet psychologiczny Spektrum Umysłu w Opolu i Nysie. Diagnoza ADHD, spektrum autyzmu (test ADOS), TUS, terapia indywidualna i konsultacje online. Zadzwoń: +48 606 841 722{% endblock %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/service_page_styles.css' %}">
   <meta property="og:title" content="{% block og_title %}{{ SITE_NAME }}{% endblock %}">
-  <meta property="og:description" content="{% block og_desc %}Gabinet psychologiczny w Opolu – konsultacje i terapia.{% endblock %}">
+  <meta property="og:description"
+    content="{% block og_desc %}Gabinet psychologiczny w Opolu – konsultacje i terapia.{% endblock %}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ request.build_absolute_uri }}">
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
@@ -114,13 +118,15 @@
 
   {% block head_extra %}{% endblock %}
 </head>
+
 <body>
   <header class="header">
     <nav class="navbar">
       <div class="container">
         <div class="navbar-brand">
           <a href="/" class="logo-link">
-            <img src="{% static 'images/Logo.png' %}" alt="{{ SITE_NAME }}" class="logo-img" style="height: 50px; width: auto; max-width: 200px;">
+            <img src="{% static 'images/Logo.png' %}" alt="{{ SITE_NAME }}" class="logo-img"
+              style="height: 50px; width: auto; max-width: 200px;">
           </a>
         </div>
         <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
@@ -154,6 +160,12 @@
           <h5>Kontakt</h5>
           <p><a href="tel:+48606841722">+48 606 841 722</a></p>
           <p><a href="mailto:jakub.lewandowski@psychoedukacjaopole.pl">jakub.lewandowski@psychoedukacjaopole.pl</a></p>
+          <div class="footer-locations">
+            <p>Opole: Bronisława Koraszewskiego 8/16</p>
+            <p>Nysa: Bielawska 5/2</p>
+            <!-- TODO: Verify with owner if Katowice location should be added -->
+            <!-- <p>Katowice: [Address TBD]</p> -->
+          </div>
         </div>
         <div class="footer-section">
           <h5>Menu</h5>
@@ -161,6 +173,7 @@
           <a href="/cennik">Cennik</a>
           <a href="/blog/">Blog</a>
           <a href="/kontakt/">Kontakt</a>
+          <a href="#">Szkolenia dla firm</a>
           <a href="/privacy/">Polityka prywatności</a>
           <a href="/cookie-policy/">Polityka cookies</a>
           <a href="/terms/">Regulamin</a>
@@ -180,19 +193,26 @@
     <div class="cookie-overlay"></div>
     <div class="cookie-container">
       <div style="flex: 1;">
-        <span>Ta strona używa plików cookies do prawidłowego funkcjonowania i analityki. <a href="/privacy/">Polityka prywatności</a> | <a href="/cookie-policy/">Polityka cookies</a></span>
+        <span>Ta strona używa plików cookies do prawidłowego funkcjonowania i analityki. <a href="/privacy/">Polityka
+            prywatności</a> | <a href="/cookie-policy/">Polityka cookies</a></span>
       </div>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button id="cookie-settings" style="padding: 8px 16px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">Ustawienia</button>
-        <button id="decline-cookies" style="padding: 8px 16px; background: #e0e0e0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Odrzuć</button>
-        <button id="accept-cookies" style="padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer;">Akceptuję wszystkie</button>
+        <button id="cookie-settings"
+          style="padding: 8px 16px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">Ustawienia</button>
+        <button id="decline-cookies"
+          style="padding: 8px 16px; background: #e0e0e0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Odrzuć</button>
+        <button id="accept-cookies"
+          style="padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer;">Akceptuję
+          wszystkie</button>
       </div>
     </div>
   </div>
 
   <!-- Cookie preferences modal -->
-  <div id="cookie-preferences" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;">
+  <div id="cookie-preferences"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;">
+    <div
+      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;">
       <h3>Ustawienia cookies</h3>
       <div style="margin: 20px 0;">
         <label style="display: block; margin-bottom: 15px;">
@@ -207,166 +227,170 @@
         </label>
       </div>
       <div style="display: flex; gap: 10px; justify-content: flex-end;">
-        <button id="close-preferences" style="padding: 10px 20px; background: #e0e0e0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Anuluj</button>
-        <button id="save-preferences" style="padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer;">Zapisz wybór</button>
+        <button id="close-preferences"
+          style="padding: 10px 20px; background: #e0e0e0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Anuluj</button>
+        <button id="save-preferences"
+          style="padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer;">Zapisz
+          wybór</button>
       </div>
     </div>
   </div>
 
   <script>
-  (function(){
-    function loadGA(id){
-      if(!id) return;
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', id, { anonymize_ip: true });
-      // Track phone clicks
-      document.querySelectorAll('a[href^="tel:"]').forEach(function(el){
-        el.addEventListener('click', function(){
-          if (typeof gtag === 'function') {
-            gtag('event','phone_click',{event_category:'engagement',event_label:this.getAttribute('href')});
+    (function () {
+      function loadGA(id) {
+        if (!id) return;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', id, { anonymize_ip: true });
+        // Track phone clicks
+        document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
+          el.addEventListener('click', function () {
+            if (typeof gtag === 'function') {
+              gtag('event', 'phone_click', { event_category: 'engagement', event_label: this.getAttribute('href') });
+            }
+          });
+        });
+      }
+
+      function getCookieConsent() {
+        try {
+          return JSON.parse(localStorage.getItem('cookie_preferences')) || null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function setCookieConsent(preferences) {
+        try {
+          localStorage.setItem('cookie_preferences', JSON.stringify(preferences));
+          // Log consent to server for audit trail
+          logConsentToServer(preferences);
+        } catch (e) { }
+      }
+
+      function logConsentToServer(preferences) {
+        try {
+          fetch('/api/log-cookie-consent/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              analytics: preferences.analytics || false
+            })
+          }).catch(function (err) {
+            // Fail silently - logging is for audit purposes only
+            console.log('Cookie consent logging failed:', err);
+          });
+        } catch (e) {
+          // Fail silently
+        }
+      }
+
+      var banner = document.getElementById('cookie-banner');
+      var preferencesModal = document.getElementById('cookie-preferences');
+      var consent = getCookieConsent();
+
+      if (!consent) {
+        banner.style.display = 'block';
+      } else {
+        if (consent.analytics) {
+          loadGA('{{ GA_MEASUREMENT_ID }}');
+        }
+      }
+
+      // Accept all cookies
+      document.getElementById('accept-cookies').onclick = function () {
+        var preferences = { necessary: true, analytics: true };
+        setCookieConsent(preferences);
+        banner.style.display = 'none';
+        loadGA('{{ GA_MEASUREMENT_ID }}');
+      };
+
+      // Decline all non-necessary cookies
+      document.getElementById('decline-cookies').onclick = function () {
+        var preferences = { necessary: true, analytics: false };
+        setCookieConsent(preferences);
+        banner.style.display = 'none';
+      };
+
+      // Show cookie settings
+      document.getElementById('cookie-settings').onclick = function () {
+        preferencesModal.style.display = 'block';
+      };
+
+      // Close preferences modal
+      document.getElementById('close-preferences').onclick = function () {
+        preferencesModal.style.display = 'none';
+      };
+
+      // Save preferences
+      document.getElementById('save-preferences').onclick = function () {
+        var analyticsChecked = document.getElementById('analytics-cookies').checked;
+        var preferences = { necessary: true, analytics: analyticsChecked };
+        setCookieConsent(preferences);
+        banner.style.display = 'none';
+        preferencesModal.style.display = 'none';
+        if (analyticsChecked) {
+          loadGA('{{ GA_MEASUREMENT_ID }}');
+        }
+      };
+
+      // Close modal when clicking outside
+      preferencesModal.onclick = function (e) {
+        if (e.target === preferencesModal) {
+          preferencesModal.style.display = 'none';
+        }
+      };
+
+      // Fix "Umów wizytę" button functionality
+      var floatCallBtn = document.querySelector('.float-call');
+      if (floatCallBtn) {
+        floatCallBtn.addEventListener('click', function (e) {
+          // Let the phone link work normally
+          // Add any additional tracking here if needed
+          if (typeof gtag === 'function' && consent && consent.analytics) {
+            gtag('event', 'float_button_click', {
+              event_category: 'engagement',
+              event_label: 'floating_call_button'
+            });
           }
         });
-      });
-    }
-
-    function getCookieConsent() {
-      try {
-        return JSON.parse(localStorage.getItem('cookie_preferences')) || null;
-      } catch(e) {
-        return null;
       }
-    }
 
-    function setCookieConsent(preferences) {
-      try {
-        localStorage.setItem('cookie_preferences', JSON.stringify(preferences));
-        // Log consent to server for audit trail
-        logConsentToServer(preferences);
-      } catch(e) {}
-    }
+      // Mobile menu toggle
+      var mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      var mobileMenu = document.querySelector('.navbar-menu');
+      var mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
 
-    function logConsentToServer(preferences) {
-      try {
-        fetch('/api/log-cookie-consent/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            analytics: preferences.analytics || false
-          })
-        }).catch(function(err) {
-          // Fail silently - logging is for audit purposes only
-          console.log('Cookie consent logging failed:', err);
+      if (mobileMenuToggle && mobileMenu && mobileMenuOverlay) {
+        mobileMenuToggle.addEventListener('click', function () {
+          mobileMenu.classList.toggle('active');
+          mobileMenuOverlay.classList.toggle('active');
         });
-      } catch(e) {
-        // Fail silently
-      }
-    }
 
-    var banner = document.getElementById('cookie-banner');
-    var preferencesModal = document.getElementById('cookie-preferences');
-    var consent = getCookieConsent();
-
-    if(!consent){
-      banner.style.display = 'block';
-    } else {
-      if(consent.analytics) {
-        loadGA('{{ GA_MEASUREMENT_ID }}');
-      }
-    }
-
-    // Accept all cookies
-    document.getElementById('accept-cookies').onclick = function(){
-      var preferences = { necessary: true, analytics: true };
-      setCookieConsent(preferences);
-      banner.style.display = 'none';
-      loadGA('{{ GA_MEASUREMENT_ID }}');
-    };
-
-    // Decline all non-necessary cookies
-    document.getElementById('decline-cookies').onclick = function(){
-      var preferences = { necessary: true, analytics: false };
-      setCookieConsent(preferences);
-      banner.style.display = 'none';
-    };
-
-    // Show cookie settings
-    document.getElementById('cookie-settings').onclick = function(){
-      preferencesModal.style.display = 'block';
-    };
-
-    // Close preferences modal
-    document.getElementById('close-preferences').onclick = function(){
-      preferencesModal.style.display = 'none';
-    };
-
-    // Save preferences
-    document.getElementById('save-preferences').onclick = function(){
-      var analyticsChecked = document.getElementById('analytics-cookies').checked;
-      var preferences = { necessary: true, analytics: analyticsChecked };
-      setCookieConsent(preferences);
-      banner.style.display = 'none';
-      preferencesModal.style.display = 'none';
-      if(analyticsChecked) {
-        loadGA('{{ GA_MEASUREMENT_ID }}');
-      }
-    };
-
-    // Close modal when clicking outside
-    preferencesModal.onclick = function(e) {
-      if(e.target === preferencesModal) {
-        preferencesModal.style.display = 'none';
-      }
-    };
-
-    // Fix "Umów wizytę" button functionality
-    var floatCallBtn = document.querySelector('.float-call');
-    if(floatCallBtn) {
-      floatCallBtn.addEventListener('click', function(e) {
-        // Let the phone link work normally
-        // Add any additional tracking here if needed
-        if (typeof gtag === 'function' && consent && consent.analytics) {
-          gtag('event', 'float_button_click', {
-            event_category: 'engagement',
-            event_label: 'floating_call_button'
-          });
-        }
-      });
-    }
-
-    // Mobile menu toggle
-    var mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    var mobileMenu = document.querySelector('.navbar-menu');
-    var mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-
-    if (mobileMenuToggle && mobileMenu && mobileMenuOverlay) {
-      mobileMenuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-        mobileMenuOverlay.classList.toggle('active');
-      });
-
-      mobileMenuOverlay.addEventListener('click', function() {
-        mobileMenu.classList.remove('active');
-        mobileMenuOverlay.classList.remove('active');
-      });
-
-      // Close menu when clicking on a link
-      var navLinks = mobileMenu.querySelectorAll('.nav-link');
-      navLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
+        mobileMenuOverlay.addEventListener('click', function () {
           mobileMenu.classList.remove('active');
           mobileMenuOverlay.classList.remove('active');
         });
-      });
-    }
-  })();
+
+        // Close menu when clicking on a link
+        var navLinks = mobileMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(function (link) {
+          link.addEventListener('click', function () {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+          });
+        });
+      }
+    })();
   </script>
 </body>
+
 </html>

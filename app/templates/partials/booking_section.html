@@ -1,0 +1,122 @@
+<!-- Booking Section -->
+<section id="booking" class="booking-section section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Umów wizytę</h2>
+            <p>Wybierz sposób kontaktu, który Ci odpowiada</p>
+        </div>
+
+        <div class="booking-options">
+            <!-- Option 1: ZnanyLekarz -->
+            <a href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+                target="_blank" rel="noopener noreferrer" class="booking-option">
+                <div class="booking-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <h3>ZnanyLekarz</h3>
+                <p>Zarezerwuj termin online</p>
+            </a>
+
+            <!-- Option 2: Phone -->
+            <a href="tel:+48606841722" class="booking-option">
+                <div class="booking-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <h3>Telefon</h3>
+                <p>Zadzwoń: 606 841 722</p>
+            </a>
+
+            <!-- Option 3: Form -->
+            <button type="button" class="booking-option" id="show-form-btn">
+                <div class="booking-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <h3>Formularz</h3>
+                <p>Napisz do nas</p>
+            </button>
+        </div>
+
+        <!-- Minimal Contact Form (Hidden by default) -->
+        <div class="booking-form-wrapper" id="booking-form-wrapper" style="display: none;">
+            <form action="{% url 'book' %}" method="post" class="booking-form-minimal">
+                {% csrf_token %}
+                {{ form.hp_field }}
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_name">Imię i nazwisko *</label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_phone">Telefon *</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_subject">Czego dotyczy? *</label>
+                    <select id="id_subject" name="subject" required class="form-control">
+                        <option value="">Wybierz...</option>
+                        <option value="terapia">Terapia indywidualna</option>
+                        <option value="konsultacja">Konsultacja psychologiczna</option>
+                        <option value="adhd">Diagnoza ADHD</option>
+                        <option value="autyzm">Diagnoza autyzmu (ADOS-2)</option>
+                        <option value="tus">Trening Umiejętności Społecznych</option>
+                        <option value="inne">Inne</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        {{ form.data_processing_consent }}
+                        <span class="checkmark"></span>
+                        Akceptuję <a href="{% url 'privacy' %}" target="_blank">politykę prywatności</a> *
+                    </label>
+                    {% for error in form.data_processing_consent.errors %}
+                    <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
+                    <button type="button" class="btn btn-secondary" id="hide-form-btn">Anuluj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Simple form toggle without external libraries
+    document.addEventListener('DOMContentLoaded', function () {
+        const showFormBtn = document.getElementById('show-form-btn');
+        const hideFormBtn = document.getElementById('hide-form-btn');
+        const formWrapper = document.getElementById('booking-form-wrapper');
+
+        if (showFormBtn && formWrapper) {
+            showFormBtn.addEventListener('click', function () {
+                formWrapper.style.display = 'block';
+                formWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        }
+
+        if (hideFormBtn && formWrapper) {
+            hideFormBtn.addEventListener('click', function () {
+                formWrapper.style.display = 'none';
+            });
+        }
+    });
+</script>

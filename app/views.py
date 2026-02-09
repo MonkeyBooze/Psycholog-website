@@ -154,6 +154,10 @@ def about_us(request):
 def pricing(request):
     return render(request, 'pricing.html')
 
+def diagnoza_adhd(request):
+    form = AppointmentForm()
+    return render(request, 'diagnoza_adhd.html', {'form': form})
+
 def blog(request):
     # Get filters from request
     category_slug = request.GET.get('category', '')

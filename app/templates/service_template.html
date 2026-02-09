@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ service_name }} | {{ SITE_NAME }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>{{ service_name }}</h1>
+            <p class="service-description">{{ service_description }}</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>{{ duration }}</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <span>{{ sessions }}</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>{{ price_range }}</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Umów wizytę</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak przebiega {{ service_name_lowercase }}?</h2>
+        </div>
+
+        <div class="process-steps">
+            {% for step in process_steps %}
+            <div class="process-step">
+                <div class="step-number">{{ forloop.counter }}</div>
+                <div class="step-content">
+                    <h3>{{ step.title }}</h3>
+                    <p>{{ step.description }}</p>
+                    {% if step.duration %}
+                    <span class="step-duration">{{ step.duration }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section" style="background: var(--mystic);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Dla kogo jest {{ service_name_lowercase }}?</h2>
+        </div>
+        <div class="who-content">
+            <p>{{ who_description }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęściej zadawane pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    {{ faq.question }}
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section (Reuse from homepage) -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section" style="background: var(--mystic);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Zobacz też</h2>
+            <p>Inne usługi, które mogą Cię zainteresować</p>
+        </div>
+
+        <div class="services-grid">
+            {% for service in related_services %}
+            <a href="{{ service.url }}" class="service-card">
+                <div class="service-icon">{{ service.icon|safe }}</div>
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.short_desc }}</p>
+                <div class="service-specs">
+                    <span>{{ service.duration }}</span>
+                    <span>od {{ service.price }} zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

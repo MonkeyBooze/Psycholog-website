@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Diagnoza ADHD | {{ SITE_NAME }}{% endblock %}
+{% block description %}Profesjonalna diagnoza ADHD u dorosłych w Opolu i Nysie. Test DIVA-5 zgodny z DSM-5. Termin w
+ciągu 3 dni. Pełna opinia diagnostyczna. Od 400 zł. Zadzwoń: 606 841 722{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>Diagnoza ADHD u dorosłych</h1>
+            <p class="service-description">Kompleksowa ocena diagnostyczna ADHD zgodna z kryteriami DSM-5.
+                Wykorzystujemy wywiad kliniczny DIVA-5 — złoty standard w diagnozie zespołu nadpobudliwości
+                psychoruchowej z deficytem uwagi u osób dorosłych.</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>2 spotkania × 50 min</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h18v18H3z" />
+                        <path d="M3 9h18M9 3v18" />
+                    </svg>
+                    <span>Termin w ciągu 3 dni</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Od 400 zł</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Umów wizytę</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak przebiega diagnoza ADHD?</h2>
+            <p>Proces diagnostyczny składa się z trzech etapów</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Pierwsze spotkanie — wywiad kliniczny</h3>
+                    <p>Szczegółowa rozmowa o objawach w dzieciństwie i obecnie. Omówienie trudności w codziennym
+                        funkcjonowaniu, pracy, relacjach. Zebranie informacji o historii rozwoju i leczenia.</p>
+                    <span class="step-duration">50 minut</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Drugie spotkanie — test DIVA-5</h3>
+                    <p>Ustrukturyzowany wywiad diagnostyczny DIVA-5 zgodny z kryteriami DSM-5. Ocena wszystkich 18
+                        objawów ADHD w dzieciństwie i dorosłości. Omówienie wyników i wstępnych wniosków.</p>
+                    <span class="step-duration">50 minut</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Odbiór opinii diagnostycznej</h3>
+                    <p>Przygotowanie szczegółowej opinii psychologicznej z opisem objawów, wynikiem diagnozy i
+                        zaleceniami. Opinia wydawana jest w formie papierowej z pieczątką i podpisem psychologa.</p>
+                    <span class="step-duration">Gotowa w ciągu 7 dni</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section" style="background: var(--mystic);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Dla kogo jest diagnoza ADHD?</h2>
+        </div>
+        <div class="who-content">
+            <p>Diagnoza ADHD u dorosłych jest przeznaczona dla osób, które doświadczają trudności z koncentracją,
+                impulsywnością lub nadpobudliwością wpływających na codzienne funkcjonowanie. Często osoby z ADHD
+                zgłaszają problemy z organizacją czasu, ukończeniem zadań, utrzymaniem uwagi w pracy lub szkole, a także
+                trudności w relacjach. Diagnoza może być pierwszym krokiem do lepszego zrozumienia siebie i uzyskania
+                odpowiedniego wsparcia — czy to przez terapię, coaching, czy farmakoterapię. Pamiętaj: szukanie pomocy
+                to oznaka siły, a nie słabości. ADHD to nie brak silnej woli — to specyficzny sposób funkcjonowania
+                mózgu, który można skutecznie wspierać.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęściej zadawane pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy diagnoza ADHD u dorosłych jest możliwa?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Tak, ADHD może być zdiagnozowane w każdym wieku. U wielu osób objawy utrzymują się od dzieciństwa
+                        do dorosłości, ale niekiedy dopiero w życiu dorosłym stają się na tyle uciążliwe, że osoba
+                        poszukuje pomocy. Diagnoza u dorosłych jest równie ważna i możliwa jak u dzieci.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Ile kosztuje diagnoza ADHD?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Koszt pełnej diagnozy ADHD (2 spotkania + opinia) wynosi od 400 zł. Cena obejmuje wywiad
+                        kliniczny, test DIVA-5 oraz wydanie oficjalnej opinii psychologicznej. Szczegółowy cennik
+                        dostępny jest w zakładce Cennik.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy otrzymam oficjalną opinię diagnostyczną?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Tak, po zakończeniu procesu diagnostycznego otrzymasz pisemną opinię psychologiczną zawierającą
+                        opis objawów, wynik diagnozy oraz zalecenia dotyczące dalszego postępowania. Opinia jest
+                        wydawana w formie papierowej z pieczątką i podpisem psychologa, co umożliwia wykorzystanie jej
+                        np. przy ubieganiu się o dostosowania w pracy lub szkole.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy diagnoza ADHD uprawnia do otrzymania recepty na leki?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Psycholog nie ma uprawnień do wypisywania recept. Diagnoza psychologiczna może być jednak
+                        podstawą do skierowania do lekarza psychiatry, który podejmie decyzję o ewentualnym leczeniu
+                        farmakologicznym. Nasza opinia zawiera zalecenia dotyczące dalszego postępowania, w tym sugestię
+                        konsultacji psychiatrycznej, jeśli jest to wskazane.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section (Reuse from homepage) -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section" style="background: var(--mystic);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Zobacz też</h2>
+            <p>Inne usługi, które mogą Cię zainteresować</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="/diagnoza-autyzmu/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <h3>Diagnoza spektrum autyzmu</h3>
+                <p>Profesjonalna ocena ASD testem ADOS-2 — złoty standard diagnostyki.</p>
+                <div class="service-specs">
+                    <span>2-3 spotkania</span>
+                    <span>od 600 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/terapia-indywidualna/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                </div>
+                <h3>Terapia indywidualna</h3>
+                <p>Wsparcie psychologiczne dopasowane do Twoich indywidualnych potrzeb.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 150 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/trening-umiejetnosci-spolecznych/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <h3>Trening Umiejętności Społecznych (TUS)</h3>
+                <p>Zajęcia grupowe rozwijające kompetencje społeczne i komunikacyjne.</p>
+                <div class="service-specs">
+                    <span>10 spotkań</span>
+                    <span>od 100 zł/spotkanie</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

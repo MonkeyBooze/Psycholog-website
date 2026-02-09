@@ -12,6 +12,7 @@ urlpatterns = [
     path('thanks/', views.thanks, name='thanks'),
     path('o-nas/', views.about_us, name='about_us'),
     path('cennik/', views.pricing, name='pricing'),
+    path('diagnoza-adhd/', views.diagnoza_adhd, name='diagnoza_adhd'),
     path('blog/', views.blog, name='blog'),
     path('blog/kategoria/<slug:slug>/', views.blog_category, name='blog_category'),
     path('blog/<slug:slug>/', views.blog_post_detail, name='blog_post_detail'),

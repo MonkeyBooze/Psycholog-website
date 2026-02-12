@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Nie znaleziono – {{ SITE_NAME }}{% endblock %}
 {% block content %}
-<h2>404 – Strona nie została znaleziona</h2>
-<p>Przepraszamy, ta strona nie istnieje.</p>
-<p><a href="/">Wróć na stronę główną</a></p>
+
+<section class="error-page section">
+    <div class="container">
+        <div class="error-content">
+            <div class="error-icon">
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.2" />
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                        fill="currentColor" opacity="0.3" />
+                    <path d="M15.5 8l-7 8M8.5 8l7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </div>
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">Wygląda na to, że zabłądziłeś</h2>
+            <p class="error-message">Strona, której szukasz, nie istnieje lub została przeniesiona.</p>
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">Wróć na stronę główną</a>
+                <a href="/kontakt/" class="btn btn-secondary">Skontaktuj się z nami</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

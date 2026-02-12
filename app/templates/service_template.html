@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load sanitize %}
 
 {% block title %}{{ service_name }} | {{ SITE_NAME }}{% endblock %}
 {% block description %}{{ meta_description }}{% endblock %}
@@ -115,7 +116,7 @@
         <div class="services-grid">
             {% for service in related_services %}
             <a href="{{ service.url }}" class="service-card">
-                <div class="service-icon">{{ service.icon|safe }}</div>
+                <div class="service-icon">{{ service.icon|sanitize_html }}</div>
                 <h3>{{ service.name }}</h3>
                 <p>{{ service.short_desc }}</p>
                 <div class="service-specs">

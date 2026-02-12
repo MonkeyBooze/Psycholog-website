@@ -6,8 +6,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Q, F
-from django.views.decorators.csrf import csrf_exempt
+
 from django.views.decorators.http import require_POST
+from django_ratelimit.decorators import ratelimit
 import json
 import logging
 from .forms import AppointmentForm, DataSubjectRightsForm
@@ -19,10 +20,10 @@ def home(request):
     form = AppointmentForm()
     return render(request, 'home.html', {'form': form})
 
+@ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def book(request):
     if request.method == 'POST':
         logger.info("Booking form submitted")
-        logger.debug(f"POST data: {request.POST}")
 
         form = AppointmentForm(request.POST)
 
@@ -54,7 +55,6 @@ def book(request):
 
                     if email_configured:
                         logger.info(f"Email configured - attempting to send to {appointment.email}")
-                        logger.debug(f"SMTP settings - Host: {settings.EMAIL_HOST}, Port: {settings.EMAIL_PORT}, User: {settings.EMAIL_HOST_USER}")
 
                         # Send confirmation email to customer
                         if appointment.email:
@@ -113,7 +113,7 @@ Skontaktuj się z klientem w ciągu 24h.
                             """,
                             from_email=settings.EMAIL_FROM,
                             recipient_list=admin_emails,
-                            fail_silently=True,
+                            fail_silently=False,  # Admin emails should raise on failure
                         )
                         logger.info("Emails sent successfully")
                     else:
@@ -133,7 +133,6 @@ Skontaktuj się z klientem w ciągu 24h.
         else:
             # Form is not valid - log errors and render with errors
             logger.warning(f"Form validation failed. Errors: {form.errors}")
-            logger.debug(f"Form data: {form.data}")
             messages.error(request, 'Proszę poprawić błędy w formularzu.')
             return render(request, 'home.html', {'form': form})
     return redirect('home')
@@ -250,6 +249,7 @@ def cookie_policy(request):
 def terms(request):
     return render(request, 'terms.html')
 
+@ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def data_subject_rights(request):
     if request.method == 'POST':
         form = DataSubjectRightsForm(request.POST)
@@ -323,7 +323,7 @@ Szczegóły w panelu administracyjnym.
                         """,
                         from_email=settings.EMAIL_FROM,
                         recipient_list=admin_emails,
-                        fail_silently=True,
+                        fail_silently=False,  # Admin emails should raise on failure
                     )
             except Exception:
                 pass
@@ -344,31 +344,19 @@ Szczegóły w panelu administracyjnym.
     return render(request, 'data_subject_rights.html', {'form': form})
 
 def healthcheck(request):
-    """Health check endpoint that also tests database connection"""
+    """Health check endpoint — returns only ok/error, no internal details."""
     from django.db import connection
 
     try:
-        # Test database connection
         with connection.cursor() as cursor:
             cursor.execute("SELECT 1")
 
-        # Get basic stats
-        appointment_count = Appointment.objects.count()
-
-        return HttpResponse(
-            f"ok - db connected - {appointment_count} appointments",
-            content_type="text/plain",
-            status=200
-        )
+        return HttpResponse("ok", content_type="text/plain", status=200)
     except Exception as e:
         logger.error(f"Health check failed: {e}")
-        return HttpResponse(
-            f"error: {str(e)}",
-            content_type="text/plain",
-            status=500
-        )
+        return HttpResponse("error", content_type="text/plain", status=500)
 
-@csrf_exempt
+@ratelimit(key='ip', rate='10/m', method='POST', block=True)
 @require_POST
 def log_cookie_consent(request):
     """Log user's cookie consent decision to database for audit trail"""

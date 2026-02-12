@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load sanitize %}
 
 {% block title %}{{ post.title }} - {{ SITE_NAME }}{% endblock %}
 {% block description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
@@ -55,7 +56,7 @@
   <header class="post-header section-small">
     <div class="container">
       <div class="post-header-content">
-        
+
         <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="{% url 'home' %}">Strona główna</a>
@@ -68,15 +69,15 @@
           <span>/</span>
           <span>{{ post.title }}</span>
         </nav>
-        
+
         {% if post.category %}
         <div class="post-category">
           <a href="{% url 'blog_category' post.category.slug %}" class="category-badge">{{ post.category.name }}</a>
         </div>
         {% endif %}
-        
+
         <h1>{{ post.title }}</h1>
-        
+
         <div class="post-meta">
           <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:'d F Y' }}</time>
           <span class="meta-separator">•</span>
@@ -84,14 +85,14 @@
           <span class="meta-separator">•</span>
           <span class="view-count">{{ post.views_count }} wyświetleń</span>
         </div>
-        
+
         {% if post.excerpt %}
         <p class="post-excerpt">{{ post.excerpt }}</p>
         {% endif %}
       </div>
     </div>
   </header>
-  
+
   <!-- Featured Image -->
   {% if post.featured_image %}
   <div class="post-featured-image">
@@ -100,32 +101,35 @@
     </div>
   </div>
   {% endif %}
-  
+
   <!-- Article Content -->
   <div class="post-content section bg-light">
     <div class="container">
       <div class="post-layout">
-        
+
         <!-- Main Content -->
         <main class="post-main">
           <div class="post-body">
-            {{ post.content|safe }}
+            {{ post.content|sanitize_html }}
           </div>
-          
+
           <!-- Article Footer -->
           <footer class="post-footer">
-            
+
             <!-- Share Buttons -->
             <div class="post-share">
               <h4>Udostępnij artykuł:</h4>
               <div class="share-buttons">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" class="share-btn facebook">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+                  target="_blank" class="share-btn facebook">
                   Facebook
                 </a>
-                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ post.title|urlencode }}" target="_blank" class="share-btn twitter">
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ post.title|urlencode }}"
+                  target="_blank" class="share-btn twitter">
                   Twitter
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}" target="_blank" class="share-btn linkedin">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}"
+                  target="_blank" class="share-btn linkedin">
                   LinkedIn
                 </a>
                 <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')" class="share-btn copy-link">
@@ -133,7 +137,7 @@
                 </button>
               </div>
             </div>
-            
+
             <!-- Contact CTA -->
             <div class="post-cta">
               <div class="cta-content">
@@ -145,13 +149,13 @@
                 </div>
               </div>
             </div>
-            
+
           </footer>
         </main>
-        
+
         <!-- Sidebar -->
         <aside class="post-sidebar">
-          
+
           {% if related_posts %}
           <!-- Related Posts -->
           <div class="sidebar-widget">
@@ -173,7 +177,7 @@
             </div>
           </div>
           {% endif %}
-          
+
           {% if recent_posts %}
           <!-- Recent Posts -->
           <div class="sidebar-widget">
@@ -188,7 +192,7 @@
             </div>
           </div>
           {% endif %}
-          
+
           <!-- Contact Widget -->
           <div class="sidebar-widget contact-widget">
             <h3>Kontakt</h3>
@@ -198,7 +202,7 @@
               <a href="{% url 'contact' %}" class="btn btn-primary btn-small">Umów konsultację</a>
             </div>
           </div>
-          
+
         </aside>
       </div>
     </div>
@@ -206,10 +210,10 @@
 </article>
 
 <script>
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(function() {
-    alert('Link został skopiowany do schowka!');
-  });
-}
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function () {
+      alert('Link został skopiowany do schowka!');
+    });
+  }
 </script>
 {% endblock %}

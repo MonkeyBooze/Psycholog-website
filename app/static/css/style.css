@@ -167,11 +167,14 @@ a {
 
 /* === HEADER & NAV === */
 .header {
-  background: var(--eucalyptus);
+  background: rgba(36, 128, 110, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 2px 20px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: background 0.3s ease;
 }
 
 .navbar {
@@ -290,6 +293,18 @@ a {
   text-align: center;
 }
 
+@keyframes heroFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
 .hero-img {
   width: 100%;
   max-width: 500px;
@@ -299,6 +314,7 @@ a {
   box-shadow: 0 20px 40px var(--shadow);
   background: #fff url('/static/images/Logo_with_signature.png') center/contain no-repeat;
   padding: 40px;
+  animation: heroFloat 4s ease-in-out infinite;
 }
 
 .hero-headline {
@@ -389,6 +405,90 @@ a {
 
 .trust-badge.fade-in {
   animation-delay: 450ms;
+}
+
+/* Scroll-triggered fade-in */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.scroll-fade-in .service-card,
+.scroll-fade-in .testimonial-card,
+.scroll-fade-in .approach-card,
+.scroll-fade-in .team-member,
+.scroll-fade-in .booking-option {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.scroll-fade-in.visible .service-card,
+.scroll-fade-in.visible .testimonial-card,
+.scroll-fade-in.visible .approach-card,
+.scroll-fade-in.visible .team-member,
+.scroll-fade-in.visible .booking-option {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-in.visible .service-card:nth-child(1),
+.scroll-fade-in.visible .testimonial-card:nth-child(1),
+.scroll-fade-in.visible .approach-card:nth-child(1),
+.scroll-fade-in.visible .team-member:nth-child(1),
+.scroll-fade-in.visible .booking-option:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(2),
+.scroll-fade-in.visible .testimonial-card:nth-child(2),
+.scroll-fade-in.visible .approach-card:nth-child(2),
+.scroll-fade-in.visible .team-member:nth-child(2),
+.scroll-fade-in.visible .booking-option:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(3),
+.scroll-fade-in.visible .testimonial-card:nth-child(3),
+.scroll-fade-in.visible .approach-card:nth-child(3),
+.scroll-fade-in.visible .team-member:nth-child(3),
+.scroll-fade-in.visible .booking-option:nth-child(3) {
+  transition-delay: 200ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(4),
+.scroll-fade-in.visible .team-member:nth-child(4) {
+  transition-delay: 300ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(5),
+.scroll-fade-in.visible .team-member:nth-child(5) {
+  transition-delay: 400ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(6),
+.scroll-fade-in.visible .testimonial-card:nth-child(4),
+.scroll-fade-in.visible .team-member:nth-child(6) {
+  transition-delay: 500ms;
+}
+
+.scroll-fade-in.visible .testimonial-card:nth-child(5) {
+  transition-delay: 600ms;
+}
+
+.scroll-fade-in.visible .testimonial-card:nth-child(6) {
+  transition-delay: 700ms;
+}
+
+.scroll-fade-in.visible .team-member:nth-child(7) {
+  transition-delay: 600ms;
 }
 
 /* === CARDS (Services, Team, FAQ, etc.) === */
@@ -546,6 +646,18 @@ a {
   background: var(--mystic);
 }
 
+/* Team photo hover: subtle grayscale to full color */
+.team-photo img {
+  filter: grayscale(20%) brightness(0.97);
+  transition: filter 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.team-member:hover .team-photo img {
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(4, 210, 195, 0.35);
+}
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -676,6 +788,29 @@ a {
 .testimonials-section {
   background: var(--mystic);
   overflow: visible;
+}
+
+/* Smooth gradient dividers between sections */
+.testimonials-section::before,
+.services-section::before,
+.team-section::before {
+  content: '';
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--mystic));
+  pointer-events: none;
+}
+
+.about-details::before,
+.cta-section::before,
+.booking-section::before {
+  content: '';
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+  background: linear-gradient(to bottom, var(--mystic), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
 .testimonials-wrapper {
@@ -2319,14 +2454,15 @@ button:active {
     padding: 10px 16px;
   }
 
-  /* Testimonials responsive */
+  /* Testimonials responsive — horizontal carousel */
   .testimonials-wrapper {
-    grid-template-columns: 1fr;
+    display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 20px;
+    gap: 16px;
     padding-bottom: 20px;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
 
   .testimonials-wrapper::-webkit-scrollbar {
@@ -2334,7 +2470,8 @@ button:active {
   }
 
   .testimonial-card {
-    scroll-snap-align: start;
+    flex: 0 0 85%;
+    scroll-snap-align: center;
   }
 
   .testimonial-quote {
@@ -2484,4 +2621,55 @@ button:active {
     height: 50px;
     font-size: 1.2rem;
   }
+}
+
+/* === ERROR PAGES (404, 500) === */
+.error-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.error-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-icon {
+  color: var(--caribbean-green);
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+.error-code {
+  font-size: 6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--eucalyptus), var(--caribbean-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: 1.8rem;
+  color: var(--eucalyptus);
+  margin-bottom: 16px;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  color: var(--oslo-gray);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.error-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }

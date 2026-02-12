@@ -8,6 +8,8 @@
   <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
   <meta name="description"
     content="{% block description %}Gabinet psychologiczny Spektrum Umysłu w Opolu i Nysie. Diagnoza ADHD, spektrum autyzmu (test ADOS), TUS, terapia indywidualna i konsultacje online. Zadzwoń: +48 606 841 722{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <meta property="og:title" content="{% block og_title %}{{ SITE_NAME }}{% endblock %}">
   <meta property="og:description"
@@ -273,12 +275,25 @@
         } catch (e) { }
       }
 
+      function getCsrfToken() {
+        var name = 'csrftoken';
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var c = cookies[i].trim();
+          if (c.indexOf(name + '=') === 0) {
+            return c.substring(name.length + 1);
+          }
+        }
+        return '';
+      }
+
       function logConsentToServer(preferences) {
         try {
           fetch('/api/log-cookie-consent/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'X-CSRFToken': getCsrfToken(),
             },
             body: JSON.stringify({
               analytics: preferences.analytics || false
@@ -388,6 +403,29 @@
           });
         });
       }
+    })();
+  </script>
+
+  <!-- Scroll-triggered fade-in observer -->
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.scroll-fade-in').forEach(function (el) {
+          el.classList.add('visible');
+        });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.scroll-fade-in').forEach(function (el) {
+        observer.observe(el);
+      });
     })();
   </script>
 </body>

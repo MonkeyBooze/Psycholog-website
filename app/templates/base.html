@@ -1,121 +1,87 @@
-{% load static %}
+{% load static %}{% load seo %}
 <!doctype html>
 <html lang="pl">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-  <meta name="description"
-    content="{% block description %}Gabinet psychologiczny Spektrum Umysłu w Opolu i Nysie. Diagnoza ADHD, spektrum autyzmu (test ADOS), TUS, terapia indywidualna i konsultacje online. Zadzwoń: +48 606 841 722{% endblock %}">
+
+  {% capture meta_title_val %}{% block meta_title %}{{ SITE_NAME }}{% endblock %}{% endcapture %}
+  {% capture meta_desc_val %}{% block meta_description %}Gabinet psychologiczny Spektrum Umysłu w Opolu i Nysie.
+  Diagnoza ADHD, spektrum autyzmu (test ADOS), TUS, terapia indywidualna i konsultacje online. Zadzwoń: +48 606 841
+  722{% endblock %}{% endcapture %}
+
+  <!-- SEO & Open Graph Blocks -->
+  <title>{{ meta_title_val }}</title>
+  <meta name="description" content="{{ meta_desc_val }}">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <meta property="og:title" content="{% block og_title %}{{ SITE_NAME }}{% endblock %}">
-  <meta property="og:description"
-    content="{% block og_desc %}Gabinet psychologiczny w Opolu – konsultacje i terapia.{% endblock %}">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
-  <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-  <!-- LocalBusiness Schema Markup for SEO -->
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:url" content="{% block meta_url %}{{ request.build_absolute_uri }}{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{{ meta_title_val }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ meta_desc_val }}{% endblock %}">
+  <meta property="og:image" content="{% block meta_image %}{% static 'images/og-default.jpg' %}{% endblock %}">
+
+  <link rel="canonical" href="https://spektrumumyslu.pl{{ request.path }}">
+
+  <!-- Structured Data: ProfessionalService (Multiple Locations) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
-    "name": "{{ SITE_NAME }}",
-    "description": "Gabinet psychologiczny specjalizujący się w diagnozie ADHD, spektrum autyzmu i terapii. Oferujemy konsultacje psychologiczne, TUS oraz wsparcie online w Opolu i Nysie.",
-    "url": "{{ request.scheme }}://{{ request.get_host }}",
-    "telephone": "+48606841722",
-    "email": "jakub.lewandowski@psychoedukacjaopole.pl",
-    "priceRange": "$$",
-    "address": [
-      {
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Spektrum Umysłu",
+      "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/Logo_with_signature.png' %}",
+      "url": "https://spektrumumyslu.pl",
+      "telephone": "+48 606 841 722",
+      "openingHours": "Mo-Su 08:00-22:00",
+      "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Bronisława Koraszewskiego 8/16",
+        "streetAddress": "ul. Bronisława Koraszewskiego 8/16",
         "addressLocality": "Opole",
         "postalCode": "45-011",
         "addressCountry": "PL"
       },
-      {
-        "@type": "PostalAddress",
-        "streetAddress": "Bielawska 5/2",
-        "addressLocality": "Nysa",
-        "postalCode": "48-300",
-        "addressCountry": "PL"
-      }
-    ],
-    "geo": [
-      {
+      "geo": {
         "@type": "GeoCoordinates",
         "latitude": "50.6682",
         "longitude": "17.9260"
       },
-      {
+      "areaServed": ["Opole", "Nysa", "województwo opolskie"],
+      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Terapia indywidualna", "Szkolenia antymobbingowe dla firm"],
+      "priceRange": "$$"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Spektrum Umysłu",
+      "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/Logo_with_signature.png' %}",
+      "url": "https://spektrumumyslu.pl",
+      "telephone": "+48 606 841 722",
+      "openingHours": "Mo-Su 08:00-22:00",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Celna 5",
+        "addressLocality": "Nysa",
+        "postalCode": "48-300",
+        "addressCountry": "PL"
+      },
+      "geo": {
         "@type": "GeoCoordinates",
         "latitude": "50.4736",
         "longitude": "17.3330"
-      }
-    ],
-    "openingHours": "Mo-Su 08:00-22:00",
-    "areaServed": [
-      {
-        "@type": "City",
-        "name": "Opole"
       },
-      {
-        "@type": "City",
-        "name": "Nysa"
-      }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Usługi psychologiczne",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Diagnoza ADHD",
-            "description": "Profesjonalna diagnoza ADHD według najnowszych standardów diagnostycznych"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Test ADOS - Diagnoza spektrum autyzmu",
-            "description": "Kompleksowa diagnoza spektrum autyzmu zgodnie z aktualnymi standardami"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Trening Umiejętności Społecznych (TUS)",
-            "description": "Zajęcia grupowe rozwijające kompetencje społeczne i komunikacyjne"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Terapia indywidualna",
-            "description": "Sesje terapeutyczne dostosowane do indywidualnych potrzeb"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Konsultacje psychologiczne online",
-            "description": "Wygodne sesje terapeutyczne z domu przez bezpieczną platformę"
-          }
-        }
-      ]
+      "areaServed": ["Opole", "Nysa", "województwo opolskie"],
+      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Terapia indywidualna", "Szkolenia antymobbingowe dla firm"],
+      "priceRange": "$$"
     }
-  }
+  ]
   </script>
+  {% block schema %}{% endblock %}
 
   {% block head_extra %}{% endblock %}
 </head>
@@ -135,6 +101,7 @@
           <a href="/" class="nav-link">Strona główna</a>
           <a href="/o-nas/" class="nav-link">O nas</a>
           <a href="/cennik" class="nav-link">Cennik</a>
+          <a href="/szkolenia-dla-firm/" class="nav-link">Szkolenia dla firm</a>
           <a href="/blog/" class="nav-link">Blog</a>
           <a href="/kontakt/" class="nav-link">Kontakt</a>
         </div>
@@ -163,7 +130,7 @@
           <p><a href="mailto:jakub.lewandowski@psychoedukacjaopole.pl">jakub.lewandowski@psychoedukacjaopole.pl</a></p>
           <div class="footer-locations">
             <p>Opole: Bronisława Koraszewskiego 8/16</p>
-            <p>Nysa: Bielawska 5/2</p>
+            <p>Nysa: Celna 5</p>
             <!-- TODO: Verify with owner if Katowice location should be added -->
             <!-- <p>Katowice: [Address TBD]</p> -->
           </div>
@@ -174,7 +141,7 @@
           <a href="/cennik">Cennik</a>
           <a href="/blog/">Blog</a>
           <a href="/kontakt/">Kontakt</a>
-          <a href="#">Szkolenia dla firm</a>
+          <a href="/szkolenia-dla-firm/">Szkolenia dla firm</a>
           <a href="/privacy/">Polityka prywatności</a>
           <a href="/cookie-policy/">Polityka cookies</a>
           <a href="/terms/">Regulamin</a>

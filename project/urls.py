@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
-from app.sitemaps import StaticViewSitemap, BlogPostSitemap
+from app.sitemaps import StaticViewSitemap, BlogPostSitemap, BlogCategorySitemap
 
 sitemaps = {
     'static': StaticViewSitemap,
     'blog': BlogPostSitemap,
+    'categories': BlogCategorySitemap,
 }
 
 urlpatterns = [

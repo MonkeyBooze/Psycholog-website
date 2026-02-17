@@ -14,6 +14,7 @@ urlpatterns = [
     path('cennik/', views.pricing, name='pricing'),
     path('diagnoza-adhd/', views.diagnoza_adhd, name='diagnoza_adhd'),
     path('diagnoza-autyzmu/', views.diagnoza_autyzmu, name='diagnoza_autyzmu'),
+    path('szkolenia-dla-firm/', views.trainings, name='trainings'),
     path('blog/', views.blog, name='blog'),
     path('blog/kategoria/<slug:slug>/', views.blog_category, name='blog_category'),
     path('blog/<slug:slug>/', views.blog_post_detail, name='blog_post_detail'),

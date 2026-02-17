@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Cennik Usług Psychologicznych – Terapia i Konsultacje Opole | {{ SITE_NAME }}{% endblock %}
-{% block description %}Cennik usług psychologicznych w Opolu: konsultacje psychologiczne, terapia indywidualna, sesje online. Przejrzyste ceny, pakiety sesji, zniżki dla studentów.{% endblock %}
+{% block meta_title %}Cennik Usług Psychologicznych – Terapia i Konsultacje Opole | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Cennik usług psychologicznych w Opolu: konsultacje psychologiczne, terapia indywidualna,
+sesje
+online. Przejrzyste ceny, pakiety sesji, zniżki dla studentów.{% endblock %}
 {% block content %}
 
 <!-- Pricing Hero Section -->
@@ -8,16 +10,17 @@
   <div class="container">
     <div class="section-header">
       <h1>Cennik usług psychologicznych</h1>
-      <p>Przejrzyste informacje o kosztach świadczonych usług. Każda sesja jest dostosowywana do indywidualnych potrzeb i prowadzona w atmosferze pełnego zrozumienia.</p>
+      <p>Przejrzyste informacje o kosztach świadczonych usług. Każda sesja jest dostosowywana do indywidualnych potrzeb
+        i prowadzona w atmosferze pełnego zrozumienia.</p>
     </div>
   </div>
 </section>
 
 <!-- Pricing Plans Section -->
-<section class="pricing-plans section-small bg-light">
+<section class="pricing-plans section-small bg-light scroll-fade-in">
   <div class="container">
     <div class="pricing-grid">
-      
+
       <!-- Consultation Card -->
       <div class="pricing-card">
         <div class="pricing-header">
@@ -95,40 +98,62 @@
 </section>
 
 <!-- Support Options Section -->
-<section class="support-options section">
+<section class="support-options section scroll-fade-in">
   <div class="container">
     <div class="section-header">
       <h2>Dostępne opcje płatności</h2>
-      <p>Rozumiemy znaczenie dostępności pomocy psychologicznej. Dlatego oferujemy różne rozwiązania finansowe dostosowane do różnych sytuacji życiowych.</p>
+      <p>Rozumiemy znaczenie dostępności pomocy psychologicznej. Dlatego oferujemy różne rozwiązania finansowe
+        dostosowane do różnych sytuacji życiowych.</p>
     </div>
     <div class="offers-grid">
-      
+
       <div class="offer-card">
-        <div class="offer-icon">🌱</div>
+        <div class="offer-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+            <line x1="9" y1="9" x2="9.01" y2="9" />
+            <line x1="15" y1="9" x2="15.01" y2="9" />
+          </svg>
+        </div>
         <h3>Pierwsza konsultacja</h3>
         <div class="offer-price">
           <span class="discount">-10%</span>
         </div>
-        <p>Obniżona cena pierwszej konsultacji umożliwia poznanie podejścia terapeutycznego i ocenę, czy forma współpracy odpowiada Twoim potrzebom.</p>
+        <p>Obniżona cena pierwszej konsultacji umożliwia poznanie podejścia terapeutycznego i ocenę, czy forma
+          współpracy odpowiada Twoim potrzebom.</p>
       </div>
 
       <div class="offer-card">
-        <div class="offer-icon">🤝</div>
+        <div class="offer-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
         <h3>Pakiet 4 sesji</h3>
         <div class="offer-price">
           <span class="old-price">720 zł</span>
           <span class="new-price">640 zł</span>
         </div>
-        <p>W przypadku decyzji o regularnych spotkaniach dostępny jest pakiet z obniżoną ceną i możliwością rozłożenia płatności na raty.</p>
+        <p>W przypadku decyzji o regularnych spotkaniach dostępny jest pakiet z obniżoną ceną i możliwością rozłożenia
+          płatności na raty.</p>
       </div>
 
       <div class="offer-card">
-        <div class="offer-icon">🎓</div>
+        <div class="offer-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c0 2 3 4 6 4s6-2 6-4v-5" />
+          </svg>
+        </div>
         <h3>Cena dla studentów</h3>
         <div class="offer-price">
           <span class="discount">-15%</span>
         </div>
-        <p>Zniżka studencka na wszystkie usługi po okazaniu ważnej legitymacji studenckiej. Wsparcie w okresie studiów i wchodzenia w dorosłość.</p>
+        <p>Zniżka studencka na wszystkie usługi po okazaniu ważnej legitymacji studenckiej. Wsparcie w okresie studiów i
+          wchodzenia w dorosłość.</p>
       </div>
 
     </div>
@@ -136,11 +161,12 @@
 </section>
 
 <!-- Booking CTA Section -->
-<section id="booking" class="booking-cta section-small bg-light">
+<section id="booking" class="booking-cta section-small bg-light scroll-fade-in">
   <div class="container">
     <div class="cta-content">
       <h2>Umówienie wizyty</h2>
-      <p>W przypadku pytań dotyczących usług lub chęci umówienia wizyty, zapraszamy do kontaktu. Odpowiadamy na wszystkie zapytania w ciągu 24 godzin.</p>
+      <p>W przypadku pytań dotyczących usług lub chęci umówienia wizyty, zapraszamy do kontaktu. Odpowiadamy na
+        wszystkie zapytania w ciągu 24 godzin.</p>
       <div class="cta-buttons">
         <a href="/kontakt/" class="btn btn-primary">Formularz kontaktowy</a>
         <a href="tel:+48606841722" class="btn btn-secondary">Telefon: +48 606 841 722</a>
@@ -150,7 +176,7 @@
 </section>
 
 <!-- FAQ Section -->
-<section class="pricing-faq section">
+<section class="pricing-faq section scroll-fade-in">
   <div class="container">
     <div class="section-header">
       <h2>Informacje praktyczne</h2>
@@ -158,15 +184,18 @@
     <div class="faq-grid">
       <div class="faq-item">
         <h3>Formy płatności</h3>
-        <p>Płatność może nastąpić gotówką po sesji, przelewem bankowym lub blikiem. Dostępne są również pakiety sesji z płatnością z góry.</p>
+        <p>Płatność może nastąpić gotówką po sesji, przelewem bankowym lub blikiem. Dostępne są również pakiety sesji z
+          płatnością z góry.</p>
       </div>
       <div class="faq-item">
         <h3>Dokumentacja księgowa</h3>
-        <p>Na życzenie wystawiam faktury VAT za świadczone usługi psychologiczne zgodnie z obowiązującymi przepisami.</p>
+        <p>Na życzenie wystawiam faktury VAT za świadczone usługi psychologiczne zgodnie z obowiązującymi przepisami.
+        </p>
       </div>
       <div class="faq-item">
         <h3>Odwołanie wizyty</h3>
-        <p>W przypadku konieczności odwołania wizyty, prosimy o kontakt minimum 24 godziny wcześniej, co umożliwi przełożenie terminu.</p>
+        <p>W przypadku konieczności odwołania wizyty, prosimy o kontakt minimum 24 godziny wcześniej, co umożliwi
+          przełożenie terminu.</p>
       </div>
       <div class="faq-item">
         <h3>Współpraca z NFZ</h3>

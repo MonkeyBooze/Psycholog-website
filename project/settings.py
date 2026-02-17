@@ -32,9 +32,11 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = env('SECRET_KEY')  # No default — app will crash if missing from .env
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env.bool("DEBUG", default=False)   
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost', 'spektrumumyslu.pl', 'www.spektrumumyslu.pl', 'psychoedukacjaopole.pl', 'www.psychoedukacjaopole.pl'])
+
+PREPEND_WWW = False
 
 # Application definition
 
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'project.middleware.DomainRedirectMiddleware',  # Custom domain redirection (Must be first to handle SSL+Domain)
     'django.middleware.security.SecurityMiddleware',
     'csp.middleware.CSPMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

@@ -1,7 +1,4 @@
 User-agent: *
+Allow: /
+Sitemap: https://spektrumumyslu.pl/sitemap.xml
 Disallow: /admin/
-Disallow: /book/
-Disallow: /thanks/
-Disallow: /data-subject-rights/
-
-Sitemap: https://psychoedukacjaopole.pl/sitemap.xml

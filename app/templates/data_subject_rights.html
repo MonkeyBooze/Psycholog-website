@@ -1,49 +1,58 @@
 {% extends 'base.html' %}
-{% block title %}Prawa osób, których dane dotyczą – {{ SITE_NAME }}{% endblock %}
-{% block description %}Realizuj swoje prawa RODO - dostęp, sprostowanie, usunięcie danych osobowych. Formularz zgłoszenia praw osoby, której dane dotyczą.{% endblock %}
+{% block meta_title %}Prawa osób, których dane dotyczą – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Realizuj swoje prawa RODO - dostęp, sprostowanie, usunięcie danych osobowych. Formularz
+zgłoszenia praw osoby, której dane dotyczą.{% endblock %}
 
 {% block content %}
 <div class="section">
   <div class="container">
     <div style="max-width: 900px; margin: 0 auto;">
       <h1>Twoje prawa dotyczące danych osobowych</h1>
-      <p class="lead">Zgodnie z RODO masz szereg praw dotyczących Twoich danych osobowych. Możesz skorzystać z nich w każdym momencie.</p>
+      <p class="lead">Zgodnie z RODO masz szereg praw dotyczących Twoich danych osobowych. Możesz skorzystać z nich w
+        każdym momencie.</p>
 
       <div class="grid-2" style="gap: 30px; margin: 40px 0;">
         <div>
           <h2>Jakie masz prawa?</h2>
-          
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>🔍 Prawo dostępu (art. 15 RODO)</h3>
             <p>Możesz otrzymać informacje o tym, czy przetwarzamy Twoje dane, w jakich celach i przez jak długo.</p>
           </div>
 
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>✏️ Prawo sprostowania (art. 16 RODO)</h3>
             <p>Możesz żądać poprawienia nieprawidłowych lub uzupełnienia niekompletnych danych.</p>
           </div>
 
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>🗑️ Prawo usunięcia (art. 17 RODO)</h3>
             <p>Możesz żądać usunięcia swoich danych, gdy nie są już potrzebne lub wycofałeś zgodę.</p>
           </div>
 
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>⏸️ Prawo ograniczenia (art. 18 RODO)</h3>
             <p>Możesz ograniczyć przetwarzanie swoich danych w określonych sytuacjach.</p>
           </div>
 
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>📋 Prawo przenoszenia (art. 20 RODO)</h3>
             <p>Możesz otrzymać swoje dane w formacie umożliwiającym przeniesienie do innego administratora.</p>
           </div>
 
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>🚫 Prawo sprzeciwu (art. 21 RODO)</h3>
             <p>Możesz sprzeciwić się przetwarzaniu swoich danych w określonych przypadkach.</p>
           </div>
 
-          <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
+          <div
+            style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow); margin-bottom: 20px;">
             <h3>❌ Wycofanie zgody</h3>
             <p>Możesz w dowolnym momencie wycofać zgodę na przetwarzanie danych.</p>
           </div>
@@ -59,11 +68,11 @@
               {{ form.hp_field }}
 
               {% if form.non_field_errors %}
-                <div class="form-errors">
-                  {% for error in form.non_field_errors %}
-                    <p class="error-message">{{ error }}</p>
-                  {% endfor %}
-                </div>
+              <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                <p class="error-message">{{ error }}</p>
+                {% endfor %}
+              </div>
               {% endif %}
 
               <div class="form-group">
@@ -118,14 +127,18 @@
             </form>
           </div>
 
-          <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ffc107;">
+          <div
+            style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ffc107;">
             <h4>⏱️ Czas realizacji</h4>
-            <p>Odpowiemy na Twoje żądanie w ciągu <strong>30 dni</strong> od daty otrzymania (może być przedłużony do 60 dni w uzasadnionych przypadkach).</p>
+            <p>Odpowiemy na Twoje żądanie w ciągu <strong>30 dni</strong> od daty otrzymania (może być przedłużony do 60
+              dni w uzasadnionych przypadkach).</p>
           </div>
 
-          <div style="background: #d4edda; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #28a745;">
+          <div
+            style="background: #d4edda; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #28a745;">
             <h4>🔒 Bezpieczeństwo</h4>
-            <p>Przed realizacją żądania zawsze potwierdzimy Twoją tożsamość, aby chronić Twoje dane przed nieupoważnionym dostępem.</p>
+            <p>Przed realizacją żądania zawsze potwierdzimy Twoją tożsamość, aby chronić Twoje dane przed
+              nieupoważnionym dostępem.</p>
           </div>
         </div>
       </div>
@@ -133,24 +146,30 @@
       <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin: 40px 0;">
         <h2>Alternatywne sposoby kontaktu</h2>
         <p>Oprócz formularza online możesz skontaktować się z nami również:</p>
-        
+
         <div class="grid-3" style="gap: 30px; margin-top: 20px;">
           <div style="text-align: center;">
-            <div style="background: var(--accent); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">📧</div>
+            <div
+              style="background: var(--accent); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">
+              📧</div>
             <h4>Email</h4>
             <p><a href="mailto:[EMAIL]">[EMAIL]</a></p>
             <small>Temat: "RODO - żądanie realizacji praw"</small>
           </div>
 
           <div style="text-align: center;">
-            <div style="background: var(--info); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">📞</div>
+            <div
+              style="background: var(--info); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">
+              📞</div>
             <h4>Telefon</h4>
             <p><a href="tel:+48606841722">+48 606 841 722</a></p>
             <small>Pn-Pt 9:00-17:00</small>
           </div>
 
           <div style="text-align: center;">
-            <div style="background: var(--secondary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">✉️</div>
+            <div
+              style="background: var(--secondary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px;">
+              ✉️</div>
             <h4>Poczta</h4>
             <p>[ADRES GABINETU]</p>
             <small>List polecony za potwierdzeniem odbioru</small>
@@ -163,8 +182,10 @@
         <ul>
           <li><strong>Bezpłatność:</strong> Realizacja praw RODO jest bezpłatna</li>
           <li><strong>Odwołanie:</strong> Masz prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych</li>
-          <li><strong>Ograniczenia:</strong> Niektóre prawa mogą być ograniczone przez przepisy prawa (np. tajemnica lekarska)</li>
-          <li><strong>Dokumentacja:</strong> W przypadku złożonych żądań możemy poprosić o dodatkowe dokumenty potwierdzające tożsamość</li>
+          <li><strong>Ograniczenia:</strong> Niektóre prawa mogą być ograniczone przez przepisy prawa (np. tajemnica
+            lekarska)</li>
+          <li><strong>Dokumentacja:</strong> W przypadku złożonych żądań możemy poprosić o dodatkowe dokumenty
+            potwierdzające tożsamość</li>
         </ul>
       </div>
 

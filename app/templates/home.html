@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Psycholog Opole i Nysa | Diagnoza ADHD i Autyzmu | {{ SITE_NAME }}{% endblock %}
-{% block description %}Profesjonalny gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD, test ADOS (autyzm), TUS,
-terapia indywidualna i online. Specjalizacja: neuroróżnorodność. Tel: +48 606 841 722{% endblock %}
+{% block meta_title %}Psycholog Opole i Nysa | Diagnoza ADHD i Autyzmu | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Profesjonalny gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD, test ADOS (autyzm),
+TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
@@ -224,6 +224,19 @@ terapia indywidualna i online. Specjalizacja: neuroróżnorodność. Tel: +48 60
         <p class="service-specs">Cykl 10 spotkań · grupy 4-8 osób</p>
         <span class="service-link">Dowiedz się więcej →</span>
       </a>
+      <a href="/szkolenia-dla-firm/" class="service-card" style="border: 1px solid var(--emerald);">
+        <div class="service-icon" style="color: var(--emerald);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5M9 12.75h1.5M9 18.75h1.5M13.5 6.75h1.5M13.5 12.75h1.5M13.5 18.75h1.5M6.75 6.75h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm10.5-12h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75z" />
+          </svg>
+        </div>
+        <h3>Szkolenia dla firm</h3>
+        <p class="service-description">Profesjonalne szkolenia antymobbingowe, wellbeing i neuroróżnorodność dla Twojego
+          zespołu.</p>
+        <p class="service-specs">Oferta B2B · Opole/Nysa/Online</p>
+        <span class="service-link">Zobacz ofertę →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -242,7 +255,7 @@ terapia indywidualna i online. Specjalizacja: neuroróżnorodność. Tel: +48 60
         <!-- Member 1 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/agata_brzozowska.jpg' %}" alt="Mgr Agata Brzozowska" class="team-avatar">
+            <img src="{% static 'images/Agata_Brzozowska.jpg' %}" alt="Mgr Agata Brzozowska" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Agata Brzozowska</span>

@@ -32,7 +32,23 @@ This file provides guidance to Claude Code and Gemini Agent when working with co
 - **Responsive:** Mobile-first approach — base styles are mobile, `@media` queries for desktop.
   - All grids collapse to single column on mobile.
   - CTAs become full-width on mobile.
-- **Colors:** Use CSS custom properties defined in `style.css` (e.g. `var(--primary-color)`).
+- **Colors:** Use CSS custom properties from `:root` in `style.css`. Never hardcode hex values.
+
+#### Color Palette (`:root` variables)
+| Variable | Hex | Usage |
+|---|---|---|
+| `--spring-green` | `#02f39b` | Decorative accents, hover effects |
+| `--caribbean-green` | `#04b08c` | Links, accent text, role labels, borders |
+| `--bright-gray` | `#393e46` | Default body text |
+| `--mystic` | `#e3ebeb` | Light section backgrounds, borders |
+| `--cerulean` | `#08b2e3` | Reserved (informational accent) |
+| `--eucalyptus` | `#24806e` | Headings (h1–h6), dark CTA backgrounds |
+| `--jelly-bean` | `#237587` | Gradient endpoints, hover states |
+| `--robins-egg-blue` | `#03cdc5` | Gradient accent |
+| `--oslo-gray` | `#6b6e73` | Secondary/paragraph text |
+
+> **Note:** `--oslo-gray` and `--caribbean-green` are tuned for WCAG AA contrast (≥4.5:1 on white).
+
 - **Layout:** Use CSS Grid and Flexbox. No floats.
 
 #### Typography

@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Diagnoza Autyzmu (ADOS-2) | {{ SITE_NAME }}{% endblock %}
-{% block description %}Profesjonalna diagnoza spektrum autyzmu w Opolu i Nysie. Złoty standard diagnostyczny ADOS-2.
+{% block meta_title %}Diagnoza Autyzmu (ADOS-2) | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Profesjonalna diagnoza spektrum autyzmu w Opolu i Nysie. Złoty standard diagnostyczny
+ADOS-2.
 Badanie dzieci, młodzieży i dorosłych. Pełna opinia kliniczna.{% endblock %}
 
 {% block content %}
@@ -44,7 +45,7 @@ Badanie dzieci, młodzieży i dorosłych. Pełna opinia kliniczna.{% endblock %}
 </section>
 
 <!-- How It Works Section -->
-<section class="how-it-works section">
+<section class="how-it-works section scroll-fade-in">
     <div class="container">
         <div class="section-header">
             <h2>Jak wygląda proces diagnozy?</h2>
@@ -87,7 +88,7 @@ Badanie dzieci, młodzieży i dorosłych. Pełna opinia kliniczna.{% endblock %}
 </section>
 
 <!-- Who Is This For Section -->
-<section class="who-section section" style="background: var(--mystic);">
+<section class="who-section section bg-light scroll-fade-in">
     <div class="container">
         <div class="section-header">
             <h2>Kiedy warto wykonać diagnozę?</h2>
@@ -104,7 +105,7 @@ Badanie dzieci, młodzieży i dorosłych. Pełna opinia kliniczna.{% endblock %}
 </section>
 
 <!-- FAQ Section -->
-<section class="faq-section section">
+<section class="faq-section section scroll-fade-in">
     <div class="container">
         <div class="section-header">
             <h2>Najczęstsze pytania</h2>
@@ -161,7 +162,7 @@ Badanie dzieci, młodzieży i dorosłych. Pełna opinia kliniczna.{% endblock %}
 {% include 'partials/booking_section.html' %}
 
 <!-- Related Services Section -->
-<section class="related-services section" style="background: var(--mystic);">
+<section class="related-services section bg-light scroll-fade-in">
     <div class="container">
         <div class="section-header">
             <h2>Usługi powiązane</h2>

@@ -1,22 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ category.name }} - Blog psychologiczny - {{ SITE_NAME }}{% endblock %}
-{% block description %}{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{ category.name }} - porady psychologiczne, terapia, rozwój osobisty.{% endif %}{% endblock %}
-
-{% block head_extra %}
-<meta property="og:title" content="{{ category.name }} - Blog psychologiczny">
-<meta property="og:description" content="{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{ category.name }}{% endif %}">
-<meta property="og:type" content="website">
-<link rel="canonical" href="{{ request.build_absolute_uri }}">
-{% endblock %}
+{% block meta_title %}{{ category.name }} - Blog psychologiczny - {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{
+category.name }} - porady psychologiczne, terapia, rozwój osobisty.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Category Header -->
 <section class="category-hero section-small">
   <div class="container">
     <div class="hero-content">
-      
+
       <!-- Breadcrumbs -->
       <nav class="breadcrumbs">
         <a href="{% url 'home' %}">Strona główna</a>
@@ -25,14 +19,15 @@
         <span>/</span>
         <span>{{ category.name }}</span>
       </nav>
-      
+
       <h1>{{ category.name }}</h1>
       {% if category.description %}
       <p class="category-description">{{ category.description }}</p>
       {% endif %}
-      
+
       <div class="category-meta">
-        <span>{{ page_obj.paginator.count }} {% if page_obj.paginator.count == 1 %}artykuł{% else %}artykułów{% endif %}</span>
+        <span>{{ page_obj.paginator.count }} {% if page_obj.paginator.count == 1 %}artykuł{% else %}artykułów{% endif
+          %}</span>
       </div>
     </div>
   </div>
@@ -41,17 +36,17 @@
 <!-- Category Content -->
 <section class="category-content section bg-light">
   <div class="container">
-    
+
     <!-- Back to Blog -->
     <div class="category-nav">
       <a href="{% url 'blog' %}" class="back-to-blog">
         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
         </svg>
         Powrót do bloga
       </a>
     </div>
-    
+
     {% if page_obj %}
     <div class="blog-grid">
       {% for post in page_obj %}
@@ -61,11 +56,11 @@
           <img src="{{ post.featured_image }}" alt="{{ post.title }}" loading="lazy">
         </div>
         {% endif %}
-        
+
         <div class="blog-card-content">
           <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
           <p class="blog-excerpt">{{ post.excerpt }}</p>
-          
+
           <div class="blog-footer">
             <div class="blog-meta-info">
               <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:'d.m.Y' }}</time>
@@ -77,7 +72,7 @@
       </article>
       {% endfor %}
     </div>
-    
+
     <!-- Pagination -->
     {% if page_obj.has_other_pages %}
     <nav class="pagination-nav">
@@ -85,22 +80,22 @@
         {% if page_obj.has_previous %}
         <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; Poprzednia</a></li>
         {% endif %}
-        
+
         {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
         <li class="active"><span>{{ num }}</span></li>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-        <li><a href="?page={{ num }}">{{ num }}</a></li>
-        {% endif %}
-        {% endfor %}
-        
-        {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}">Następna &raquo;</a></li>
-        {% endif %}
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li><a href="?page={{ num }}">{{ num
+            }}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">Następna &raquo;</a></li>
+          {% endif %}
       </ul>
     </nav>
     {% endif %}
-    
+
     {% else %}
     <div class="no-posts">
       <h2>Brak artykułów w tej kategorii</h2>
@@ -108,7 +103,7 @@
       <a href="{% url 'blog' %}" class="btn btn-secondary">Zobacz wszystkie artykuły</a>
     </div>
     {% endif %}
-    
+
   </div>
 </section>
 {% endblock %}

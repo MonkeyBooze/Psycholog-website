@@ -19,7 +19,7 @@ porady psychologiczne w Opolu.
 </section>
 
 <!-- Blog Content -->
-<section class="blog-content section bg-light scroll-fade-in">
+<section class="blog-content section bg-light">
     <div class="container">
         <div class="blog-layout">
 
@@ -88,7 +88,7 @@ porady psychologiczne w Opolu.
                 {% endif %}
 
                 {% if page_obj %}
-                <div class="blog-grid">
+                <div class="blog-grid scroll-fade-in">
                     {% for post in page_obj %}
                     <article class="blog-card">
                         {% if post.featured_image %}

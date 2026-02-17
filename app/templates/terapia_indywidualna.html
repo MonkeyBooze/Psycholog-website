@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}Terapia indywidualna | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Terapia indywidualna w Opolu i Nysie. Sesje w nurcie poznawczo-behawioralnym i terapii
+schematów. W gabinecie lub online. Krótkie terminy. Od 180 zł. Zadzwoń: 606 841 722{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>Terapia indywidualna</h1>
+            <p class="service-description">Regularne sesje terapeutyczne dopasowane do Twoich potrzeb.
+                Pracujemy w nurcie poznawczo-behawioralnym (CBT) oraz terapii schematów — podejściach
+                o udowodnionej skuteczności w leczeniu depresji, lęku, stresu i wielu innych trudności.</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>Sesja 50 min</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h18v18H3z" />
+                        <path d="M3 9h18M9 3v18" />
+                    </svg>
+                    <span>W gabinecie lub online</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Od 180 zł</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Umów pierwszą sesję</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak wygląda terapia?</h2>
+            <p>Trzy etapy drogi do lepszego samopoczucia</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Pierwsza konsultacja</h3>
+                    <p>Na pierwszym spotkaniu poznajemy Twoją sytuację — co Cię do nas sprowadza, jakie masz
+                        trudności i czego oczekujesz od terapii. Wspólnie ustalamy cele i plan dalszej pracy.
+                        Nie musisz się przygotowywać — wystarczy, że przyjdziesz.</p>
+                    <span class="step-duration">50 minut · bez zobowiązań</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Regularne sesje terapeutyczne</h3>
+                    <p>Spotkania odbywają się co tydzień lub co dwa tygodnie — zależnie od Twoich potrzeb.
+                        Pracujemy nad konkretnymi problemami, wzmacniamy mechanizmy radzenia sobie i budujemy
+                        nowe, zdrowsze wzorce myślenia i zachowania. Między sesjami możesz otrzymać krótkie
+                        ćwiczenia do wykonania samodzielnie.</p>
+                    <span class="step-duration">50 minut · regularnie</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Podsumowanie i zakończenie</h3>
+                    <p>Terapia nie trwa wiecznie. Gdy wspólnie uznamy, że cele zostały osiągnięte, planujemy
+                        zakończenie — omawiamy postępy, strategie zapobiegania nawrotom i ewentualne spotkania
+                        kontrolne. Decyzja o zakończeniu zawsze należy do Ciebie.</p>
+                    <span class="step-duration">Średnio 12-20 sesji</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Z czym pomagamy?</h2>
+        </div>
+        <div class="who-content">
+            <p>Terapia indywidualna może pomóc w wielu trudnościach — od obniżonego nastroju, lęku i stresu,
+                przez problemy w relacjach, niskie poczucie własnej wartości, wypalenie zawodowe, po radzenie
+                sobie z traumą, żałobą czy przewlekłym bólem. Nie musisz mieć zdiagnozowanego zaburzenia, żeby
+                skorzystać z terapii. Wystarczy, że czujesz, że coś Ci nie służy i chcesz to zmienić.
+                Nasi terapeuci pracują w podejściu poznawczo-behawioralnym (CBT) i terapii schematów — metodach,
+                które mają najsilniejsze poparcie w badaniach naukowych. To konkretna, nastawiona na cele praca,
+                która przynosi wymierne rezultaty zazwyczaj już po kilkunastu sesjach.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęściej zadawane pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Ile trwa terapia?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>To zależy od problemu i celów, które sobie postawisz. Terapia poznawczo-behawioralna jest
+                        ukierunkowana na konkretne cele — w przypadku umiarkowanych trudności to zazwyczaj 12-20
+                        sesji. Przy bardziej złożonych problemach proces może być dłuższy. Na pierwszym spotkaniu
+                        wspólnie określimy realistyczny plan.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czym jest CBT i terapia schematów?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>CBT (terapia poznawczo-behawioralna) skupia się na związku między myślami, emocjami i
+                        zachowaniami — uczy rozpoznawać i zmieniać szkodliwe wzorce. Terapia schematów idzie głębiej —
+                        pracuje z trwałymi wzorcami emocjonalnymi ukształtowanymi w dzieciństwie. Obie metody mają
+                        silne poparcie w badaniach naukowych i są rekomendowane przez WHO.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy mogę prowadzić terapię online?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Tak — oferujemy sesje zarówno w gabinecie (Opole, Nysa), jak i online przez bezpieczną platformę
+                        wideo. Można też łączyć obie formy. Sesja online przebiega dokładnie tak samo i jest równie
+                        skuteczna jak spotkanie stacjonarne.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy terapia jest poufna?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutnie. Psycholog jest zobowiązany do zachowania tajemnicy zawodowej na mocy prawa.
+                        Wszystko, co powiesz na sesji, pozostaje między Tobą a terapeutą. Wyjątkiem jest jedynie
+                        bezpośrednie zagrożenie życia — i tylko wtedy terapeuta ma obowiązek działania.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section (Reuse from homepage) -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Zobacz też</h2>
+            <p>Inne formy wsparcia, które oferujemy</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="/konsultacje-psychologiczne/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <h3>Konsultacje psychologiczne</h3>
+                <p>Jednorazowe lub krótkoterminowe wsparcie w trudnym momencie.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 180 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/wsparcie-online/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8M12 17v4" />
+                    </svg>
+                </div>
+                <h3>Wsparcie online</h3>
+                <p>Sesje terapeutyczne przez bezpieczną platformę wideo, z dowolnego miejsca.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 180 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-adhd/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3>Diagnoza ADHD</h3>
+                <p>Kompleksowa diagnoza metodą DIVA-5 + wywiad kliniczny.</p>
+                <div class="service-specs">
+                    <span>2 spotkania</span>
+                    <span>od 400 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

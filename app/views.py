@@ -161,6 +161,22 @@ def diagnoza_autyzmu(request):
     form = AppointmentForm()
     return render(request, 'diagnoza_autyzmu.html', {'form': form})
 
+def wsparcie_online(request):
+    form = AppointmentForm()
+    return render(request, 'wsparcie_online.html', {'form': form})
+
+def konsultacje(request):
+    form = AppointmentForm()
+    return render(request, 'konsultacje.html', {'form': form})
+
+def tus(request):
+    form = AppointmentForm()
+    return render(request, 'tus.html', {'form': form})
+
+def terapia_indywidualna(request):
+    form = AppointmentForm()
+    return render(request, 'terapia_indywidualna.html', {'form': form})
+
 def trainings(request):
     form = AppointmentForm()
     return render(request, 'trainings.html', {'form': form})

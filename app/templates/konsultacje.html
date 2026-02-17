@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}Konsultacje psychologiczne | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Konsultacja psychologiczna w Opolu i Nysie. Jednorazowe lub krótkoterminowe wsparcie w
+kryzysie. Orientacja diagnostyczna, pomoc w podjęciu decyzji. Od 180 zł. Zadzwoń: 606 841 722{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>Konsultacje psychologiczne</h1>
+            <p class="service-description">Jednorazowe lub krótkoterminowe wsparcie w trudnym momencie życia.
+                Pomoc w zrozumieniu sytuacji, podjęciu decyzji, wstępna orientacja diagnostyczna lub wsparcie
+                w nagłym kryzysie emocjonalnym.</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>Spotkanie 50 min</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h18v18H3z" />
+                        <path d="M3 9h18M9 3v18" />
+                    </svg>
+                    <span>Gabinet lub online</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Od 180 zł</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Umów konsultację</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak wygląda konsultacja?</h2>
+            <p>Spotkanie jest dopasowane do Twojej sytuacji</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Rozmowa wstępna</h3>
+                    <p>Psycholog wysłucha Twojej historii i zapyta o to, co Cię do nas sprowadza. Nie musisz się
+                        przygotowywać — wystarczy, że przyjdziesz z otwartością. Wspólnie określimy, czego potrzebujesz.
+                    </p>
+                    <span class="step-duration">Pierwsza część spotkania</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Analiza i wsparcie</h3>
+                    <p>Na podstawie rozmowy psycholog pomoże Ci zrozumieć sytuację, nazwać emocje i spojrzeć na
+                        problem z nowej perspektywy. Jeśli potrzeba, zaproponuje wstępną orientację diagnostyczną
+                        lub konkretne strategie radzenia sobie.</p>
+                    <span class="step-duration">Druga część spotkania</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Zalecenia i dalsze kroki</h3>
+                    <p>Na koniec spotkania otrzymasz podsumowanie rozmowy i jasne zalecenia — czy to propozycja
+                        terapii, skierowanie do innego specjalisty, czy konkretne ćwiczenia do zastosowania
+                        w codziennym życiu.</p>
+                    <span class="step-duration">Podsumowanie na koniec</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Kiedy warto umówić się na konsultację?</h2>
+        </div>
+        <div class="who-content">
+            <p>Konsultacja psychologiczna to dobre rozwiązanie, gdy przeżywasz trudny moment — stres w pracy, konflikt
+                w relacji, kryzys życiowy, utratę bliskiej osoby, niepewność co do ważnej decyzji lub po prostu
+                potrzebujesz przestrzeni, żeby porozmawiać z kimś obiektywnym. To również pierwszy krok dla osób, które
+                zastanawiają się, czy potrzebują terapii. Konsultacja pozwala zorientować się, na czym polega
+                praca z psychologiem i wspólnie zdecydować, czy i jaka forma wsparcia będzie dla Ciebie najlepsza.
+                Nie musisz mieć „poważnego problemu" — wystarczy, że czujesz, że czegoś potrzebujesz.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęściej zadawane pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czym konsultacja różni się od terapii?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Konsultacja to zazwyczaj jedno lub kilka spotkań nastawionych na zrozumienie problemu i
+                        wypracowanie dalszego planu działania. Terapia to dłuższy, regularny proces nastawiony na
+                        głębszą zmianę. Konsultacja może być pierwszym krokiem w kierunku terapii, ale nie musi — czasem
+                        wystarczy jedno spotkanie, by poczuć się lepiej.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy muszę się jakoś przygotować?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Nie — wystarczy, że przyjdziesz. Nie musisz mieć sformułowanego problemu ani wiedzieć, czego
+                        dokładnie potrzebujesz. Psycholog poprowadzi rozmowę w sposób, który pomoże Ci się otworzyć
+                        i ustalić najważniejsze kwestie.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Ile konsultacji potrzebuję?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>To zależy od Twojej sytuacji. Niektórym osobom wystarczy jedno spotkanie, by uzyskać jasność
+                        i poczuć ulgę. Inne decydują się na 2-3 konsultacje, by pogłębić temat. Psycholog na koniec
+                        pierwszego spotkania zaproponuje dalszy plan — decyzja zawsze należy do Ciebie.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy konsultacja jest poufna?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Tak, absolutnie. Psycholog jest zobowiązany do zachowania tajemnicy zawodowej. Wszystko, co
+                        powiesz na konsultacji, pozostaje między Tobą a psychologiem — chyba że sam zdecydujesz
+                        inaczej.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section (Reuse from homepage) -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Zobacz też</h2>
+            <p>Inne usługi, które mogą Cię zainteresować</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="/wsparcie-online/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8M12 17v4" />
+                    </svg>
+                </div>
+                <h3>Wsparcie online</h3>
+                <p>Sesje terapeutyczne przez bezpieczną platformę wideo, z dowolnego miejsca.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 180 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-adhd/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3>Diagnoza ADHD</h3>
+                <p>Kompleksowa diagnoza metodą DIVA-5 + wywiad kliniczny.</p>
+                <div class="service-specs">
+                    <span>2 spotkania</span>
+                    <span>od 400 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-autyzmu/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+                    </svg>
+                </div>
+                <h3>Diagnoza spektrum autyzmu</h3>
+                <p>Profesjonalna ocena ASD testem ADOS-2 — złoty standard diagnostyki.</p>
+                <div class="service-specs">
+                    <span>2-3 spotkania</span>
+                    <span>od 600 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

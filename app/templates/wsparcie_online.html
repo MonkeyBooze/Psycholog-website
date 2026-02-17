@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}Wsparcie online | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Profesjonalne sesje psychologiczne online z gabinetu w Opolu i Nysie. Terapia przez
+bezpieczną platformę wideo. Bez dojazdu, z dowolnego miejsca w Polsce. Od 180 zł. Zadzwoń: 606 841 722{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>Wsparcie psychologiczne online</h1>
+            <p class="service-description">Pełnowartościowe sesje terapeutyczne przez bezpieczną platformę wideo.
+                Pracujesz z tym samym specjalistą co w gabinecie — bez dojazdu, z dowolnego miejsca w Polsce.</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>Sesja 50 min</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8M12 17v4" />
+                    </svg>
+                    <span>Platforma wideo</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Od 180 zł</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Umów sesję online</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak wygląda sesja online?</h2>
+            <p>Trzy proste kroki do rozpoczęcia terapii z domu</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Umów termin</h3>
+                    <p>Wybierz dogodny termin przez formularz, telefon lub portal ZnanyLekarz. Otrzymasz potwierdzenie
+                        z linkiem do bezpiecznej platformy wideo.</p>
+                    <span class="step-duration">Rezerwacja online 24/7</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Przygotuj się do sesji</h3>
+                    <p>Znajdź spokojne, prywatne miejsce z dobrym połączeniem internetowym. Wystarczy komputer, tablet
+                        lub telefon z kamerą i mikrofonem. Nie musisz instalować żadnej aplikacji.</p>
+                    <span class="step-duration">Potrzebujesz tylko przeglądarki</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Sesja terapeutyczna</h3>
+                    <p>Sesja przebiega tak samo jak wizyta w gabinecie. Rozmowa jest szyfrowana i poufna. Pracujesz
+                        z certyfikowanym psychologiem, który dostosowuje metody do Twoich potrzeb.</p>
+                    <span class="step-duration">50 minut</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Dla kogo jest terapia online?</h2>
+        </div>
+        <div class="who-content">
+            <p>Terapia online sprawdzi się u osób, które cenią elastyczność i wygodę — mieszkają daleko od gabinetu,
+                mają napięty grafik, podróżują lub po prostu wolą rozmawiać z zacisza własnego domu. To również
+                rozwiązanie dla osób z ograniczeniami ruchowymi, lękiem przed wyjściem z domu czy trudnościami w
+                organizacji opieki nad dziećmi. Badania naukowe potwierdzają, że terapia online jest równie skuteczna
+                jak spotkania stacjonarne w przypadku większości problemów psychologicznych — depresji, lęku, stresu,
+                trudności w relacjach i wielu innych.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęściej zadawane pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy terapia online jest równie skuteczna jak stacjonarna?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Tak. Liczne badania naukowe potwierdzają, że terapia prowadzona online ma porównywalną
+                        skuteczność do spotkań stacjonarnych. Kluczowa jest relacja terapeutyczna i zaangażowanie
+                        obu stron — nie forma kontaktu.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Jakie narzędzie jest potrzebne do sesji?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Wystarczy komputer, tablet lub smartfon z kamerą, mikrofonem i stabilnym połączeniem
+                        internetowym. Korzystamy z bezpiecznej platformy wideo, która działa w przeglądarce — nie
+                        musisz niczego instalować. Link do sesji otrzymasz w e-mailu po umówieniu wizyty.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy sesja online jest poufna?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Tak. Połączenie jest szyfrowane, a sesja podlega tym samym zasadom poufności co wizyta
+                        stacjonarna. Zalecamy, aby wybrać spokojne, prywatne miejsce, w którym nikt nie będzie
+                        Ci przeszkadzał podczas sesji.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy mogę łączyć sesje online ze stacjonarnymi?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Oczywiście. Wielu naszych pacjentów korzysta z modelu mieszanego — np. pierwsza sesja w
+                        gabinecie, kolejne online. Elastycznie dostosowujemy formę spotkania do Twoich potrzeb.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section (Reuse from homepage) -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Zobacz też</h2>
+            <p>Inne formy wsparcia, które oferujemy</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="/konsultacje-psychologiczne/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <h3>Konsultacje psychologiczne</h3>
+                <p>Jednorazowe lub krótkoterminowe wsparcie w trudnym momencie.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 180 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-adhd/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3>Diagnoza ADHD</h3>
+                <p>Kompleksowa diagnoza metodą DIVA-5 + wywiad kliniczny.</p>
+                <div class="service-specs">
+                    <span>2 spotkania</span>
+                    <span>od 400 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-autyzmu/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+                    </svg>
+                </div>
+                <h3>Diagnoza spektrum autyzmu</h3>
+                <p>Profesjonalna ocena ASD testem ADOS-2 — złoty standard diagnostyki.</p>
+                <div class="service-specs">
+                    <span>2-3 spotkania</span>
+                    <span>od 600 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

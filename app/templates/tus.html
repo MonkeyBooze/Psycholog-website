@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}Trening Umiejętności Społecznych (TUS) | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}TUS — Trening Umiejętności Społecznych w Opolu i Nysie. Zajęcia grupowe dla dzieci,
+młodzieży i dorosłych. Rozwój kompetencji społecznych i komunikacyjnych. Grupy 4-8 osób. Od 100 zł/spotkanie. Zadzwoń:
+606 841 722{% endblock %}
+
+{% block content %}
+<!-- Service Hero Section -->
+<section class="service-hero section">
+    <div class="container">
+        <div class="service-hero-content">
+            <h1>TUS — Trening Umiejętności Społecznych</h1>
+            <p class="service-description">Zajęcia grupowe rozwijające kompetencje społeczne, komunikacyjne
+                i emocjonalne. Prowadzimy grupy dla dzieci, młodzieży i dorosłych — dostosowane do wieku
+                i potrzeb uczestników.</p>
+
+            <div class="service-specs">
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>Cykl 10 spotkań × 60 min</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span>Grupy 4-8 osób</span>
+                </div>
+                <div class="spec-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Od 100 zł / spotkanie</span>
+                </div>
+            </div>
+
+            <a href="#booking" class="btn btn-primary btn-large">Zapisz się na TUS</a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Jak wygląda trening TUS?</h2>
+            <p>Strukturalny program w trzech etapach</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Konsultacja wstępna</h3>
+                    <p>Spotkanie indywidualne z terapeutą (a w przypadku dzieci — z rodzicem), podczas którego
+                        omawiamy potrzeby uczestnika, zakres trudności i cele treningu. Na tej podstawie dobieramy
+                        odpowiednią grupę wiekową.</p>
+                    <span class="step-duration">50 minut · jednorazowo</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Zajęcia grupowe</h3>
+                    <p>Cykl 10 spotkań w małej grupie (4-8 osób). Każde spotkanie ma jasną strukturę: powitanie,
+                        ćwiczenie nowej umiejętności, odgrywanie scenek, gry współpracy i podsumowanie. Uczymy się
+                        m.in.: jak zaczynać i kończyć rozmowy, radzenia sobie z emocjami, pracy w grupie, asertywności.
+                    </p>
+                    <span class="step-duration">60 minut · co tydzień</span>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Podsumowanie i rekomendacje</h3>
+                    <p>Po zakończeniu cyklu spotykamy się indywidualnie, aby omówić postępy uczestnika. Rodzice
+                        otrzymują pisemne podsumowanie z opisem nabytych umiejętności i zaleceń do dalszej pracy
+                        w domu.</p>
+                    <span class="step-duration">Spotkanie końcowe</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For Section -->
+<section class="who-section section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Dla kogo jest TUS?</h2>
+        </div>
+        <div class="who-content">
+            <p>Trening Umiejętności Społecznych jest skierowany do osób, które mają trudności w kontaktach z innymi —
+                z nawiązywaniem znajomości, utrzymywaniem rozmowy, rozumieniem zasad społecznych lub radzeniem
+                sobie z emocjami w sytuacjach grupowych. Szczególnie polecamy TUS dzieciom i młodzieży ze spektrum
+                autyzmu, ADHD, nieśmiałością, lękiem społecznym, a także osobom dorosłym, które chcą poprawić swoje
+                kompetencje komunikacyjne. Zajęcia prowadzone są w bezpiecznej atmosferze, gdzie każdy uczestnik może
+                ćwiczyć nowe umiejętności bez oceniania. Grupy dobieramy tak, aby uczestnicy byli w zbliżonym wieku
+                i na podobnym poziomie rozwoju społecznego.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Najczęściej zadawane pytania</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czym jest TUS?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>TUS (Trening Umiejętności Społecznych) to ustrukturyzowany program zajęć grupowych, które uczą
+                        konkretnych umiejętności społecznych — takich jak rozpoczynanie rozmowy, wyrażanie swoich
+                        potrzeb,
+                        rozwiązywanie konfliktów czy współpraca w grupie. Zajęcia opierają się na scenkach, grach
+                        i ćwiczeniach praktycznych, nie na wykładach.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Dla jakiej grupy wiekowej prowadzicie TUS?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Prowadzimy TUS dla trzech grup wiekowych: dzieci (6-10 lat), młodzież (11-16 lat) oraz dorośli.
+                        Każda grupa ma program dostosowany do swojego etapu rozwojowego. Grupy dobieramy tak, aby
+                        uczestnicy czuli się komfortowo i mogli uczyć się od siebie nawzajem.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Czy TUS wymaga wcześniejszej diagnozy?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Nie — TUS jest otwarty dla każdego, kto chce rozwijać swoje umiejętności społeczne. Nie jest
+                        wymagana diagnoza autyzmu, ADHD ani żadna inna. Wymaga natomiast konsultacji wstępnej, na
+                        której terapeuta oceni, czy TUS jest odpowiednią formą wsparcia.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Ile kosztuje cały cykl TUS?
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Koszt jednego spotkania grupowego wynosi od 100 zł na uczestnika. Pełny cykl 10 spotkań to
+                        łącznie od 1000 zł. Konsultacja wstępna i spotkanie podsumowujące mogą być wliczone w cenę
+                        lub wycenione osobno — szczegóły ustalamy indywidualnie.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Section (Reuse from homepage) -->
+{% include 'partials/booking_section.html' %}
+
+<!-- Related Services Section -->
+<section class="related-services section bg-light scroll-fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2>Zobacz też</h2>
+            <p>Usługi powiązane z TUS</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="/diagnoza-autyzmu/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+                    </svg>
+                </div>
+                <h3>Diagnoza spektrum autyzmu</h3>
+                <p>Profesjonalna ocena ASD testem ADOS-2 — złoty standard diagnostyki.</p>
+                <div class="service-specs">
+                    <span>2-3 spotkania</span>
+                    <span>od 600 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/diagnoza-adhd/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3>Diagnoza ADHD</h3>
+                <p>Kompleksowa diagnoza metodą DIVA-5 + wywiad kliniczny.</p>
+                <div class="service-specs">
+                    <span>2 spotkania</span>
+                    <span>od 400 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+
+            <a href="/konsultacje-psychologiczne/" class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <h3>Konsultacje psychologiczne</h3>
+                <p>Jednorazowe lub krótkoterminowe wsparcie w trudnym momencie.</p>
+                <div class="service-specs">
+                    <span>50 min</span>
+                    <span>od 180 zł</span>
+                </div>
+                <span class="service-link">Dowiedz się więcej →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+
+        faqItem.classList.toggle('active');
+
+        if (faqItem.classList.contains('active')) {
+            answer.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+{% endblock %}

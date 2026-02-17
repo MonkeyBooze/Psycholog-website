@@ -1,0 +1,351 @@
+/* === RESPONSIVE === */
+@media (max-width: 991px) {
+  .team-teaser-content {
+    text-align: center;
+  }
+
+  .team-teaser-intro p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .team-teaser-content {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--space-4xl);
+  }
+
+  .team-teaser-intro {
+    text-align: left;
+  }
+
+  .team-teaser-grid {
+    justify-content: flex-end;
+    gap: var(--grid-gap);
+  }
+}
+
+@media (min-width: 769px) {
+  .testimonials-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gap);
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .testimonial-card {
+    flex: unset;
+    scroll-snap-align: none;
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .testimonials-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 968px) {
+
+  .blog-layout,
+  .post-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .blog-sidebar,
+  .post-sidebar {
+    position: static;
+    order: 0;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-header h1 {
+    font-size: 2rem;
+  }
+
+  .post-body,
+  .post-footer {
+    padding: 32px 24px;
+  }
+}
+
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .section {
+    padding: var(--space-section-sm) 0;
+  }
+
+  /* Mobile menu */
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--color-primary-700);
+    flex-direction: column;
+    padding: 80px 20px 20px;
+    gap: 0;
+    transition: left 0.3s;
+    z-index: var(--z-header);
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar-menu.active {
+    left: 0;
+  }
+
+  .navbar-menu .nav-link {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: left;
+  }
+
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: var(--z-sticky);
+  }
+
+  .mobile-menu-overlay.active {
+    display: block;
+  }
+
+  .navbar-cta .btn {
+    padding: 10px 18px;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Hero responsive */
+  .hero-section {
+    min-height: 60vh;
+    padding: var(--space-section) 0;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-headline {
+    font-size: var(--font-size-3xl);
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-md);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .trust-badge {
+    margin: 0 auto;
+    font-size: var(--font-size-xs);
+    padding: 10px 16px;
+  }
+
+  /* Testimonials responsive — horizontal carousel */
+  .testimonials-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--space-md);
+    padding-bottom: 20px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .testimonials-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+
+  .testimonial-quote {
+    font-size: 4rem;
+    top: 15px;
+    left: 20px;
+  }
+
+  /* Grid responsive */
+  .services-grid,
+  .approach-grid,
+  .faq-grid,
+  .offers-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    margin-top: 40px;
+  }
+
+  .team-member {
+    padding: 24px;
+  }
+
+  .team-photo img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .team-info h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Booking responsive */
+  .booking-options {
+    grid-template-columns: 1fr;
+    gap: var(--space-gutter);
+  }
+
+  .booking-option {
+    padding: 40px 24px;
+  }
+
+  .booking-form-minimal .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  /* Forms responsive */
+  .booking-content,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .booking-form,
+  .contact-form-wrapper {
+    padding: 30px 20px;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: var(--space-gutter);
+  }
+
+  .contact-item {
+    min-width: auto;
+  }
+
+  .contact-method {
+    padding: 20px;
+  }
+
+  /* About responsive */
+  .about-hero-content,
+  .about-details-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    text-align: center;
+  }
+
+  .about-main-img {
+    height: 300px;
+  }
+
+  /* Blog responsive */
+  .blog-card-content {
+    padding: 24px;
+  }
+
+  .blog-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .search-btn-text {
+    display: none;
+  }
+
+  .category-list a {
+    padding: 12px 16px;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Pricing responsive */
+  .pricing-header {
+    padding: 30px 20px 20px;
+  }
+
+  .pricing-features {
+    padding: 0 var(--space-gutter) 20px;
+  }
+
+  .pricing-footer {
+    padding: 0 var(--space-gutter) 30px;
+  }
+
+  .price-amount {
+    font-size: var(--font-size-4xl);
+  }
+
+  /* Service pages responsive */
+  .service-hero h1 {
+    font-size: 2rem;
+  }
+
+  .service-hero .service-description {
+    font-size: var(--font-size-base);
+  }
+
+  .service-hero .service-specs {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .process-step {
+    flex-direction: column;
+  }
+
+  .step-number {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-lg);
+  }
+}

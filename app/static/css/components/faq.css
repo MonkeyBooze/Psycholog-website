@@ -1,0 +1,16 @@
+/* === FAQ === */
+.faq-item {
+  text-align: left;
+}
+
+.faq-item h3 {
+  color: var(--color-primary-700);
+  margin-bottom: 16px;
+  font-size: var(--font-size-xl);
+}
+
+.faq-item p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}

@@ -1,0 +1,78 @@
+/* === ABOUT PAGE === */
+.about-hero {
+  background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-600) 50%, var(--color-primary-300) 100%);
+  position: relative;
+  padding: var(--space-6xl) 0;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: center;
+}
+
+.about-hero h1 {
+  color: var(--text-on-dark);
+}
+
+.lead {
+  font-size: var(--font-size-lg-alt);
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: var(--font-weight-regular);
+}
+
+.about-main-img {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+  border-radius: var(--radius-xl);
+  background: var(--bg-default) url('/static/images/Logo_with_signature.png') center/contain no-repeat;
+  padding: 40px;
+  box-shadow: 0 20px 40px var(--shadow-md);
+  animation: heroFloat 4s ease-in-out infinite;
+}
+
+.about-details-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-4xl);
+  align-items: start;
+}
+
+.qualifications-list {
+  list-style: none;
+  padding: 0;
+}
+
+.qualifications-list li {
+  padding: 12px 0 12px 24px;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.qualifications-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary-300);
+  font-weight: var(--font-weight-bold);
+}
+
+.qualifications-list li:last-child {
+  border-bottom: none;
+}

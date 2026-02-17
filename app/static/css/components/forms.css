@@ -1,0 +1,293 @@
+/* === FORMS === */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-700);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: var(--bg-inset);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary-300);
+  box-shadow: 0 0 0 3px rgba(4, 210, 195, 0.1);
+  background: var(--bg-default);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  position: relative;
+}
+
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+}
+
+.checkbox-label input:checked+.checkmark {
+  background: var(--color-primary-300);
+  border-color: var(--color-primary-300);
+}
+
+.checkbox-label input:checked+.checkmark::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-on-dark);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+}
+
+
+/* === BOOKING/CONTACT === */
+.booking-section {
+  background: var(--color-primary-700);
+  color: var(--text-on-dark);
+}
+
+.booking-section .section-header h2,
+.booking-section .section-header p {
+  color: var(--text-on-dark);
+}
+
+.booking-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  max-width: 1000px;
+  margin: 0 auto 40px;
+}
+
+.booking-option {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px 32px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  border: 2px solid transparent;
+  transition: var(--transition-default);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.booking-option:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  border-color: var(--color-primary-300);
+  background: var(--bg-default);
+}
+
+.booking-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-600));
+  color: var(--text-on-dark);
+  border-radius: var(--radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease;
+}
+
+.booking-option:hover .booking-icon {
+  transform: scale(1.1);
+}
+
+.booking-option h3 {
+  color: var(--color-primary-700);
+  margin: 0 0 12px;
+  font-size: var(--font-size-lg-plus);
+  font-weight: var(--font-weight-semibold);
+}
+
+.booking-option p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+/* Form wrapper (hidden by default) */
+.booking-form-wrapper {
+  max-width: 700px;
+  margin: 40px auto 0;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.booking-form-minimal .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-gutter);
+}
+
+.booking-form-minimal .form-group label {
+  color: var(--color-primary-700);
+}
+
+.form-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: 24px;
+}
+
+.form-buttons .btn {
+  flex: 1;
+}
+
+/* Legacy contact grid styles */
+.booking-content,
+.contact-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-4xl);
+  align-items: start;
+}
+
+.booking-form,
+.contact-form-wrapper {
+  background: var(--bg-default);
+  padding: 40px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 30px var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
+.contact-info {
+  background: var(--bg-inset);
+  padding: 40px 30px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--grid-gap);
+  justify-content: space-between;
+}
+
+.contact-item {
+  flex: 1;
+  min-width: 250px;
+}
+
+.contact-item h4 {
+  color: var(--color-primary-700);
+  margin-bottom: 8px;
+  font-size: var(--font-size-lg);
+}
+
+.contact-item p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.contact-item a {
+  color: var(--color-primary-300);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.contact-method {
+  display: flex;
+  gap: var(--space-gutter);
+  margin-bottom: 40px;
+  padding: 30px;
+  background: var(--bg-default);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 5px 15px var(--shadow-md);
+}
+
+.contact-method-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: var(--color-primary-600);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.contact-method-content h3 {
+  margin: 0 0 8px;
+  color: var(--color-primary-700);
+}
+
+.contact-method-content p {
+  margin: 0 0 4px;
+}
+
+.contact-method-content a {
+  color: var(--color-primary-300);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-note {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.booking-widget {
+  flex: 1;
+  min-width: 250px;
+  background: var(--bg-default);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 5px 15px var(--shadow-md);
+  border: 1px solid var(--border-color);
+}

@@ -1,0 +1,147 @@
+/* === CARDS (Services, Team, FAQ, etc.) === */
+.card {
+  background: var(--bg-default);
+  padding: 40px 30px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 30px var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px var(--shadow-xl);
+}
+
+.services-section {
+  background: var(--bg-inset);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.service-card {
+  background: var(--bg-default);
+  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: 0 6px 20px var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-default);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--shadow-lg);
+}
+
+.service-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-600));
+  color: var(--text-on-dark);
+  border-radius: var(--radius-xl);
+  margin: 0 auto 24px;
+}
+
+.service-card h3 {
+  color: var(--color-primary-700);
+  margin: 0 0 16px;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.service-description {
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+  line-height: 1.6;
+  font-size: var(--font-size-sm);
+  flex-grow: 1;
+}
+
+.service-specs {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin: 0 0 20px;
+  font-weight: var(--font-weight-medium);
+  font-style: italic;
+}
+
+.service-link {
+  color: var(--color-primary-300);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-default);
+  display: inline-block;
+}
+
+.service-card:hover .service-link {
+  color: var(--color-primary-600);
+  transform: translateX(4px);
+}
+
+/* Other grids (keep existing) */
+.approach-grid,
+.faq-grid,
+.offers-grid,
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--grid-gap);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.approach-card,
+.faq-item,
+.offer-card {
+  background: var(--bg-default);
+  padding: 40px 30px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  box-shadow: 0 10px 30px var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.approach-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px var(--shadow-xl);
+}
+
+.approach-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-600));
+  color: var(--text-on-dark);
+  border-radius: var(--radius-xl);
+  margin: 0 auto 24px;
+}
+
+.approach-card h3 {
+  color: var(--color-primary-700);
+  margin: 0 0 16px;
+  font-size: var(--font-size-xl);
+}
+
+.approach-card p {
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.6;
+}

@@ -1,0 +1,45 @@
+/* ═══════════════════════════════════════════════════════
+   Main Entry Point — CSS Design System
+   Import order follows ITCSS methodology:
+   Settings → Base → Layout → Components → Pages → Utils
+   ═══════════════════════════════════════════════════════ */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Settings */
+@import url('variables.css');
+
+/* Base */
+@import url('base/reset.css');
+@import url('base/typography.css');
+
+/* Layout */
+@import url('layout/grid.css');
+@import url('layout/header.css');
+@import url('layout/footer.css');
+
+/* Components */
+@import url('components/buttons.css');
+@import url('components/hero.css');
+@import url('components/cards.css');
+@import url('components/team.css');
+@import url('components/testimonials.css');
+@import url('components/forms.css');
+@import url('components/pricing.css');
+@import url('components/faq.css');
+
+/* Pages */
+@import url('pages/blog.css');
+@import url('pages/about.css');
+@import url('pages/services.css');
+@import url('pages/error.css');
+@import url('pages/b2b.css');
+
+/* Utilities */
+@import url('utils/animations.css');
+@import url('utils/accessibility.css');
+@import url('utils/cookie.css');
+
+/* Responsive Overrides */
+@import url('responsive.css');

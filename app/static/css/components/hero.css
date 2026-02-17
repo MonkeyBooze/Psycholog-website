@@ -1,0 +1,262 @@
+/* === HERO === */
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 0;
+  position: relative;
+  background: linear-gradient(135deg,
+      var(--color-primary-700) 0%,
+      var(--color-primary-600) 50%,
+      var(--color-primary-300) 100%);
+}
+
+/* SVG Noise Texture Overlay */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: center;
+  max-width: 100%;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-image {
+  text-align: center;
+}
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.hero-img {
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  object-fit: contain;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 40px var(--shadow-md);
+  background: var(--bg-default) url('/static/images/Logo_with_signature.png') center/contain no-repeat;
+  padding: 40px;
+  animation: heroFloat 4s ease-in-out infinite;
+}
+
+.hero-headline {
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 24px;
+  line-height: 1.1;
+  color: var(--text-on-dark);
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-xl);
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-weight: var(--font-weight-regular);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+/* Trust Badge */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-pill);
+  color: var(--text-on-dark);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-default);
+  backdrop-filter: blur(10px);
+}
+
+.trust-badge:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.trust-badge-star {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary-900);
+}
+
+.trust-badge-text {
+  color: var(--text-on-dark);
+}
+
+/* Fade-in Animations */
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.hero-headline.fade-in {
+  animation-delay: 0ms;
+}
+
+.hero-subtitle.fade-in {
+  animation-delay: 150ms;
+}
+
+.hero-buttons.fade-in {
+  animation-delay: 300ms;
+}
+
+.trust-badge.fade-in {
+  animation-delay: 450ms;
+}
+
+/* Scroll-triggered fade-in */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.scroll-fade-in .service-card,
+.scroll-fade-in .testimonial-card,
+.scroll-fade-in .approach-card,
+.scroll-fade-in .team-member,
+.scroll-fade-in .booking-option,
+.scroll-fade-in .pricing-card,
+.scroll-fade-in .faq-item,
+.scroll-fade-in .process-step,
+.scroll-fade-in .offer-card,
+.scroll-fade-in .contact-method,
+.scroll-fade-in .blog-card {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-fade-in.visible .service-card,
+.scroll-fade-in.visible .testimonial-card,
+.scroll-fade-in.visible .approach-card,
+.scroll-fade-in.visible .team-member,
+.scroll-fade-in.visible .booking-option,
+.scroll-fade-in.visible .pricing-card,
+.scroll-fade-in.visible .faq-item,
+.scroll-fade-in.visible .process-step,
+.scroll-fade-in.visible .offer-card,
+.scroll-fade-in.visible .contact-method,
+.scroll-fade-in.visible .blog-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-in.visible .service-card:nth-child(1),
+.scroll-fade-in.visible .testimonial-card:nth-child(1),
+.scroll-fade-in.visible .approach-card:nth-child(1),
+.scroll-fade-in.visible .team-member:nth-child(1),
+.scroll-fade-in.visible .booking-option:nth-child(1),
+.scroll-fade-in.visible .pricing-card:nth-child(1),
+.scroll-fade-in.visible .faq-item:nth-child(1),
+.scroll-fade-in.visible .process-step:nth-child(1),
+.scroll-fade-in.visible .offer-card:nth-child(1),
+.scroll-fade-in.visible .contact-method:nth-child(1),
+.scroll-fade-in.visible .blog-card:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(2),
+.scroll-fade-in.visible .testimonial-card:nth-child(2),
+.scroll-fade-in.visible .approach-card:nth-child(2),
+.scroll-fade-in.visible .team-member:nth-child(2),
+.scroll-fade-in.visible .booking-option:nth-child(2),
+.scroll-fade-in.visible .pricing-card:nth-child(2),
+.scroll-fade-in.visible .faq-item:nth-child(2),
+.scroll-fade-in.visible .process-step:nth-child(2),
+.scroll-fade-in.visible .offer-card:nth-child(2),
+.scroll-fade-in.visible .contact-method:nth-child(2),
+.scroll-fade-in.visible .blog-card:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(3),
+.scroll-fade-in.visible .testimonial-card:nth-child(3),
+.scroll-fade-in.visible .approach-card:nth-child(3),
+.scroll-fade-in.visible .team-member:nth-child(3),
+.scroll-fade-in.visible .booking-option:nth-child(3),
+.scroll-fade-in.visible .pricing-card:nth-child(3),
+.scroll-fade-in.visible .faq-item:nth-child(3),
+.scroll-fade-in.visible .process-step:nth-child(3),
+.scroll-fade-in.visible .offer-card:nth-child(3),
+.scroll-fade-in.visible .contact-method:nth-child(3),
+.scroll-fade-in.visible .blog-card:nth-child(3) {
+  transition-delay: 200ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(4),
+.scroll-fade-in.visible .team-member:nth-child(4),
+.scroll-fade-in.visible .faq-item:nth-child(4),
+.scroll-fade-in.visible .blog-card:nth-child(4) {
+  transition-delay: 300ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(5),
+.scroll-fade-in.visible .team-member:nth-child(5),
+.scroll-fade-in.visible .blog-card:nth-child(5) {
+  transition-delay: 400ms;
+}
+
+.scroll-fade-in.visible .service-card:nth-child(6),
+.scroll-fade-in.visible .testimonial-card:nth-child(4),
+.scroll-fade-in.visible .team-member:nth-child(6) {
+  transition-delay: 500ms;
+}
+
+.scroll-fade-in.visible .testimonial-card:nth-child(5) {
+  transition-delay: 600ms;
+}
+
+.scroll-fade-in.visible .testimonial-card:nth-child(6) {
+  transition-delay: 700ms;
+}
+
+.scroll-fade-in.visible .team-member:nth-child(7) {
+  transition-delay: 600ms;
+}

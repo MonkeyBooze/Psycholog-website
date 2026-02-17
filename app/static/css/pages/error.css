@@ -1,0 +1,50 @@
+/* === ERROR PAGES (404, 500) === */
+.error-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.error-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-icon {
+  color: var(--color-primary-300);
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+.error-code {
+  font-size: 6rem;
+  font-weight: var(--font-weight-bold);
+  background: linear-gradient(135deg, var(--color-primary-700), var(--color-primary-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary-700);
+  margin-bottom: 16px;
+}
+
+.error-message {
+  font-size: var(--font-size-md);
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.error-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}

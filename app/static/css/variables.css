@@ -1,0 +1,222 @@
+/* ═══════════════════════════════════════════════════════
+   Design System Tokens — variables.css
+   Single Source of Truth for all design values.
+   Follows css_standards.md conventions.
+
+   LAYER 1: Primitives  — raw color / size values
+   LAYER 2: Semantics   — purpose-driven aliases
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+
+    /* ═══════════════════════════════════════════════
+     LAYER 1 — PRIMITIVES
+     Raw values only. Never use directly in components.
+     ═══════════════════════════════════════════════ */
+
+    /* ── Color Primitives ── */
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    --color-neutral-50: #fbfbfb;
+    --color-neutral-100: #f5f5f5;
+    --color-neutral-200: #eee;
+    --color-neutral-300: #e3ebeb;
+    --color-neutral-400: #ddd;
+    --color-neutral-500: #919398;
+    --color-neutral-600: #6b6e73;
+    --color-neutral-700: #393e46;
+    --color-neutral-800: #222;
+    --color-neutral-900: #111;
+
+    --color-teal-50: #eefcf6;
+    --color-teal-100: #f0fdf9;
+    --color-teal-200: #f7fffd;
+    --color-teal-300: #04b08c;
+    --color-teal-400: #03cdc5;
+    --color-teal-500: #02f39b;
+    --color-teal-600: #24806e;
+    --color-teal-700: #1a5c4e;
+
+    --color-blue-400: #08b2e3;
+    --color-blue-600: #237587;
+
+    --color-gold: #FFD700;
+    --color-red: #e74c3c;
+
+    --color-facebook: #1877f2;
+    --color-twitter: #1da1f2;
+    --color-linkedin: #0a66c2;
+
+    /* ── B2B Primitives ── */
+    --color-b2b-navy: #1f3c88;
+    --color-b2b-blue: #4e73df;
+    --color-b2b-mist: #e8f4f8;
+    --color-b2b-frost: #f4f6f8;
+
+    /* ── Spacing Primitives (8pt grid + exceptions) ── */
+    --primitive-2: 2px;
+    --primitive-4: 4px;
+    --primitive-8: 8px;
+    --primitive-12: 12px;
+    --primitive-16: 16px;
+    --primitive-20: 20px;
+    --primitive-24: 24px;
+    --primitive-30: 30px;
+    --primitive-32: 32px;
+    --primitive-40: 40px;
+    --primitive-48: 48px;
+    --primitive-60: 60px;
+    --primitive-80: 80px;
+    --primitive-100: 100px;
+
+    /* ── Typography Primitives ── */
+    --primitive-font-heading: 'Poppins', sans-serif;
+    --primitive-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+
+    /* ═══════════════════════════════════════════════
+     LAYER 2 — SEMANTIC TOKENS
+     Purpose-driven. Use THESE in component CSS.
+     ═══════════════════════════════════════════════ */
+
+    /* ── Colors: Primary Brand Scale ── */
+    --color-primary-100: var(--color-teal-50);
+    /* Lightest teal tint (badges) */
+    --color-primary-200: var(--color-neutral-300);
+    /* Light surface (was --mystic) */
+    --color-primary-300: var(--color-teal-300);
+    /* Accent / links (was --caribbean-green) */
+    --color-primary-400: var(--color-teal-400);
+    /* Vibrant accent (was --robins-egg-blue) */
+    --color-primary-500: var(--color-blue-400);
+    /* Primary buttons (was --cerulean) */
+    --color-primary-600: var(--color-blue-600);
+    /* Hover states (was --jelly-bean) */
+    --color-primary-700: var(--color-teal-600);
+    /* Headings / deep brand (was --eucalyptus) */
+    --color-primary-800: var(--color-teal-700);
+    /* Dark green (contact info bg) */
+    --color-primary-900: var(--color-teal-500);
+    /* Success accent (was --spring-green) */
+
+    /* ── Surface / Background ── */
+    --bg-default: var(--color-white);
+    --bg-paper: #f8faff;
+    --bg-inset: var(--color-neutral-300);
+    /* Section backgrounds (was --mystic) */
+    --bg-footer: var(--color-neutral-900);
+    --bg-overlay: rgba(0, 0, 0, 0.35);
+
+    /* ── Text ── */
+    --text-primary: var(--color-neutral-800);
+    --text-secondary: var(--color-neutral-700);
+    /* was --bright-gray */
+    --text-muted: var(--color-neutral-600);
+    /* was --oslo-gray */
+    --text-on-dark: var(--color-white);
+    --text-inverse: var(--color-white);
+    --text-on-dark-muted: rgba(255, 255, 255, 0.8);
+    --text-on-dark-subtle: rgba(255, 255, 255, 0.6);
+
+    /* ── Status ── */
+    --status-success: var(--color-teal-500);
+    --status-warning: var(--color-gold);
+    --status-error: var(--color-red);
+
+    /* ── Spacing (Semantic — 8pt grid + gutter) ── */
+    --space-2xs: var(--primitive-2);
+    --space-xs: var(--primitive-4);
+    --space-sm: var(--primitive-8);
+    --space-md: var(--primitive-16);
+    --space-gutter: var(--primitive-20);
+    /* Container padding — intentional 20px */
+    --space-lg: var(--primitive-24);
+    --space-xl: var(--primitive-32);
+    --space-2xl: var(--primitive-40);
+    --space-3xl: var(--primitive-48);
+    --space-4xl: var(--primitive-60);
+    --space-5xl: var(--primitive-80);
+    --space-6xl: var(--primitive-100);
+    --space-section: var(--primitive-80);
+    --space-section-sm: var(--primitive-60);
+    --grid-gap: var(--primitive-30);
+
+    /* ── Typography ── */
+    --font-family-heading: var(--primitive-font-heading);
+    --font-family-body: var(--primitive-font-body);
+
+    --font-size-2xs: 0.75rem;
+    /* 12px */
+    --font-size-xs: 0.85rem;
+    /* ~14px */
+    --font-size-sm: 0.95rem;
+    /* ~15px */
+    --font-size-base: 1rem;
+    /* 16px */
+    --font-size-md: 1.1rem;
+    /* ~18px */
+    --font-size-lg: 1.2rem;
+    /* ~19px */
+    --font-size-lg-alt: 1.3rem;
+    /* ~21px */
+    --font-size-lg-plus: 1.5rem;
+    /* 24px */
+    --font-size-xl: 1.4rem;
+    /* ~22px */
+    --font-size-2xl: 1.8rem;
+    /* ~29px */
+    --font-size-3xl: 2.2rem;
+    /* ~35px */
+    --font-size-3xl-sm: 2rem;
+    /* 32px — responsive headings */
+    --font-size-4xl: 2.5rem;
+    /* 40px */
+    --font-size-5xl: 3rem;
+    /* 48px */
+    --font-size-6xl: 3.5rem;
+    /* 56px */
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* ── Border Radius ── */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-pill: 50px;
+    --radius-circle: 50%;
+
+    /* ── Shadows ── */
+    --shadow-sm: 0 2px 8px rgba(57, 62, 70, 0.08);
+    --shadow-md: 0 4px 12px rgba(57, 62, 70, 0.1);
+    --shadow-lg: 0 10px 30px rgba(57, 62, 70, 0.1);
+    --shadow-xl: 0 20px 40px rgba(57, 62, 70, 0.15);
+    --shadow-accent: 0 6px 20px rgba(4, 210, 195, 0.4);
+
+    /* ── Borders ── */
+    --border-color: var(--color-neutral-300);
+    --border-light: var(--color-neutral-200);
+    --border-default: 1px solid var(--color-neutral-300);
+
+    /* ── Transitions ── */
+    --transition-fast: all 0.2s ease;
+    --transition-default: all 0.3s ease;
+    --transition-slow: all 0.4s ease;
+
+    /* ── Z-Index Scale ── */
+    --z-base: 1;
+    --z-elevated: 10;
+    --z-sticky: 100;
+    --z-header: 1000;
+    --z-overlay: 1100;
+    --z-modal: 1200;
+    --z-toast: 1300;
+
+    /* ── Layout ── */
+    --max-width: 1200px;
+}

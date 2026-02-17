@@ -38,13 +38,14 @@
 
 .about-main-img {
   width: 100%;
-  height: 500px;
+  max-width: 500px;
+  height: 400px;
   object-fit: contain;
   border-radius: var(--radius-xl);
   background: var(--bg-default) url('/static/images/Logo_with_signature.png') center/contain no-repeat;
   padding: 40px;
   box-shadow: 0 20px 40px var(--shadow-md);
-  animation: heroFloat 4s ease-in-out infinite;
+  animation: pulse-slow 4s ease-in-out infinite;
 }
 
 .about-details-content {

@@ -44,20 +44,25 @@
 }
 
 /* Subtle breathing / pulse — shared by hero images */
-@keyframes pulse-slow {
+/* Subtle breathing / pulse — optimized for GPU */
+@keyframes pulse-smooth {
   0% {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
 
   50% {
-    transform: scale(1.02);
+    transform: scale(1.02) translateZ(0);
   }
 
   100% {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
 }
 
 .anim-pulse {
-  animation: pulse-slow 6s ease-in-out infinite;
+  animation: pulse-smooth 4s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-font-smoothing: antialiased;
 }

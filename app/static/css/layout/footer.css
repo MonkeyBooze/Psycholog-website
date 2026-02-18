@@ -89,7 +89,7 @@
   box-shadow: 0 6px 20px rgba(4, 210, 195, 0.4);
   z-index: var(--z-sticky);
   transition: var(--transition-default);
-  animation: bounce 2s infinite;
+  animation: bounce 3s infinite;
 }
 
 .float-call:hover {

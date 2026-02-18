@@ -45,7 +45,7 @@
   background: var(--bg-default) url('/static/images/Logo_with_signature.png') center/contain no-repeat;
   padding: 40px;
   box-shadow: 0 20px 40px var(--shadow-md);
-  animation: pulse-slow 4s ease-in-out infinite;
+  animation: pulse-slow 6s ease-in-out infinite;
 }
 
 .about-details-content {

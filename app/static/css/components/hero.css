@@ -51,7 +51,7 @@
   box-shadow: 0 20px 40px var(--shadow-md);
   background: var(--bg-default) url('/static/images/Logo_with_signature.png') center/contain no-repeat;
   padding: 40px;
-  animation: pulse-slow 4s ease-in-out infinite;
+  animation: pulse-slow 6s ease-in-out infinite;
 }
 
 .hero-headline {

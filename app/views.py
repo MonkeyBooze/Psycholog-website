@@ -16,6 +16,22 @@ from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategor
 
 logger = logging.getLogger(__name__)
 
+
+def sendAdminNotification(subject, body):
+    """Send an email notification directly to the admin."""
+    try:
+        send_mail(
+            subject=subject,
+            message=body,
+            from_email=settings.EMAIL_FROM,
+            recipient_list=[settings.ADMIN_NOTIFICATION_EMAIL],
+            fail_silently=False,
+        )
+        logger.info("Admin notification sent to %s", settings.ADMIN_NOTIFICATION_EMAIL)
+    except Exception as exc:
+        logger.error("Admin notification failed: %s", exc)
+
+
 def home(request):
     form = AppointmentForm()
     return render(request, 'home.html', {'form': form})
@@ -86,34 +102,23 @@ Gabinet Psychologiczny
                                 fail_silently=True,
                             )
 
-                        # Send notification to admin(s)
-                        admin_emails = getattr(settings, 'ADMIN_EMAILS', settings.EMAIL_FROM)
-                        if isinstance(admin_emails, str):
-                            admin_emails = [email.strip() for email in admin_emails.split(',')]
-
-                        send_mail(
-                            subject=f'Nowa wizyta - {appointment.name}',
-                            message=f"""
-NOWA WIZYTA UMÓWIONA:
-
-Osoba: {appointment.name}
-Telefon: {appointment.phone}
-Email: {appointment.email or 'Nie podano'}
-Preferowany termin: {appointment.preferred_date or 'Nie podano'}
-Data zgłoszenia: {appointment.created_at.strftime('%d.%m.%Y %H:%M')}
-
-Wiadomość od klienta:
-{appointment.message or 'Brak dodatkowych informacji'}
-
-ZGODY RODO:
-- Przetwarzanie danych: {'TAK' if appointment.data_processing_consent else 'NIE'}
-- Marketing: {'TAK' if appointment.marketing_consent else 'NIE'}
-
-Skontaktuj się z klientem w ciągu 24h.
-                            """,
-                            from_email=settings.EMAIL_FROM,
-                            recipient_list=admin_emails,
-                            fail_silently=False,  # Admin emails should raise on failure
+                        # Send notification to admin
+                        sendAdminNotification(
+                            subject=f"Nowa wizyta - {appointment.name}",
+                            body=(
+                                f"NOWA WIZYTA UMÓWIONA:\n\n"
+                                f"Osoba: {appointment.name}\n"
+                                f"Telefon: {appointment.phone}\n"
+                                f"Email: {appointment.email or 'Nie podano'}\n"
+                                f"Preferowany termin: {appointment.preferred_date or 'Nie podano'}\n"
+                                f"Data zgłoszenia: {appointment.created_at.strftime('%d.%m.%Y %H:%M')}\n\n"
+                                f"Wiadomość od klienta:\n"
+                                f"{appointment.message or 'Brak dodatkowych informacji'}\n\n"
+                                f"ZGODY RODO:\n"
+                                f"- Przetwarzanie danych: {'TAK' if appointment.data_processing_consent else 'NIE'}\n"
+                                f"- Marketing: {'TAK' if appointment.marketing_consent else 'NIE'}\n\n"
+                                f"Skontaktuj się z klientem w ciągu 24h."
+                            ),
                         )
                         logger.info("Emails sent successfully")
                     else:
@@ -323,27 +328,18 @@ Z poważaniem,
                         fail_silently=True,
                     )
                     
-                    # Send notification to admin(s)
-                    admin_emails = getattr(settings, 'ADMIN_EMAILS', settings.EMAIL_FROM)
-                    if isinstance(admin_emails, str):
-                        admin_emails = [email.strip() for email in admin_emails.split(',')]
-
-                    send_mail(
-                        subject=f'Nowe żądanie RODO - {dsr_request.tracking_number}',
-                        message=f"""
-Otrzymano nowe żądanie RODO:
-
-Numer: {dsr_request.tracking_number}
-Rodzaj: {dsr_request.get_request_type_display()}
-Osoba: {dsr_request.full_name}
-Email: {dsr_request.email}
-Telefon: {dsr_request.phone or 'Nie podano'}
-
-Szczegóły w panelu administracyjnym.
-                        """,
-                        from_email=settings.EMAIL_FROM,
-                        recipient_list=admin_emails,
-                        fail_silently=False,  # Admin emails should raise on failure
+                    # Send notification to admin
+                    sendAdminNotification(
+                        subject=f"Nowe żądanie RODO - {dsr_request.tracking_number}",
+                        body=(
+                            f"Otrzymano nowe żądanie RODO:\n\n"
+                            f"Numer: {dsr_request.tracking_number}\n"
+                            f"Rodzaj: {dsr_request.get_request_type_display()}\n"
+                            f"Osoba: {dsr_request.full_name}\n"
+                            f"Email: {dsr_request.email}\n"
+                            f"Telefon: {dsr_request.phone or 'Nie podano'}\n\n"
+                            f"Szczegóły w panelu administracyjnym."
+                        ),
                     )
             except Exception:
                 pass

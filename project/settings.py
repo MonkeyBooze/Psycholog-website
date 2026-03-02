@@ -174,15 +174,16 @@ CONTENT_SECURITY_POLICY = {
     }
 }
 
-# Email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = env('EMAIL_HOST', default='')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
-EMAIL_PORT = env.int('EMAIL_PORT', default=587)
-EMAIL_USE_TLS = True
-EMAIL_TIMEOUT = 1  # 1 second timeout for SMTP connections
-EMAIL_FROM = env('EMAIL_FROM', default='no-reply@example.com')
+# Email (Zoho Mail SMTP)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("EMAIL_HOST", default="smtp.zoho.eu")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=465)
+EMAIL_USE_SSL = True
+EMAIL_TIMEOUT = 10
+EMAIL_FROM = env("EMAIL_FROM", default="no-reply@example.com")
+ADMIN_NOTIFICATION_EMAIL = "jakub.lewandowski@spektrumumyslu.pl"
 
 # GA4 id passed to templates via context processor
 GA_MEASUREMENT_ID = env('GA_MEASUREMENT_ID', default='')

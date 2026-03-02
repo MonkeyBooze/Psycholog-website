@@ -47,20 +47,21 @@
 /* Subtle breathing / pulse — optimized for GPU */
 @keyframes pulse-smooth {
   0% {
-    transform: scale(1) translateZ(0);
+    transform: scale3d(1, 1, 1) rotate(0.01deg);
   }
 
   50% {
-    transform: scale(1.02) translateZ(0);
+    transform: scale3d(1.02, 1.02, 1) rotate(0.01deg);
   }
 
   100% {
-    transform: scale(1) translateZ(0);
+    transform: scale3d(1, 1, 1) rotate(0.01deg);
   }
 }
 
 .anim-pulse {
   animation: pulse-smooth 4s ease-in-out infinite;
+  transform-style: preserve-3d;
   will-change: transform;
   backface-visibility: hidden;
   perspective: 1000px;

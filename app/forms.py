@@ -14,20 +14,16 @@ class AppointmentForm(forms.ModelForm):
 
     class Meta:
         model = Appointment
-        fields = ['name', 'phone', 'email', 'preferred_date', 'message']
+        fields = ['name', 'phone', 'email']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Imię i nazwisko'}),
             'phone': forms.TextInput(attrs={'placeholder': '+48 xxx xxx xxx'}),
             'email': forms.EmailInput(attrs={'placeholder': 'email@example.com'}),
-            'preferred_date': forms.TextInput(attrs={'placeholder': 'np. jutro po 15:00, następny tydzień'}),
-            'message': forms.Textarea(attrs={'placeholder': 'Opisz swoje potrzeby...', 'rows': 4}),
         }
         labels = {
             'name': 'Imię i nazwisko *',
             'phone': 'Telefon *',
             'email': 'Email',
-            'preferred_date': 'Preferowany termin',
-            'message': 'Wiadomość',
         }
 
     def clean(self):

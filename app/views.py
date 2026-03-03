@@ -10,6 +10,7 @@ from django.db.models import Q, F
 from django.views.decorators.http import require_POST
 from django_ratelimit.decorators import ratelimit
 import json
+import threading
 import logging
 from .forms import AppointmentForm, DataSubjectRightsForm
 from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory, CookieConsent
@@ -36,6 +37,74 @@ def home(request):
     form = AppointmentForm()
     return render(request, 'home.html', {'form': form})
 
+SUBJECT_MAP = {
+    "terapia": "Terapia indywidualna",
+    "konsultacja": "Konsultacja psychologiczna",
+    "adhd": "Diagnoza ADHD",
+    "autyzm": "Diagnoza autyzmu (ADOS-2)",
+    "tus": "Trening Umiejętności Społecznych",
+    "inne": "Inne",
+}
+
+
+def _sendBookingEmails(name, phone, email, subject_label, created_at, data_processing_consent, marketing_consent):
+    """Send booking emails in a background thread so the user isn't blocked."""
+    try:
+        email_configured = (
+            settings.EMAIL_HOST and
+            settings.EMAIL_HOST.strip() and
+            settings.EMAIL_HOST_USER and
+            settings.EMAIL_HOST_USER.strip()
+        )
+        if not email_configured:
+            logger.info("Email not configured - skipping email notifications")
+            return
+
+        # Send confirmation email to customer
+        if email:
+            send_mail(
+                subject="Potwierdzenie umówienia wizyty - Gabinet Psychologiczny",
+                message=(
+                    f"Szanowni Państwo {name},\n\n"
+                    f"Dziękujemy za umówienie wizyty w naszym gabinecie psychologicznym.\n\n"
+                    f"Szczegóły wizyty:\n"
+                    f"- Imię i nazwisko: {name}\n"
+                    f"- Telefon: {phone}\n"
+                    f"- Email: {email}\n"
+                    f"- Temat: {subject_label}\n\n"
+                    f"Skontaktujemy się z Państwem w ciągu 24 godzin w celu potwierdzenia dokładnego terminu wizyty.\n\n"
+                    f"W razie pytań prosimy o kontakt:\n"
+                    f"- Telefon: +48 606 841 722\n"
+                    f"- Email: {settings.EMAIL_FROM}\n\n"
+                    f"Z poważaniem,\nGabinet Psychologiczny"
+                ),
+                from_email=settings.EMAIL_FROM,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            logger.info("Confirmation email sent to %s", email)
+
+        # Send notification to admin
+        sendAdminNotification(
+            subject=f"Nowa wizyta - {name}",
+            body=(
+                f"NOWA WIZYTA UMÓWIONA:\n\n"
+                f"Osoba: {name}\n"
+                f"Telefon: {phone}\n"
+                f"Email: {email or 'Nie podano'}\n"
+                f"Temat: {subject_label}\n"
+                f"Data zgłoszenia: {created_at}\n\n"
+                f"ZGODY RODO:\n"
+                f"- Przetwarzanie danych: {'TAK' if data_processing_consent else 'NIE'}\n"
+                f"- Marketing: {'TAK' if marketing_consent else 'NIE'}\n\n"
+                f"Skontaktuj się z klientem w ciągu 24h."
+            ),
+        )
+        logger.info("Admin notification sent")
+    except Exception as exc:
+        logger.error("Background email sending failed: %s", exc)
+
+
 @ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def book(request):
     if request.method == 'POST':
@@ -51,92 +120,40 @@ def book(request):
                 appointment.data_processing_consent = form.cleaned_data.get('data_processing_consent', False)
                 appointment.marketing_consent = form.cleaned_data.get('marketing_consent', False)
 
-                logger.debug(f"Consent values - Processing: {appointment.data_processing_consent}, Marketing: {appointment.marketing_consent}")
-
                 if appointment.marketing_consent:
                     appointment.marketing_consent_date = timezone.now()
 
                 appointment.save()
                 logger.info(f"Appointment saved successfully: ID {appointment.id}")
 
-                # Send email notifications (only if email is properly configured)
-                try:
-                    # Check if email is actually configured (all required fields)
-                    email_configured = (
-                        settings.EMAIL_HOST and
-                        settings.EMAIL_HOST.strip() and
-                        settings.EMAIL_HOST_USER and
-                        settings.EMAIL_HOST_USER.strip()
-                    )
+                # Capture subject from POST (not a model field)
+                raw_subject = request.POST.get('subject', '')
+                subject_label = SUBJECT_MAP.get(raw_subject, raw_subject or 'Nie podano')
 
-                    if email_configured:
-                        logger.info(f"Email configured - attempting to send to {appointment.email}")
-
-                        # Send confirmation email to customer
-                        if appointment.email:
-                            send_mail(
-                                subject='Potwierdzenie umówienia wizyty - Gabinet Psychologiczny',
-                                message=f"""
-Szanowni Państwo {appointment.name},
-
-Dziękujemy za umówienie wizyty w naszym gabinecie psychologicznym.
-
-Szczegóły wizyty:
-- Imię i nazwisko: {appointment.name}
-- Telefon: {appointment.phone}
-- Email: {appointment.email}
-- Preferowany termin: {appointment.preferred_date or 'Nie podano'}
-- Wiadomość: {appointment.message or 'Brak dodatkowych informacji'}
-
-Skontaktujemy się z Państwem w ciągu 24 godzin w celu potwierdzenia dokładnego terminu wizyty.
-
-W razie pytań prosimy o kontakt:
-- Telefon: +48 606 841 722
-- Email: {settings.EMAIL_FROM}
-
-Z poważaniem,
-Gabinet Psychologiczny
-                                """,
-                                from_email=settings.EMAIL_FROM,
-                                recipient_list=[appointment.email],
-                                fail_silently=False,
-                            )
-
-                        # Send notification to admin
-                        sendAdminNotification(
-                            subject=f"Nowa wizyta - {appointment.name}",
-                            body=(
-                                f"NOWA WIZYTA UMÓWIONA:\n\n"
-                                f"Osoba: {appointment.name}\n"
-                                f"Telefon: {appointment.phone}\n"
-                                f"Email: {appointment.email or 'Nie podano'}\n"
-                                f"Preferowany termin: {appointment.preferred_date or 'Nie podano'}\n"
-                                f"Data zgłoszenia: {appointment.created_at.strftime('%d.%m.%Y %H:%M')}\n\n"
-                                f"Wiadomość od klienta:\n"
-                                f"{appointment.message or 'Brak dodatkowych informacji'}\n\n"
-                                f"ZGODY RODO:\n"
-                                f"- Przetwarzanie danych: {'TAK' if appointment.data_processing_consent else 'NIE'}\n"
-                                f"- Marketing: {'TAK' if appointment.marketing_consent else 'NIE'}\n\n"
-                                f"Skontaktuj się z klientem w ciągu 24h."
-                            ),
-                        )
-                        logger.info("Emails sent successfully")
-                    else:
-                        logger.info("Email not configured - skipping email notifications")
-                except Exception as email_error:
-                    # Log email error but don't fail the booking
-                    logger.error(f"Email sending failed: {email_error}")
+                # Send emails in background thread (user gets instant response)
+                thread = threading.Thread(
+                    target=_sendBookingEmails,
+                    kwargs={
+                        "name": appointment.name,
+                        "phone": appointment.phone,
+                        "email": appointment.email or "",
+                        "subject_label": subject_label,
+                        "created_at": appointment.created_at.strftime("%d.%m.%Y %H:%M"),
+                        "data_processing_consent": appointment.data_processing_consent,
+                        "marketing_consent": appointment.marketing_consent,
+                    },
+                    daemon=True,
+                )
+                thread.start()
 
                 messages.success(request, 'Wizyta została umówiona pomyślnie!')
                 return redirect('thanks')
 
             except Exception as e:
-                # Log the error for debugging
                 logger.error(f"Booking failed: {e}", exc_info=True)
                 messages.error(request, 'Wystąpił błąd podczas zapisywania. Spróbuj ponownie lub zadzwoń.')
                 return render(request, 'home.html', {'form': form})
         else:
-            # Form is not valid - log errors and render with errors
             logger.warning(f"Form validation failed. Errors: {form.errors}")
             messages.error(request, 'Proszę poprawić błędy w formularzu.')
             return render(request, 'home.html', {'form': form})

@@ -99,7 +99,7 @@ Gabinet Psychologiczny
                                 """,
                                 from_email=settings.EMAIL_FROM,
                                 recipient_list=[appointment.email],
-                                fail_silently=True,
+                                fail_silently=False,
                             )
 
                         # Send notification to admin
@@ -325,7 +325,7 @@ Z poważaniem,
                         """,
                         from_email=settings.EMAIL_FROM,
                         recipient_list=[dsr_request.email],
-                        fail_silently=True,
+                        fail_silently=False,
                     )
                     
                     # Send notification to admin

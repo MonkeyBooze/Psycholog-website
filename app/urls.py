@@ -19,6 +19,7 @@ urlpatterns = [
     path('trening-umiejetnosci-spolecznych/', views.tus, name='tus'),
     path('terapia-indywidualna/', views.terapia_indywidualna, name='terapia_indywidualna'),
     path('szkolenia-dla-firm/', views.trainings, name='trainings'),
+    path('szkolenia-zapytanie/', views.training_inquiry, name='training_inquiry'),
     path('blog/', views.blog, name='blog'),
     path('blog/kategoria/<slug:slug>/', views.blog_category, name='blog_category'),
     path('blog/<slug:slug>/', views.blog_post_detail, name='blog_post_detail'),

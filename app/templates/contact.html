@@ -102,18 +102,6 @@
             </div>
 
             <div class="form-group">
-              <label for="{{ form.preferred_date.id_for_label }}">{{ form.preferred_date.label }}</label>
-              {{ form.preferred_date }}
-              {% for error in form.preferred_date.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
-            </div>
-
-            <div class="form-group">
-              <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
-              {{ form.message }}
-              {% for error in form.message.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
-            </div>
-
-            <div class="form-group">
               <label class="checkbox-label">
                 {{ form.data_processing_consent }}
                 <span class="checkmark"></span>

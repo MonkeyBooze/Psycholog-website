@@ -25,6 +25,34 @@ class Appointment(models.Model):
         verbose_name_plural = "Appointments"
 
 
+class TrainingInquiry(models.Model):
+    """B2B training inquiry from the szkolenia page."""
+    SUBJECT_CHOICES = [
+        ("antymobbingowe_pracownicy", "Szkolenie antymobbingowe dla pracowników"),
+        ("antymobbingowe_kadra", "Szkolenie dla kadry zarządzającej i HR"),
+        ("procedura", "Wdrożenie procedury antymobbingowej"),
+        ("pakiet", "Pakiet PEŁNY"),
+        ("inne", "Inne / Konsultacja"),
+    ]
+
+    name = models.CharField(max_length=120)
+    company = models.CharField(max_length=200)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=30, blank=True)
+    subject = models.CharField(max_length=50, choices=SUBJECT_CHOICES, default="inne")
+    message = models.TextField(blank=True)
+    data_processing_consent = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.company} - {self.name} ({self.created_at:%d.%m.%Y})"
+
+    class Meta:
+        verbose_name = "Training Inquiry"
+        verbose_name_plural = "Training Inquiries"
+        ordering = ["-created_at"]
+
+
 class DataSubjectRightsRequest(models.Model):
     REQUEST_TYPES = [
         ('access', 'Żądanie dostępu do danych'),

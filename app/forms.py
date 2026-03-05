@@ -1,5 +1,5 @@
 from django import forms
-from .models import Appointment
+from .models import Appointment, TrainingInquiry
 
 class AppointmentForm(forms.ModelForm):
     # honeypot (ukryte pole – boty je wypełnią)
@@ -23,8 +23,12 @@ class AppointmentForm(forms.ModelForm):
         labels = {
             'name': 'Imię i nazwisko *',
             'phone': 'Telefon *',
-            'email': 'Email',
+            'email': 'Email *',
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].required = True
 
     def clean(self):
         cleaned = super().clean()
@@ -113,4 +117,53 @@ class DataSubjectRightsForm(forms.Form):
         if not cleaned.get('privacy_consent'):
             raise forms.ValidationError("Zgoda na przetwarzanie danych jest wymagana.")
             
+        return cleaned
+
+
+class TrainingInquiryForm(forms.ModelForm):
+    # honeypot (ukryte pole – boty je wypełnią)
+    hp_field = forms.CharField(required=False, widget=forms.HiddenInput())
+
+    # GDPR consent
+    data_processing_consent = forms.BooleanField(
+        required=True,
+        label="Wyrażam zgodę na przetwarzanie moich danych osobowych w celu udzielenia odpowiedzi na zapytanie zgodnie z Polityką Prywatności.",
+        error_messages={"required": "Zgoda na przetwarzanie danych jest wymagana."},
+    )
+
+    class Meta:
+        model = TrainingInquiry
+        fields = ["name", "company", "email", "phone", "subject", "message"]
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Imię i nazwisko", "class": "input-prem"}),
+            "company": forms.TextInput(attrs={"placeholder": "Nazwa firmy lub organizacji", "class": "input-prem"}),
+            "email": forms.EmailInput(attrs={"placeholder": "email@firma.pl", "class": "input-prem"}),
+            "phone": forms.TextInput(attrs={"placeholder": "+48 xxx xxx xxx", "class": "input-prem"}),
+            "subject": forms.Select(attrs={"class": "input-prem"}),
+            "message": forms.Textarea(attrs={"placeholder": "Opisz czego potrzebujesz...", "rows": 4, "class": "input-prem"}),
+        }
+        labels = {
+            "name": "Imię i nazwisko *",
+            "company": "Firma / Organizacja *",
+            "email": "Email",
+            "phone": "Telefon",
+            "subject": "Jakie szkolenie Cię interesuje?",
+            "message": "Wiadomość",
+        }
+
+    def clean(self):
+        cleaned = super().clean()
+        if cleaned.get("hp_field"):
+            raise forms.ValidationError("Invalid submission.")
+
+        email = cleaned.get("email")
+        phone = cleaned.get("phone")
+        if not email and not phone:
+            raise forms.ValidationError(
+                "Podaj adres email lub numer telefonu, abyśmy mogli się z Tobą skontaktować."
+            )
+
+        if not cleaned.get("data_processing_consent"):
+            raise forms.ValidationError("Zgoda na przetwarzanie danych jest wymagana.")
+
         return cleaned

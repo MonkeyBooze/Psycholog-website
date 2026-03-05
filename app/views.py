@@ -12,8 +12,8 @@ from django_ratelimit.decorators import ratelimit
 import json
 import threading
 import logging
-from .forms import AppointmentForm, DataSubjectRightsForm
-from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory, CookieConsent
+from .forms import AppointmentForm, DataSubjectRightsForm, TrainingInquiryForm
+from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory, CookieConsent, TrainingInquiry
 
 logger = logging.getLogger(__name__)
 
@@ -200,8 +200,115 @@ def terapia_indywidualna(request):
     return render(request, 'terapia_indywidualna.html', {'form': form})
 
 def trainings(request):
-    form = AppointmentForm()
+    form = TrainingInquiryForm()
     return render(request, 'trainings.html', {'form': form})
+
+
+def _sendTrainingInquiryEmails(name, company, email, phone, subject, message, created_at):
+    """Send training inquiry notification to admin in background."""
+    try:
+        email_configured = (
+            settings.EMAIL_HOST and
+            settings.EMAIL_HOST.strip() and
+            settings.EMAIL_HOST_USER and
+            settings.EMAIL_HOST_USER.strip()
+        )
+        if not email_configured:
+            logger.info("Email not configured - skipping training inquiry notification")
+            return
+
+        contact_info = []
+        if email:
+            contact_info.append(f"Email: {email}")
+        if phone:
+            contact_info.append(f"Telefon: {phone}")
+
+        sendAdminNotification(
+            subject=f"Zapytanie szkoleniowe - {company}",
+            body=(
+                f"NOWE ZAPYTANIE SZKOLENIOWE:\n\n"
+                f"Firma: {company}\n"
+                f"Osoba kontaktowa: {name}\n"
+                f"{chr(10).join(contact_info)}\n"
+                f"Temat: {subject}\n"
+                f"Data zgłoszenia: {created_at}\n"
+                f"\nWiadomość:\n{message or '(brak)'}\n\n"
+                f"Skontaktuj się z klientem w ciągu 24h."
+            ),
+        )
+
+        # Send confirmation to client if email provided
+        if email:
+            send_mail(
+                subject="Potwierdzenie zapytania szkoleniowego - Spektrum Umysłu",
+                message=(
+                    f"Szanowni Państwo,\n\n"
+                    f"Dziękujemy za zainteresowanie naszą ofertą szkoleniową.\n\n"
+                    f"Szczegóły zapytania:\n"
+                    f"- Firma: {company}\n"
+                    f"- Temat: {subject}\n\n"
+                    f"Skontaktujemy się z Państwem w ciągu 24 godzin.\n\n"
+                    f"W razie pytań prosimy o kontakt:\n"
+                    f"- Telefon: +48 606 841 722\n"
+                    f"- Email: {settings.EMAIL_FROM}\n\n"
+                    f"Z poważaniem,\nSpektrum Umysłu"
+                ),
+                from_email=settings.EMAIL_FROM,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            logger.info("Training inquiry confirmation sent to %s", email)
+
+        logger.info("Training inquiry admin notification sent")
+    except Exception as exc:
+        logger.error("Training inquiry email failed: %s", exc)
+
+
+@ratelimit(key="ip", rate="5/m", method="POST", block=True)
+def training_inquiry(request):
+    if request.method == "POST":
+        logger.info("Training inquiry form submitted")
+        form = TrainingInquiryForm(request.POST)
+
+        if form.is_valid():
+            logger.info("Training inquiry form is valid")
+            try:
+                inquiry = form.save(commit=False)
+                inquiry.data_processing_consent = form.cleaned_data.get("data_processing_consent", False)
+                inquiry.save()
+                logger.info(f"Training inquiry saved: ID {inquiry.id}")
+
+                subject_label = dict(TrainingInquiry.SUBJECT_CHOICES).get(
+                    inquiry.subject, inquiry.subject
+                )
+
+                thread = threading.Thread(
+                    target=_sendTrainingInquiryEmails,
+                    kwargs={
+                        "name": inquiry.name,
+                        "company": inquiry.company,
+                        "email": inquiry.email or "",
+                        "phone": inquiry.phone or "",
+                        "subject": subject_label,
+                        "message": inquiry.message,
+                        "created_at": inquiry.created_at.strftime("%d.%m.%Y %H:%M"),
+                    },
+                    daemon=True,
+                )
+                thread.start()
+
+                messages.success(request, "Dziękujemy! Twoje zapytanie zostało wysłane. Skontaktujemy się w ciągu 24h.")
+                return redirect("thanks")
+
+            except Exception as e:
+                logger.error(f"Training inquiry failed: {e}", exc_info=True)
+                messages.error(request, "Wystąpił błąd podczas zapisywania. Spróbuj ponownie lub zadzwoń.")
+                return render(request, "trainings.html", {"form": form})
+        else:
+            logger.warning(f"Training inquiry validation failed. Errors: {form.errors}")
+            messages.error(request, "Proszę poprawić błędy w formularzu.")
+            return render(request, "trainings.html", {"form": form})
+    return redirect("trainings")
 
 def blog(request):
     # Get filters from request

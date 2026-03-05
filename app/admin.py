@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Appointment, DataSubjectRightsRequest, BlogCategory, BlogPost, StaffMember, CookieConsent
+from .models import Appointment, DataSubjectRightsRequest, BlogCategory, BlogPost, StaffMember, CookieConsent, TrainingInquiry
 
 
 @admin.register(Appointment)
@@ -134,3 +134,12 @@ class CookieConsentAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         # Read-only for audit purposes
         return False
+
+
+@admin.register(TrainingInquiry)
+class TrainingInquiryAdmin(admin.ModelAdmin):
+    list_display = ["company", "name", "email", "phone", "subject", "created_at"]
+    list_filter = ["subject", "created_at"]
+    search_fields = ["company", "name", "email", "phone"]
+    readonly_fields = ["created_at"]
+    date_hierarchy = "created_at"

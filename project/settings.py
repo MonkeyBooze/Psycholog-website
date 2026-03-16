@@ -152,6 +152,9 @@ else:
     SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', default=31536000)
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+    
+# Trust the X-Forwarded-Proto header from Railway/Cloudflare proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[])
 SECURE_CONTENT_TYPE_NOSNIFF = True

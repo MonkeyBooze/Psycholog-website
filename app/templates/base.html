@@ -15,6 +15,10 @@
   <title>{{ meta_title_val }}</title>
   <meta name="description" content="{{ meta_desc_val }}">
 
+  {% if GOOGLE_SITE_VERIFICATION %}
+  <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}" />
+  {% endif %}
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">

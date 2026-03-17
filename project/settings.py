@@ -188,8 +188,9 @@ EMAIL_TIMEOUT = 10
 EMAIL_FROM = env("EMAIL_FROM", default="no-reply@example.com")
 ADMIN_NOTIFICATION_EMAIL = "jakub.lewandowski@spektrumumyslu.pl"
 
-# GA4 id passed to templates via context processor
+# GA4 i Google Search Console
 GA_MEASUREMENT_ID = env('GA_MEASUREMENT_ID', default='')
+GOOGLE_SITE_VERIFICATION = env('GOOGLE_SITE_VERIFICATION', default='')
 
 # Enhanced logging for debugging
 LOGGING = {

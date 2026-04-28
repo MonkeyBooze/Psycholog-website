@@ -32,16 +32,16 @@
 
   <link rel="canonical" href="https://spektrumumyslu.pl{{ request.path }}">
 
-  <!-- Structured Data: ProfessionalService (Multiple Locations) -->
+  <!-- Structured Data: MedicalBusiness (Multiple Locations) -->
   <script type="application/ld+json">
   [
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Spektrum Umysłu",
+      "@type": "MedicalBusiness",
+      "name": "Spektrum Umysłu – Gabinet Psychologiczny Opole",
       "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/Logo_with_signature.png' %}",
       "url": "https://spektrumumyslu.pl",
-      "telephone": "+48 606 841 722",
+      "telephone": "+48606841722",
       "openingHours": "Mo-Su 08:00-22:00",
       "address": {
         "@type": "PostalAddress",
@@ -55,17 +55,28 @@
         "latitude": "50.6682",
         "longitude": "17.9260"
       },
+      "hasMap": "https://maps.google.com/?q=Spektrum+Umyslu+Opole",
       "areaServed": ["Opole", "Nysa", "województwo opolskie"],
-      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Terapia indywidualna", "Szkolenia antymobbingowe dla firm"],
-      "priceRange": "$$"
+      "medicalSpecialty": "Psychiatry",
+      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Test ADOS-2", "Terapia indywidualna", "TUS", "Konsultacje psychologiczne"],
+      "priceRange": "$$",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "ratingCount": "25"
+      },
+      "sameAs": [
+        "https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+      ]
     },
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Spektrum Umysłu",
+      "@type": "MedicalBusiness",
+      "name": "Spektrum Umysłu – Gabinet Psychologiczny Nysa",
       "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/Logo_with_signature.png' %}",
       "url": "https://spektrumumyslu.pl",
-      "telephone": "+48 606 841 722",
+      "telephone": "+48606841722",
       "openingHours": "Mo-Su 08:00-22:00",
       "address": {
         "@type": "PostalAddress",
@@ -79,9 +90,20 @@
         "latitude": "50.4736",
         "longitude": "17.3330"
       },
-      "areaServed": ["Opole", "Nysa", "województwo opolskie"],
-      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Terapia indywidualna", "Szkolenia antymobbingowe dla firm"],
-      "priceRange": "$$"
+      "hasMap": "https://maps.google.com/?q=Spektrum+Umyslu+Nysa",
+      "areaServed": ["Nysa", "Opole", "województwo opolskie"],
+      "medicalSpecialty": "Psychiatry",
+      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Test ADOS-2", "Terapia indywidualna", "TUS", "Konsultacje psychologiczne"],
+      "priceRange": "$$",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "ratingCount": "25"
+      },
+      "sameAs": [
+        "https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+      ]
     }
   ]
   </script>
@@ -96,7 +118,7 @@
       <div class="container">
         <div class="navbar-brand">
           <a href="/" class="logo-link">
-            <img src="{% static 'images/Logo.png' %}" alt="{{ SITE_NAME }}" class="logo-img"
+            <img src="{% static 'images/Logo.png' %}" alt="{{ SITE_NAME }} – Psycholog Opole i Nysa" class="logo-img"
               style="height: 50px; width: auto; max-width: 200px;">
           </a>
         </div>
@@ -104,7 +126,7 @@
         <div class="navbar-menu">
           <a href="/" class="nav-link">Strona główna</a>
           <a href="/o-nas/" class="nav-link">O nas</a>
-          <a href="/cennik" class="nav-link">Cennik</a>
+          <a href="/cennik/" class="nav-link">Cennik</a>
           <a href="/szkolenia-dla-firm/" class="nav-link">Szkolenia dla firm</a>
           <a href="/blog/" class="nav-link">Blog</a>
           <a href="/kontakt/" class="nav-link">Kontakt</a>
@@ -142,7 +164,7 @@
         <div class="footer-section">
           <h5>Menu</h5>
           <a href="/o-nas/">O nas</a>
-          <a href="/cennik">Cennik</a>
+          <a href="/cennik/">Cennik</a>
           <a href="/blog/">Blog</a>
           <a href="/kontakt/">Kontakt</a>
           <a href="/szkolenia-dla-firm/">Szkolenia dla firm</a>

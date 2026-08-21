@@ -49,7 +49,7 @@
   object-fit: contain;
   border-radius: var(--radius-xl);
   box-shadow: 0 20px 40px var(--shadow-md);
-  background: var(--bg-default) url('/static/images/Logo_with_signature.png') center/contain no-repeat;
+  background: var(--bg-default) url('/static/images/logo-with-signature.png') center/contain no-repeat;
   padding: 40px;
   animation: pulse-smooth 4s ease-in-out infinite;
   transform-style: preserve-3d;

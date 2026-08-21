@@ -7,107 +7,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   {% capture meta_title_val %}{% block meta_title %}{{ SITE_NAME }}{% endblock %}{% endcapture %}
-  {% capture meta_desc_val %}{% block meta_description %}Gabinet psychologiczny Spektrum Umysłu w Opolu i Nysie.
-  Diagnoza ADHD, spektrum autyzmu (test ADOS), TUS, terapia indywidualna i konsultacje online. Zadzwoń: +48 606 841
-  722{% endblock %}{% endcapture %}
+  {% capture meta_desc_val %}{% block meta_description %}Gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD (DIVA-5), spektrum autyzmu (ADOS-2), TUS i terapia. Tel. {{ PHONE_SHORT }}{% endblock %}{% endcapture %}
+  {% capture canonical_url %}{{ SITE_URL }}{% block canonical_path %}{{ request.path }}{% endblock %}{% endcapture %}
 
-  <!-- SEO & Open Graph Blocks -->
   <title>{{ meta_title_val }}</title>
   <meta name="description" content="{{ meta_desc_val }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% block meta_robots %}{% endblock %}
 
   {% if GOOGLE_SITE_VERIFICATION %}
   <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}" />
   {% endif %}
 
+  <!-- Fonty ładowane z HTML, nie przez @import w CSS, inaczej powstaje kaskada
+       trzech sekwencyjnych rund pobierania przed pierwszym renderem. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="icon" href="{% static 'images/logo.png' %}">
 
-  <!-- Open Graph / Facebook -->
+  {% capture og_image_url %}{% block meta_image %}{{ SITE_URL }}{% static 'images/og-default.jpg' %}{% endblock %}{% endcapture %}
+
+  <!-- Open Graph -->
   <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-  <meta property="og:url" content="{% block meta_url %}{{ request.build_absolute_uri }}{% endblock %}">
+  <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:title" content="{% block og_title %}{{ meta_title_val }}{% endblock %}">
   <meta property="og:description" content="{% block og_description %}{{ meta_desc_val }}{% endblock %}">
-  <meta property="og:image" content="{% block meta_image %}{% static 'images/og-default.jpg' %}{% endblock %}">
+  <meta property="og:image" content="{{ og_image_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
 
-  <link rel="canonical" href="https://spektrumumyslu.pl{{ request.path }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ meta_title_val }}">
+  <meta name="twitter:description" content="{{ meta_desc_val }}">
+  <meta name="twitter:image" content="{{ og_image_url }}">
 
-  <!-- Structured Data: MedicalBusiness (Multiple Locations) -->
+  <!-- Dane strukturalne: jedna Organization + po jednym gabinecie na lokalizację.
+       Każdy gabinet ma własne @id i własny adres URL, żeby Google potrafił je rozróżnić.
+       Świadomie BEZ aggregateRating: oceny pochodzą z ZnanyLekarz, a oznaczanie cudzych
+       opinii jako własnych łamie wytyczne Google dla fragmentów z opiniami. -->
   <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "MedicalBusiness",
-      "name": "Spektrum Umysłu – Gabinet Psychologiczny Opole",
-      "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/Logo_with_signature.png' %}",
-      "url": "https://spektrumumyslu.pl",
-      "telephone": "+48606841722",
-      "openingHours": "Mo-Su 08:00-22:00",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "ul. Bronisława Koraszewskiego 8/16",
-        "addressLocality": "Opole",
-        "postalCode": "45-011",
-        "addressCountry": "PL"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "50.6682",
-        "longitude": "17.9260"
-      },
-      "hasMap": "https://maps.google.com/?q=Spektrum+Umyslu+Opole",
-      "areaServed": ["Opole", "Nysa", "województwo opolskie"],
-      "medicalSpecialty": "Psychiatry",
-      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Test ADOS-2", "Terapia indywidualna", "TUS", "Konsultacje psychologiczne"],
-      "priceRange": "$$",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "bestRating": "5",
-        "ratingCount": "25"
-      },
-      "sameAs": [
-        "https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "MedicalBusiness",
-      "name": "Spektrum Umysłu – Gabinet Psychologiczny Nysa",
-      "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/Logo_with_signature.png' %}",
-      "url": "https://spektrumumyslu.pl",
-      "telephone": "+48606841722",
-      "openingHours": "Mo-Su 08:00-22:00",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "ul. Celna 5",
-        "addressLocality": "Nysa",
-        "postalCode": "48-300",
-        "addressCountry": "PL"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "50.4736",
-        "longitude": "17.3330"
-      },
-      "hasMap": "https://maps.google.com/?q=Spektrum+Umyslu+Nysa",
-      "areaServed": ["Nysa", "Opole", "województwo opolskie"],
-      "medicalSpecialty": "Psychiatry",
-      "serviceType": ["Diagnoza ADHD", "Diagnoza autyzmu", "Test ADOS-2", "Terapia indywidualna", "TUS", "Konsultacje psychologiczne"],
-      "priceRange": "$$",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "bestRating": "5",
-        "ratingCount": "25"
-      },
-      "sameAs": [
-        "https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
-      ]
-    }
-  ]
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{ SITE_URL }}/#organization",
+        "name": "{{ SITE_NAME }}",
+        "url": "{{ SITE_URL }}/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ SITE_URL }}{% static 'images/logo-with-signature.png' %}"
+        },
+        "image": "{{ SITE_URL }}{% static 'images/og-default.jpg' %}",
+        "telephone": "{{ PHONE_E164 }}",
+        "email": "{{ EMAIL }}",
+        "areaServed": [
+          { "@type": "City", "name": "Opole" },
+          { "@type": "City", "name": "Nysa" },
+          { "@type": "AdministrativeArea", "name": "województwo opolskie" }
+        ],
+        "sameAs": ["{{ ZNANYLEKARZ_URL }}"],
+        "department": [{% for loc in LOCATIONS %}
+          { "@id": "{{ SITE_URL }}{{ loc.path }}#gabinet" }{% if not forloop.last %},{% endif %}{% endfor %}
+        ]
+      }{% for loc in LOCATIONS %},
+      {
+        "@type": ["Psychologist", "MedicalBusiness"],
+        "@id": "{{ SITE_URL }}{{ loc.path }}#gabinet",
+        "name": "{{ SITE_NAME }}, psycholog {{ loc.city }}",
+        "parentOrganization": { "@id": "{{ SITE_URL }}/#organization" },
+        "url": "{{ SITE_URL }}{{ loc.path }}",
+        "image": "{{ SITE_URL }}{% static 'images/og-default.jpg' %}",
+        "telephone": "{{ PHONE_E164 }}",
+        "email": "{{ EMAIL }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ loc.street }}",
+          "addressLocality": "{{ loc.city }}",
+          "postalCode": "{{ loc.postal_code }}",
+          "addressRegion": "opolskie",
+          "addressCountry": "PL"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{ loc.lat }}",
+          "longitude": "{{ loc.lng }}"
+        },
+        "hasMap": "{{ loc.maps_url }}",
+        "openingHoursSpecification": [{
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [{% for d in OPENING_HOURS.days %}"{{ d }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+          "opens": "{{ OPENING_HOURS.opens }}",
+          "closes": "{{ OPENING_HOURS.closes }}"
+        }],
+        "areaServed": [
+          { "@type": "City", "name": "{{ loc.city }}" },
+          { "@type": "AdministrativeArea", "name": "województwo opolskie" }
+        ],
+        "priceRange": "180-1000 PLN",
+        "currenciesAccepted": "PLN",
+        "knowsLanguage": "pl",
+        "availableService": [{% for key, svc in SERVICES.items %}
+          {
+            "@type": "MedicalTherapy",
+            "name": "{{ svc.name }}",
+            "url": "{{ SITE_URL }}{{ svc.path }}"
+          }{% if not forloop.last %},{% endif %}{% endfor %}
+        ],
+        "sameAs": ["{{ ZNANYLEKARZ_URL }}"]
+      }{% endfor %}{% if BREADCRUMB %},
+      {
+        "@type": "BreadcrumbList",
+        "@id": "{{ SITE_URL }}{{ request.path }}#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "{{ SITE_URL }}/" }{% for crumb in BREADCRUMB %},
+          { "@type": "ListItem", "position": {{ forloop.counter|add:1 }}, "name": "{{ crumb.name }}", "item": "{{ SITE_URL }}{{ crumb.path }}" }{% endfor %}
+        ]
+      }{% endif %}{% block schema_extra %}{% endblock %}
+    ]
+  }
   </script>
-  {% block schema %}{% endblock %}
 
   {% block head_extra %}{% endblock %}
 </head>
@@ -118,13 +142,15 @@
       <div class="container">
         <div class="navbar-brand">
           <a href="/" class="logo-link">
-            <img src="{% static 'images/Logo.png' %}" alt="{{ SITE_NAME }} – Psycholog Opole i Nysa" class="logo-img"
+            <img src="{% static 'images/logo.png' %}" alt="{{ SITE_NAME }}, Psycholog Opole i Nysa" class="logo-img"
               style="height: 50px; width: auto; max-width: 200px;">
           </a>
         </div>
         <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
         <div class="navbar-menu">
           <a href="/" class="nav-link">Strona główna</a>
+          <a href="/opole/" class="nav-link">Opole</a>
+          <a href="/nysa/" class="nav-link">Nysa</a>
           <a href="/o-nas/" class="nav-link">O nas</a>
           <a href="/cennik/" class="nav-link">Cennik</a>
           <a href="/szkolenia-dla-firm/" class="nav-link">Szkolenia dla firm</a>
@@ -132,7 +158,7 @@
           <a href="/kontakt/" class="nav-link">Kontakt</a>
         </div>
         <div class="navbar-cta">
-          <a href="tel:+48606841722" class="btn btn-primary">Zadzwoń teraz</a>
+          <a href="tel:{{ PHONE_E164 }}" class="btn btn-primary">Zadzwoń teraz</a>
         </div>
       </div>
     </nav>
@@ -149,38 +175,47 @@
         <div class="footer-section">
           <h4>{{ SITE_NAME }}</h4>
           <p>Profesjonalna pomoc psychologiczna w Nysie i Opolu</p>
+          <p>Diagnoza ADHD i spektrum autyzmu, terapia, TUS, konsultacje online.</p>
         </div>
         <div class="footer-section">
           <h5>Kontakt</h5>
-          <p><a href="tel:+48606841722">+48 606 841 722</a></p>
-          <p><a href="mailto:jakub.lewandowski@spektrumumyslu.pl">jakub.lewandowski@spektrumumyslu.pl</a></p>
+          <p><a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a></p>
+          <p><a href="mailto:{{ EMAIL }}">{{ EMAIL }}</a></p>
+          <p>{{ OPENING_HOURS.display }}</p>
           <div class="footer-locations">
-            <p>Opole: Bronisława Koraszewskiego 8/16</p>
-            <p>Nysa: Celna 5</p>
-            <!-- TODO: Verify with owner if Katowice location should be added -->
-            <!-- <p>Katowice: [Address TBD]</p> -->
+            {% for loc in LOCATIONS %}
+            <p><a href="{{ loc.path }}">{{ loc.city }}, {{ loc.street }}</a></p>
+            {% endfor %}
           </div>
         </div>
         <div class="footer-section">
-          <h5>Menu</h5>
+          <h5>Usługi</h5>
+          {% for key, svc in SERVICES.items %}
+          <a href="{{ svc.path }}">{{ svc.name }}</a>
+          {% endfor %}
+          <a href="/szkolenia-dla-firm/">Szkolenia dla firm</a>
+        </div>
+        <div class="footer-section">
+          <h5>Informacje</h5>
           <a href="/o-nas/">O nas</a>
           <a href="/cennik/">Cennik</a>
           <a href="/blog/">Blog</a>
           <a href="/kontakt/">Kontakt</a>
-          <a href="/szkolenia-dla-firm/">Szkolenia dla firm</a>
           <a href="/privacy/">Polityka prywatności</a>
           <a href="/cookie-policy/">Polityka cookies</a>
           <a href="/terms/">Regulamin</a>
+          <a href="/standardy-ochrony-maloletnich/">Standardy Ochrony Małoletnich</a>
+          <a href="#" id="cookie-settings-link">Ustawienia cookies</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; {{ now|date:"Y" }} {{ SITE_NAME }}. Wszystkie prawa zastrzeżone.</p>
+        <p>&copy; {% now "Y" %} {{ SITE_NAME }}. Wszystkie prawa zastrzeżone.</p>
       </div>
     </div>
   </footer>
 
   <!-- Sticky call -->
-  <a href="tel:+48606841722" class="float-call" aria-label="Umów wizytę">Umów wizytę</a>
+  <a href="tel:{{ PHONE_E164 }}" class="float-call" aria-label="Zadzwoń, aby umówić wizytę">Umów wizytę</a>
 
   <!-- Cookie consent -->
   <div id="cookie-banner" class="cookie-banner" style="display: none;">
@@ -318,30 +353,55 @@
 
       // Decline all non-necessary cookies
       document.getElementById('decline-cookies').onclick = function () {
-        var preferences = { necessary: true, analytics: false };
-        setCookieConsent(preferences);
+        setCookieConsent({ necessary: true, analytics: false });
         banner.style.display = 'none';
       };
 
-      // Show cookie settings
-      document.getElementById('cookie-settings').onclick = function () {
+      // Otwarcie okna preferencji z odtworzeniem zapisanego wyboru.
+      var analyticsCheckbox = document.getElementById('analytics-cookies');
+
+      function openPreferences(event) {
+        if (event) event.preventDefault();
+        var saved = getCookieConsent();
+        analyticsCheckbox.checked = !!(saved && saved.analytics);
         preferencesModal.style.display = 'block';
-      };
+      }
+
+      document.getElementById('cookie-settings').onclick = openPreferences;
+
+      // Stały odnośnik w stopce: bez niego zgody nie da się wycofać po zamknięciu bannera,
+      // a art. 7 ust. 3 RODO wymaga, by wycofanie było tak samo łatwe jak udzielenie.
+      var settingsLink = document.getElementById('cookie-settings-link');
+      if (settingsLink) {
+        settingsLink.addEventListener('click', openPreferences);
+      }
 
       // Close preferences modal
       document.getElementById('close-preferences').onclick = function () {
         preferencesModal.style.display = 'none';
       };
 
-      // Save preferences
+      // Zapis preferencji
       document.getElementById('save-preferences').onclick = function () {
-        var analyticsChecked = document.getElementById('analytics-cookies').checked;
-        var preferences = { necessary: true, analytics: analyticsChecked };
-        setCookieConsent(preferences);
+        var analyticsChecked = analyticsCheckbox.checked;
+        var hadAnalytics = !!(consent && consent.analytics);
+        setCookieConsent({ necessary: true, analytics: analyticsChecked });
         banner.style.display = 'none';
         preferencesModal.style.display = 'none';
+
         if (analyticsChecked) {
           loadGA('{{ GA_MEASUREMENT_ID }}');
+        } else if (hadAnalytics) {
+          // Skrypt GA jest już w pamięci strony. Usuwamy jego ciasteczka i przeładowujemy,
+          // inaczej zgoda byłaby cofnięta tylko na papierze.
+          document.cookie.split(';').forEach(function (entry) {
+            var name = entry.split('=')[0].trim();
+            if (name.indexOf('_ga') === 0 || name.indexOf('_gid') === 0) {
+              document.cookie = name + '=; Max-Age=0; path=/';
+              document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname;
+            }
+          });
+          location.reload();
         }
       };
 

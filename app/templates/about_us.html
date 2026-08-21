@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
-{% block meta_title %}O nas – Zespół Psychologów Opole | {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Poznaj nasz zespół psychologów w Opolu i Nysie. Specjalizujemy się w diagnozie ADHD,
-spektrum
-autyzmu i terapii. Ponad 3 lata doświadczenia w pracy z neuroróżnorodnością.{% endblock %}
+{% block meta_title %}Zespół psychologów, Opole i Nysa{% endblock %}
+{% block meta_description %}Poznaj psychologów i diagnostów Spektrum Umysłu w Opolu i Nysie. Diagnoza ADHD i spektrum autyzmu, terapia CBT, certyfikowani trenerzy TUS.{% endblock %}
+{% block schema_extra %}{% for person in TEAM %},
+{
+  "@type": "Person",
+  "@id": "{{ SITE_URL }}/o-nas/#{{ person.name|slugify }}",
+  "name": "{{ person.name }}",
+  "jobTitle": "{{ person.role }}",
+  "image": "{{ SITE_URL }}{% static person.photo %}",
+  "worksFor": { "@id": "{{ SITE_URL }}/#organization" },
+  "knowsAbout": [{% for k in person.knows_about %}"{{ k }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+  "knowsLanguage": "pl",
+  "url": "{{ SITE_URL }}/o-nas/"
+}{% endfor %}{% endblock %}
+
 {% block content %}
 
 <!-- About Hero Section -->
@@ -11,12 +22,12 @@ autyzmu i terapii. Ponad 3 lata doświadczenia w pracy z neuroróżnorodnością
   <div class="container">
     <div class="about-hero-content">
       <div class="about-hero-text">
-        <h1 class="fade-in">Psycholog Opole i Nysa – Poznaj nasz zespół</h1>
+        <h1 class="fade-in">Psycholog Opole i Nysa, Poznaj nasz zespół</h1>
         <p class="lead fade-in">Nasz gabinet psychologiczny tworzą doświadczeni specjaliści w Opolu i Nysie. Łączy nas pasja do pomagania ludziom,
           uważność na ich potrzeby oraz holistyczne i wspierające podejście w odkrywaniu ich potencjału.</p>
       </div>
       <div class="about-hero-image">
-        <img src="{% static 'images/Logo_with_signature.png' %}" alt="{{ SITE_NAME }} - Logo" class="about-main-img"
+        <img src="{% static 'images/logo-with-signature.png' %}" alt="{{ SITE_NAME }} - Logo" class="about-main-img"
           loading="lazy">
       </div>
     </div>
@@ -27,111 +38,34 @@ autyzmu i terapii. Ponad 3 lata doświadczenia w pracy z neuroróżnorodnością
 <section class="team-section section bg-light scroll-fade-in">
   <div class="container">
     <div class="section-header">
-      <h2>Dobry psycholog Opole i Nysa? Poznajmy się!</h2>
-      <p>Zobacz specjalistów z naszych gabinetów w Opolu i Nysie, którzy pomogą Ci w drodze do lepszego samopoczucia</p>
+      <h2>Zespół psychologów w Opolu i Nysie</h2>
+      <p>Ci sami specjaliści przyjmują w obu gabinetach, <a href="/opole/">w Opolu</a> i <a href="/nysa/">w Nysie</a>.</p>
     </div>
     <div class="team-grid">
+      {% for person in TEAM %}
       <div class="team-member">
         <div class="team-photo">
-          <img src="{% static 'images/Jakub_Lewandowski.jpg' %}" alt="Mgr Jakub Lewandowski" loading="lazy" width="300"
-            height="300">
+          <img src="{% static person.photo %}" alt="Mgr {{ person.name }} {{ person.role }}, Opole i Nysa"
+            loading="lazy" width="300" height="300">
         </div>
         <div class="team-info">
-          <h3>Mgr Jakub Lewandowski</h3>
-          <p class="team-role">Psycholog i diagnosta</p>
-          <p class="team-description">Jestem specjalistą diagnozy ADHD i Autyzmu oraz interwencji kryzysowych i pracy z
-            dorosłymi. Oferuję wsparcie w zrozumieniu procesów psychicznych, radzeniu sobie z trudnościami emocjonalnymi
-            oraz rozwijaniu umiejętności społecznych. Dzięki indywidualnemu podejściu każdy pacjent otrzymuje pomoc
-            dostosowaną do swoich potrzeb. </p>
+          <h3>Mgr {{ person.name }}</h3>
+          <p class="team-role">{{ person.role }}</p>
+          <p class="team-description">{{ person.bio }}</p>
         </div>
       </div>
-
-      <div class="team-member">
-        <div class="team-photo">
-          <img src="{% static 'images/Justyna_Lewandowska.jpg' %}" alt="Mgr Justyna Lewandowska" loading="lazy"
-            width="300" height="300">
-        </div>
-        <div class="team-info">
-          <h3>Mgr Justyna Lewandowska</h3>
-          <p class="team-role">Logopeda i diagnosta</p>
-          <p class="team-description">Jestem certyfikowanym diagnostą ADOS-2 i logopedą z 18-letnim doświadczeniem w
-            pracy z osobami w spektrum autyzmu, dziećmi i dorosłymi. W pracy kieruję się wrażliwością i uważnością na
-            potrzeby drugiego człowieka.</p>
-        </div>
-      </div>
-
-      <div class="team-member">
-        <div class="team-photo">
-          <img src="{% static 'images/Dawid_Bocz.jpg' %}" alt="Mgr Dawid Bocz" loading="lazy" width="300" height="300">
-        </div>
-        <div class="team-info">
-          <h3>Mgr Dawid Bocz</h3>
-          <p class="team-role">Psycholog i diagnosta</p>
-          <p class="team-description">Jestem młodym, pełnym pasji terapeutą z kilkuletnim doświadczeniem w pracy z
-            trudnymi dziećmi w Młodzieżowym Ośrodku Socjoterapii. Moja cierpliwość i umiejętność aktywnego słuchania
-            pozwalają młodym ludziom czuć się zrozumianymi i bezpiecznymi.</p>
-        </div>
-      </div>
-
-      <div class="team-member">
-        <div class="team-photo">
-          <img src="{% static 'images/Agata_Janicka.jpg' %}" alt="Mgr Agata Janicka" loading="lazy" width="300"
-            height="300">
-        </div>
-        <div class="team-info">
-          <h3>Mgr Agata Janicka</h3>
-          <p class="team-role">Psycholog i diagnosta</p>
-          <p class="team-description">Jestem psychologiem pracującym z dziećmi, młodzieżą i dorosłymi. Na co dzień
-            wspieram rozwój emocjonalny najmłodszych oraz towarzyszę dorosłym w odkrywaniu ich zasobów i radzeniu sobie
-            z trudnościami. Prowadzę diagnozy psychologiczne, w tym diagnozę ADHD u dzieci i dorosłych.</p>
-        </div>
-      </div>
-
-      <div class="team-member">
-        <div class="team-photo">
-          <img src="{% static 'images/Katarzyna_Kuś.jpg' %}" alt="Mgr Katarzyna Kuś-Kozłowska" loading="lazy"
-            width="300" height="300">
-        </div>
-        <div class="team-info">
-          <h3>Mgr Katarzyna Kuś-Kozłowska</h3>
-          <p class="team-role">Psycholog i diagnosta</p>
-          <p class="team-description">Jestem magistrem psychologii klinicznej Uniwersytetu Opolskiego z przygotowaniem
-            pedagogicznym oraz certyfikatem Trenera Umiejętności Społecznych. Regularnie uczestniczę w szkoleniach z
-            zakresu pomocy psychologicznej, dbając o ciągły rozwój zawodowy. Pracuję w przedszkolach publicznych, gdzie
-            wspieram dzieci oraz ich rodziców w zakresie rozwoju emocjonalno-społecznego. W pracy jestem otwarta na
-            współpracę z dziećmi i dorosłymi, również z neuroróżnorodnościami.</p>
-        </div>
-      </div>
-
-      <div class="team-member">
-        <div class="team-photo">
-          <img src="{% static 'images/Maja_Rachwal.jpg' %}" alt="Mgr Maja Rachwał" loading="lazy" width="300"
-            height="300">
-        </div>
-        <div class="team-info">
-          <h3>Mgr Maja Rachwał</h3>
-          <p class="team-role">Psycholog i certyfikowana trenerka TUS</p>
-          <p class="team-description">W swojej pracy opieram się na jasno określonych celach, zrozumieniu i poczuciu bezpieczeństwa.
-            Jestem w trakcie studiów podyplomowych z przygotowania pedagogicznego dla psychologów oraz mam za sobą szkolenia
-            z zakresu wsparcia w kryzysie, diagnozy psychologicznej, poradnictwa dla dzieci i młodzieży oraz pracy z
-            pacjentami z ADHD i ASD. Jestem certyfikowaną trenerką TUS (Treningu Umiejętności Społecznych).</p>
-        </div>
-      </div>
-
-      <div class="team-member">
-        <div class="team-photo">
-          <img src="{% static 'images/Agata_Brzozowska.JPG' %}" alt="Mgr Agata Brzozowska" loading="lazy" width="300"
-            height="300">
-        </div>
-        <div class="team-info">
-          <h3>Mgr Agata Brzozowska</h3>
-          <p class="team-role">Psycholog i diagnosta</p>
-          <p class="team-description">Pracuje z dorosłymi i dziećmi, prowadząc diagnozę oraz terapię w zakresie ADHD i
-            spektrum autyzmu. Wspiera osoby, które pragną rozwijać swoje zasoby, lepiej radzić sobie z odczuwanymi
-            trudnościami oraz szukające wsparcia w kryzysie, w oparciu o empatię i indywidualne podejście do każdego
-            klienta.</p>
-        </div>
-      </div>
+      {% endfor %}
+    </div>
+    <div class="who-content" style="margin-top: 32px;">
+      <p>
+        Zakres i stawki wszystkich usług znajdziesz w <a href="/cennik/">cenniku</a>. Najczęściej
+        prowadzimy <a href="/diagnoza-adhd/">diagnozę ADHD</a>,
+        <a href="/diagnoza-autyzmu/">diagnozę spektrum autyzmu testem ADOS-2</a>,
+        <a href="/terapia-indywidualna/">terapię indywidualną</a>,
+        <a href="/trening-umiejetnosci-spolecznych/">grupy TUS</a> oraz
+        <a href="/konsultacje-psychologiczne/">konsultacje</a>, również
+        <a href="/wsparcie-online/">online</a>.
+      </p>
     </div>
   </div>
 </section>

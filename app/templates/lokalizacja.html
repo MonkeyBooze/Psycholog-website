@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}{{ loc.title }}{% endblock %}
+{% block meta_description %}{{ loc.description }}{% endblock %}
+
+{% block schema_extra %}{% endblock %}
+
+{% block content %}
+
+<section class="service-hero section">
+  <div class="container">
+    <div class="service-hero-content">
+      <h1>{{ loc.heading }}</h1>
+      <p class="service-description">{{ loc.intro }}</p>
+
+      <div class="service-specs">
+        <div class="spec-item">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 21c-4-4.5-6-7.6-6-10a6 6 0 1 1 12 0c0 2.4-2 5.5-6 10z" />
+            <circle cx="12" cy="11" r="2" />
+          </svg>
+          <span>{{ loc.street }} {{ loc.postal_code }} {{ loc.city }}</span>
+        </div>
+        <div class="spec-item">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+          <span>{{ OPENING_HOURS.display }}</span>
+        </div>
+        <div class="spec-item">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a1 1 0 0 1-1 1A17 17 0 0 1 3 5a1 1 0 0 1 1-1z" />
+          </svg>
+          <span>{{ PHONE_DISPLAY }}</span>
+        </div>
+      </div>
+
+      <div class="hero-buttons">
+        <a href="tel:{{ PHONE_E164 }}" class="btn btn-primary btn-large">Zadzwoń: {{ PHONE_SHORT }}</a>
+        <a href="{{ loc.maps_url }}" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+          Pokaż na mapie
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dla kogo -->
+<section class="who-section section bg-light scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Dla kogo jest gabinet w {{ loc.locative }}</h2>
+    </div>
+    <div class="who-content">
+      <p>{{ loc.who }}</p>
+      <p>{{ loc.practical }}</p>
+      <p>{{ loc.extra_note }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Usługi dostępne w tej lokalizacji -->
+<section class="services-section section scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Co robimy w gabinecie w {{ loc.locative }}</h2>
+      <p>Pełen zakres usług dostępnych pod adresem {{ loc.street }}</p>
+    </div>
+    <div class="services-grid">
+      {% for key, svc in SERVICES.items %}
+      <a href="{{ svc.path }}" class="service-card">
+        <h3>{{ svc.name }}</h3>
+        <p class="service-description">
+          {% if key == 'adhd' %}Wywiad kliniczny i ustrukturyzowane badanie DIVA-5 zgodne z kryteriami DSM-5,
+          zakończone pisemną opinią psychologiczną.
+          {% elif key == 'autyzm' %}Diagnoza spektrum autyzmu protokołem obserwacji ADOS-2, prowadzona przez
+          certyfikowanych diagnostów. Dzieci, młodzież i dorośli.
+          {% elif key == 'tus' %}Zajęcia grupowe rozwijające kompetencje społeczne i komunikacyjne, w grupach
+          dobieranych pod względem wieku i potrzeb.
+          {% elif key == 'terapia' %}Regularna praca terapeutyczna w nurcie poznawczo-behawioralnym
+          i w terapii schematu.
+          {% elif key == 'konsultacja' %}Jedno lub kilka spotkań służących rozpoznaniu sytuacji i wskazaniu
+          kierunku dalszej pracy.
+          {% else %}Sesje przez bezpieczne połączenie wideo, dla osób, którym dojazd do {{ loc.locative }}
+          sprawia trudność.
+          {% endif %}
+        </p>
+        <p class="service-specs">{{ svc.specs }}</p>
+        <span class="service-link">Dowiedz się więcej →</span>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="text-center" style="margin-top: 24px;">
+      Wszystkie stawki znajdziesz w <a href="/cennik/">cenniku usług psychologicznych</a>.
+    </p>
+  </div>
+</section>
+
+<!-- Zasięg -->
+<section class="who-section section bg-light scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Skąd przyjeżdżają do nas pacjenci</h2>
+    </div>
+    <div class="who-content">
+      <p>
+        Gabinet w {{ loc.locative }} obsługuje nie tylko samo miasto. Regularnie przyjmujemy osoby
+        z okolicznych miejscowości: {% for town in loc.nearby %}{{ town }}{% if not forloop.last %}, {% endif %}{% endfor %}.
+        Przy diagnozie, która składa się z trzech spotkań, warto z góry zaplanować terminy, staramy się umawiać je tak, aby ograniczyć liczbę dojazdów.
+      </p>
+      <p>
+        Mamy też drugi gabinet:
+        {% for other in LOCATIONS %}{% if other.slug != loc.slug %}<a href="{{ other.path }}">{{ other.city }}, {{ other.street }}</a>{% endif %}{% endfor %}.
+        Zespół i standard postępowania są w obu miejscach takie same, więc jeśli w jednej lokalizacji
+        terminy są zajęte, sprawdzamy dostępność w drugiej. Jeżeli dojazd do żadnego z gabinetów nie
+        wchodzi w grę, zostaje <a href="/wsparcie-online/">wsparcie online</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Kontakt / adres -->
+<section class="contact-content section scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Gabinet {{ loc.city }}, dane kontaktowe</h2>
+    </div>
+    <div class="who-content">
+      <p>
+        <strong>Adres:</strong> {{ loc.street }} {{ loc.postal_code }} {{ loc.city }}<br>
+        <strong>Telefon:</strong> <a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a><br>
+        <strong>E-mail:</strong> <a href="mailto:{{ EMAIL }}">{{ EMAIL }}</a><br>
+        <strong>Godziny:</strong> {{ OPENING_HOURS.display }}
+      </p>
+      <p>
+        Zespół specjalistów przyjmujących w {{ loc.locative }} poznasz na stronie
+        <a href="/o-nas/">o nas</a>. Terminy rezerwujesz telefonicznie, przez
+        <a href="{{ ZNANYLEKARZ_URL }}" target="_blank" rel="noopener noreferrer">ZnanyLekarz</a>
+        albo <a href="/kontakt/">formularzem kontaktowym</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/faq.html' with faq_heading="Pytania o gabinet w "|add:loc.locative %}
+
+{% include 'partials/booking_section.html' %}
+
+{% endblock %}

@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block meta_title %}{{ category.name }} - Blog psychologiczny - {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{
-category.name }} - porady psychologiczne, terapia, rozwój osobisty.{% endif %}{% endblock %}
+{% block meta_title %}{{ category.name }} | Blog | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{ category.name }} - porady psychologiczne, terapia, rozwój osobisty.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Category Header -->

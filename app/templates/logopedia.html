@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}Logopeda Opole i Nysa, terapia logopedyczna{% endblock %}
+{% block meta_description %}Logopeda w Opolu i Nysie. Diagnoza i terapia logopedyczna dzieci i dorosłych, wady wymowy, opóźniony rozwój mowy, jąkanie. Tel. 606 841 722{% endblock %}
+
+{% block content %}
+
+<section class="service-hero section">
+  <div class="container">
+    <div class="service-hero-content">
+      <h1>Logopeda Opole i Nysa, diagnoza i terapia logopedyczna</h1>
+      <p class="service-description">{{ service.short }}</p>
+
+      <div class="service-specs">
+        <div class="spec-item">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+          <span>{{ service.duration }}</span>
+        </div>
+        <div class="spec-item">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg>
+          <span>Dzieci i dorośli</span>
+        </div>
+        <div class="spec-item">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+          <span>{{ service.price_label|capfirst }}</span>
+        </div>
+      </div>
+
+      <a href="#booking" class="btn btn-primary btn-large">Umów wizytę</a>
+    </div>
+  </div>
+</section>
+
+<!-- Zakres -->
+<section class="who-section section bg-light scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Z czym się do nas zgłaszają</h2>
+    </div>
+    <div class="services-grid">
+      {% for item in LOGOPEDIA_SCOPE %}
+      <div class="service-card">
+        <h3>{{ item.title }}</h3>
+        <p class="service-description">{{ item.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Przebieg -->
+<section class="how-it-works section scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Jak przebiega terapia logopedyczna</h2>
+    </div>
+    <div class="process-steps">
+      {% for step in LOGOPEDIA_STEPS %}
+      <div class="process-step">
+        <div class="step-number">{{ forloop.counter }}</div>
+        <div class="step-content">
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Gdzie -->
+<section class="who-section section bg-light scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Gdzie prowadzimy terapię logopedyczną</h2>
+    </div>
+    <div class="who-content">
+      <p>
+        Przyjmujemy w obu gabinetach:
+        {% for loc in LOCATIONS %}<a href="{{ loc.path }}">{{ loc.city }}, {{ loc.street }}</a>{% if not forloop.last %} oraz {% endif %}{% endfor %}.
+        Stawki znajdziesz w <a href="/cennik/">cenniku</a>, a specjalistów na stronie
+        <a href="/o-nas/">o nas</a>.
+      </p>
+      <p>
+        Terapia logopedyczna często idzie w parze z innymi obszarami naszej pracy. Przy dzieciach
+        w spektrum autyzmu prowadzimy ją równolegle z <a href="/diagnoza-autyzmu/">diagnozą ADOS-2</a>
+        i z <a href="/trening-umiejetnosci-spolecznych/">zajęciami TUS</a>. Część spotkań można
+        prowadzić przez <a href="/wsparcie-online/">połączenie wideo</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/faq.html' with faq_heading="Pytania o terapię logopedyczną" %}
+
+{% include 'partials/booking_section.html' %}
+
+{% include 'partials/related.html' %}
+
+{% endblock %}

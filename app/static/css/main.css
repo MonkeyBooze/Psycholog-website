@@ -4,8 +4,7 @@
    Settings → Base → Layout → Components → Pages → Utils
    ═══════════════════════════════════════════════════════ */
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Fonty ładowane z <head> w base.html — @import tutaj tworzyłby dodatkową rundę pobierania. */
 
 /* Settings */
 @import url('variables.css');

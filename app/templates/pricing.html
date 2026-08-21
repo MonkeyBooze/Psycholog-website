@@ -1,145 +1,169 @@
 {% extends "base.html" %}
-{% block meta_title %}Cennik Usług Psychologicznych – Terapia i Konsultacje Opole | {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Cennik usług psychologicznych w Opolu i Nysie: konsultacje psychologiczne, terapia indywidualna, sesje online. Przejrzyste ceny za każdą usługę.{% endblock %}
+{% block meta_title %}Cennik, psycholog Opole i Nysa{% endblock %}
+{% block meta_description %}Cennik usług psychologicznych w Opolu i Nysie: konsultacja od 180 zł, terapia od 200 zł, diagnoza ADHD 500 zł, ADOS-2 1000 zł, TUS 120 zł za spotkanie.{% endblock %}
+
+{% block schema_extra %},
+{
+  "@type": "OfferCatalog",
+  "@id": "{{ SITE_URL }}/cennik/#cennik",
+  "name": "Cennik usług psychologicznych",
+  "url": "{{ SITE_URL }}/cennik/",
+  "itemListElement": [{% for key, svc in SERVICES.items %}
+    {
+      "@type": "Offer",
+      "name": "{{ svc.name }}",
+      "url": "{{ SITE_URL }}{{ svc.path }}",
+      "price": "{{ svc.price }}",
+      "priceCurrency": "PLN",
+      "availability": "https://schema.org/InStock",
+      "description": "{{ svc.unit }}"
+    }{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}{% endblock %}
+
 {% block content %}
 
-<!-- Pricing Hero Section -->
 <section class="pricing-hero section">
   <div class="container">
     <div class="section-header">
-      <h1>Cennik usług psychologicznych</h1>
-      <p>Przejrzyste informacje o kosztach świadczonych usług. Każda sesja jest dostosowywana do indywidualnych potrzeb
-        i prowadzona w atmosferze pełnego zrozumienia.</p>
+      <h1>Cennik usług psychologicznych, Opole i Nysa</h1>
+      <p>
+        Jeden cennik dla obu gabinetów. Ceny podajemy w całości, razem z tym, co się w nich mieści, żebyś przed pierwszym telefonem wiedział, na co się umawiasz i ile to będzie kosztowało.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- Pricing Plans Section -->
+<!-- Tabela zbiorcza: najszybszy sposób na porównanie -->
+<section class="section-small scroll-fade-in">
+  <div class="container">
+    <div class="who-content">
+      <h2>Wszystkie ceny w jednym miejscu</h2>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid var(--border-color);">Usługa</th>
+              <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid var(--border-color);">Czas / zakres</th>
+              <th style="text-align: right; padding: 12px 8px; border-bottom: 2px solid var(--border-color);">Cena</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for key, svc in SERVICES.items %}
+            <tr>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">
+                <a href="{{ svc.path }}">{{ svc.name }}</a>
+              </td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ svc.duration }}</td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color); text-align: right; white-space: nowrap;">
+                <strong>{{ svc.price_label }}</strong>
+              </td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">TUS, pełny cykl</td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ TUS_CYCLE_LENGTH }} spotkań</td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color); text-align: right; white-space: nowrap;">
+                <strong>{{ TUS_CYCLE_PRICE }} zł</strong>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 12px 8px;"><a href="/szkolenia-dla-firm/">Szkolenia dla firm</a></td>
+              <td style="padding: 12px 8px;">oferta B2B</td>
+              <td style="padding: 12px 8px; text-align: right; white-space: nowrap;"><strong>wycena indywidualna</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Ceny są takie same w gabinecie w <a href="/opole/">Opolu</a> i w <a href="/nysa/">Nysie</a>.
+        Rozliczamy się po każdym spotkaniu, przy diagnozie nie płacisz z góry za cały proces.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Karty ze szczegółami -->
 <section class="pricing-plans section-small bg-light scroll-fade-in">
   <div class="container">
+    <div class="section-header">
+      <h2>Co dokładnie obejmuje każda cena</h2>
+    </div>
     <div class="pricing-grid">
-
-      <!-- Consultation Card -->
+      {% for key, svc in SERVICES.items %}
       <div class="pricing-card">
         <div class="pricing-header">
-          <h3>Konsultacja psychologiczna</h3>
+          <h3>{{ svc.name }}</h3>
           <div class="pricing-price">
-            <span class="price-amount">180</span>
+            <span class="price-amount">{{ svc.price }}</span>
             <span class="price-currency">zł</span>
           </div>
-          <div class="price-note">za sesję 50 minut</div>
+          <div class="price-note">{{ svc.unit }}</div>
         </div>
         <div class="pricing-features">
           <ul>
-            <li>Przestrzeń do rozmowy w komfortowych warunkach</li>
-            <li>Poznanie Twojej sytuacji i potrzeb</li>
-            <li>Wspólne omówienie możliwych kierunków pracy</li>
-            <li>Profesjonalne wsparcie i wskazówki</li>
-            <li>Możliwość jednorazowego spotkania</li>
+            {% for item in svc.includes %}<li>{{ item }}</li>{% endfor %}
           </ul>
         </div>
         <div class="pricing-footer">
-          <a href="#booking" class="btn btn-secondary btn-full">Informacje o wizycie</a>
+          <a href="{{ svc.path }}" class="btn btn-secondary btn-full">Szczegóły usługi</a>
         </div>
       </div>
-
-      <!-- Therapy Card -->
-      <div class="pricing-card">
-        <div class="pricing-header">
-          <h3>Terapia indywidualna</h3>
-          <div class="pricing-price">
-            <span class="price-amount">200</span>
-            <span class="price-currency">zł</span>
-          </div>
-          <div class="price-note">za sesję 50 minut</div>
-        </div>
-        <div class="pricing-features">
-          <ul>
-            <li>Systematyczna praca terapeutyczna</li>
-            <li>Wsparcie w procesie zrozumienia siebie</li>
-            <li>Dostosowanie tempa do indywidualnych potrzeb</li>
-            <li>Ciągłość procesu terapeutycznego</li>
-            <li>Elastyczność w formie prowadzenia sesji</li>
-          </ul>
-        </div>
-        <div class="pricing-footer">
-          <a href="#booking" class="btn btn-secondary btn-full">Szczegóły terapii</a>
-        </div>
-      </div>
-
-      <!-- Online Support Card -->
-      <div class="pricing-card">
-        <div class="pricing-header">
-          <h3>Sesje online</h3>
-          <div class="pricing-price">
-            <span class="price-amount">150 - 180</span>
-            <span class="price-currency">zł</span>
-          </div>
-          <div class="price-note">za sesję 50 minut</div>
-        </div>
-        <div class="pricing-features">
-          <ul>
-            <li>Sesje w komforcie domowego otoczenia</li>
-            <li>Zachowanie pełnej prywatności</li>
-            <li>Elastyczne dostosowanie terminów</li>
-            <li>Możliwość udostępnienia materiałów</li>
-            <li>Kontakt mailowy między sesjami</li>
-          </ul>
-        </div>
-        <div class="pricing-footer">
-          <a href="#booking" class="btn btn-secondary btn-full">Informacje o sesjach online</a>
-        </div>
-      </div>
-
+      {% endfor %}
     </div>
   </div>
 </section>
 
-
-
-<!-- Booking CTA Section -->
-<section id="booking" class="booking-cta section-small bg-light scroll-fade-in">
-  <div class="container">
-    <div class="cta-content">
-      <h2>Umówienie wizyty</h2>
-      <p>W przypadku pytań dotyczących usług lub chęci umówienia wizyty, zapraszamy do kontaktu. Odpowiadamy na
-        wszystkie zapytania w ciągu 24 godzin.</p>
-      <div class="cta-buttons">
-        <a href="/kontakt/" class="btn btn-primary">Formularz kontaktowy</a>
-        <a href="tel:+48606841722" class="btn btn-secondary">Telefon: +48 606 841 722</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ Section -->
-<section class="pricing-faq section scroll-fade-in">
+<!-- Kontekst cenowy -->
+<section class="who-section section scroll-fade-in">
   <div class="container">
     <div class="section-header">
-      <h2>Informacje praktyczne</h2>
+      <h2>Dlaczego diagnoza kosztuje tyle, ile kosztuje</h2>
     </div>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <h3>Formy płatności</h3>
-        <p>Płatność może nastąpić gotówką po sesji, przelewem bankowym lub blikiem. Dostępne są również pakiety sesji z
-          płatnością z góry.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Dokumentacja księgowa</h3>
-        <p>Na życzenie wystawiam faktury VAT za świadczone usługi psychologiczne zgodnie z obowiązującymi przepisami.
-        </p>
-      </div>
-      <div class="faq-item">
-        <h3>Odwołanie wizyty</h3>
-        <p>W przypadku konieczności odwołania wizyty, prosimy o kontakt minimum 24 godziny wcześniej, co umożliwi
-          przełożenie terminu.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Współpraca z NFZ</h3>
-        <p>Niestety nie oferujemy refundacji w ramach NFZ.</p>
-      </div>
+    <div class="who-content">
+      <p>
+        Diagnoza ADHD i diagnoza spektrum autyzmu to nie jedna wizyta, tylko proces złożony
+        z trzech spotkań i pracy między nimi. Na cenę składa się wywiad kliniczny, przeprowadzenie
+        znormalizowanego narzędzia, <a href="/diagnoza-adhd/">DIVA-5</a> albo
+        <a href="/diagnoza-autyzmu/">ADOS-2</a>, opracowanie wyników poza spotkaniem oraz
+        przygotowanie pisemnej opinii. Same narzędzia diagnostyczne są licencjonowane, a ich
+        stosowanie wymaga odrębnej certyfikacji, którą diagnosta musi zdobyć i odnawiać.
+      </p>
+      <p>
+        Jeśli nie masz pewności, czy potrzebujesz od razu pełnej diagnozy, zacznij od
+        <a href="/konsultacje-psychologiczne/">konsultacji psychologicznej</a>. To jedno spotkanie
+        za {{ SERVICES.konsultacja.price_label }}, po którym wiadomo, czy diagnoza jest w ogóle wskazana.
+      </p>
     </div>
   </div>
 </section>
+
+<!-- Płatności -->
+<section class="who-section section bg-light scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Płatność i formalności</h2>
+    </div>
+    <div class="who-content">
+      <p>
+        Płatność następuje po każdym spotkaniu, gotówką lub BLIKIEM. Na życzenie wystawiamy fakturę.
+      </p>
+      <p>
+        Termin możesz odwołać bezpłatnie najpóźniej 24 godziny przed spotkaniem. Przy krótszym
+        wyprzedzeniu spotkanie jest płatne.
+      </p>
+      <p>
+        Szczegóły znajdziesz w <a href="/terms/">regulaminie świadczenia usług</a>. Termin umówisz
+        telefonicznie pod numerem <a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a>, przez
+        <a href="{{ ZNANYLEKARZ_URL }}" target="_blank" rel="noopener noreferrer">ZnanyLekarz</a>
+        albo <a href="/kontakt/">formularzem kontaktowym</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/faq.html' with faq_heading="Pytania o ceny i płatności" %}
+
+{% include 'partials/booking_section.html' %}
 
 {% endblock %}

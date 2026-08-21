@@ -181,6 +181,19 @@
   padding: 0 24px 20px;
 }
 
+.faq-list .faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-list .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--color-primary-700);
+  outline-offset: -2px;
+}
+
 .faq-answer p {
   color: var(--text-secondary);
   line-height: 1.6;

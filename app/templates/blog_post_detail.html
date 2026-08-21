@@ -2,7 +2,7 @@
 {% load static %}
 {% load sanitize %}
 
-{% block meta_title %}{{ post.title }} - {{ SITE_NAME }}{% endblock %}
+{% block meta_title %}{{ post.title }} | {{ SITE_NAME }}{% endblock %}
 {% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block meta_image %}{% if post.featured_image %}{{ post.featured_image }}{% else %}{{ block.super }}{% endif %}{%
@@ -25,8 +25,8 @@ endblock %}
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "{{ post.title|escapejs }}",
-  "description": "{{ post.meta_description|default:post.excerpt|escapejs }}",
-  {% if post.featured_image %}"image": "{{ post.featured_image }}",{% endif %}
+  "description": "{{ post.meta_description|default:post.excerpt|escapejs }}"
+  {% if post.featured_image %}"image": "{{ post.featured_image }}"{% endif %}
   "datePublished": "{{ post.published_at|date:'c' }}",
   "dateModified": "{{ post.updated_at|date:'c' }}",
   "author": {
@@ -36,8 +36,8 @@ endblock %}
   "publisher": {
     "@type": "Organization",
     "name": "{{ SITE_NAME }}"
-  },
-  {% if post.category %}"articleSection": "{{ post.category.name|escapejs }}",{% endif %}
+  }
+  {% if post.category %}"articleSection": "{{ post.category.name|escapejs }}"{% endif %}
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ request.build_absolute_uri }}"

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.utils import timezone
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -12,6 +12,7 @@ from django_ratelimit.decorators import ratelimit
 import json
 import threading
 import logging
+from . import site_data
 from .forms import AppointmentForm, DataSubjectRightsForm, TrainingInquiryForm
 from .models import Appointment, DataSubjectRightsRequest, BlogPost, BlogCategory, CookieConsent, TrainingInquiry
 
@@ -173,31 +174,46 @@ def about_us(request):
     return render(request, 'about_us.html')
 
 def pricing(request):
-    return render(request, 'pricing.html')
+    return render(request, 'pricing.html', {
+        'faq': site_data.PRICING_FAQ,
+        'faq_schema': site_data.faq_schema(site_data.PRICING_FAQ),
+        'form': AppointmentForm(),
+    })
 
-def diagnoza_adhd(request):
-    form = AppointmentForm()
-    return render(request, 'diagnoza_adhd.html', {'form': form})
+def service_page(request, key):
+    """Wszystkie strony usług renderują się tak samo — różni je szablon i zestaw FAQ."""
+    return render(request, f'{key}.html', {
+        'form': AppointmentForm(),
+        'faq': site_data.FAQ[key],
+        'faq_schema': site_data.faq_schema(site_data.FAQ[key]),
+        'service': site_data.SERVICES[SERVICE_KEY_TO_PRICE[key]],
+    })
 
-def diagnoza_autyzmu(request):
-    form = AppointmentForm()
-    return render(request, 'diagnoza_autyzmu.html', {'form': form})
 
-def wsparcie_online(request):
-    form = AppointmentForm()
-    return render(request, 'wsparcie_online.html', {'form': form})
+# Nazwa widoku/szablonu -> klucz w cenniku (nie zawsze są identyczne).
+SERVICE_KEY_TO_PRICE = {
+    'diagnoza_adhd': 'adhd',
+    'diagnoza_autyzmu': 'autyzm',
+    'wsparcie_online': 'online',
+    'konsultacje': 'konsultacja',
+    'tus': 'tus',
+    'terapia_indywidualna': 'terapia',
+    'logopedia': 'logopedia',
+}
 
-def konsultacje(request):
-    form = AppointmentForm()
-    return render(request, 'konsultacje.html', {'form': form})
 
-def tus(request):
-    form = AppointmentForm()
-    return render(request, 'tus.html', {'form': form})
-
-def terapia_indywidualna(request):
-    form = AppointmentForm()
-    return render(request, 'terapia_indywidualna.html', {'form': form})
+def lokalizacja(request, slug):
+    """Strona gabinetu w danym mieście — /opole/ i /nysa/."""
+    loc = next((l for l in site_data.LOCATIONS if l['slug'] == slug), None)
+    if loc is None:
+        raise Http404
+    faq = site_data.LOCATION_FAQ[slug]
+    return render(request, 'lokalizacja.html', {
+        'loc': loc,
+        'faq': faq,
+        'faq_schema': site_data.faq_schema(faq),
+        'form': AppointmentForm(),
+    })
 
 def trainings(request):
     form = TrainingInquiryForm()
@@ -397,6 +413,11 @@ def cookie_policy(request):
 
 def terms(request):
     return render(request, 'terms.html')
+
+
+def standardy_ochrony_maloletnich(request):
+    """Publikacja Standardów Ochrony Małoletnich jest obowiązkiem ustawowym (art. 22c)."""
+    return render(request, 'standardy_ochrony_maloletnich.html')
 
 @ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def data_subject_rights(request):

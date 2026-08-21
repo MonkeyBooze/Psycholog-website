@@ -34,7 +34,7 @@ SECRET_KEY = env('SECRET_KEY')  # No default — app will crash if missing from 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)   
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost', 'spektrumumyslu.pl', 'www.spektrumumyslu.pl', 'psychoedukacjaopole.pl', 'www.psychoedukacjaopole.pl'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost', 'spektrumumyslu.pl', 'www.spektrumumyslu.pl'])
 
 PREPEND_WWW = False
 
@@ -47,14 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'django.contrib.sitemaps',
     'app',
     'csp',
 ]
-
-# Sites framework
-SITE_ID = 1
 
 MIDDLEWARE = [
     'project.middleware.DomainRedirectMiddleware',  # Custom domain redirection (Must be first to handle SSL+Domain)
@@ -135,7 +131,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'app' / 'static']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Django 5.1 usunęło STATICFILES_STORAGE — ustawione tu wcześniej było po cichu ignorowane,
+# przez co pliki szły bez hashy (cache 60 s zamiast roku) i bez wariantów gzip/brotli.
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -178,7 +179,12 @@ CONTENT_SECURITY_POLICY = {
 }
 
 # Email (Zoho Mail SMTP)
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# Lokalnie maile idą na konsolę. Bez tego uruchomienie runservera z produkcyjnym .env
+# wysyła prawdziwe wiadomości przez Zoho przy każdym teście formularza.
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="smtp.zoho.eu")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")

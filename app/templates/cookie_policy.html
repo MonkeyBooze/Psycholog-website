@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% block meta_title %}Polityka Cookies – {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Szczegółowe informacje o wykorzystywanych przez nas plikach cookies, ich celach i sposobach
-zarządzania nimi.{% endblock %}
+{% block meta_title %}Polityka cookies | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Szczegółowe informacje o wykorzystywanych przez nas plikach cookies, ich celach i sposobach zarządzania nimi.{% endblock %}
 
 {% block content %}
 <div class="section">
@@ -25,7 +24,7 @@ zarządzania nimi.{% endblock %}
       <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
         <h4>Lista cookies niezbędnych:</h4>
         <ul>
-          <li><strong>cookie_preferences</strong> - przechowuje Twoje wybory dotyczące cookies (ważność: 365 dni)</li>
+          <li><strong>cookie_preferences</strong> - Twoje wybory dotyczące cookies. Zapisujemy je w pamięci lokalnej przeglądarki (localStorage), a nie w pliku cookie, więc dane te nie są przesyłane na serwer przy każdym żądaniu. Pozostają w przeglądarce do czasu ich zmiany lub wyczyszczenia danych witryny. Wybór możesz zmienić w każdej chwili odnośnikiem <strong>Ustawienia cookies</strong> w stopce strony.</li>
           <li><strong>csrftoken</strong> - zabezpiecza formularze przed atakami CSRF (ważność: sesja)</li>
           <li><strong>sessionid</strong> - identyfikuje sesję użytkownika (ważność: sesja)</li>
         </ul>

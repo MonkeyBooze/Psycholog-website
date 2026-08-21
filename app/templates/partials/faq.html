@@ -1,0 +1,46 @@
+{% comment %}
+  Widoczna sekcja FAQ. Treść pochodzi z app/site_data.py, z tych samych krotek,
+  z których budowany jest FAQPage w danych strukturalnych, dzięki temu jedno
+  nie może się rozjechać z drugim.
+
+  Wymaga w kontekście: faq (lista krotek), faq_schema (gotowy JSON-LD).
+{% endcomment %}
+<section class="faq-section section scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ faq_heading|default:"Najczęściej zadawane pytania" }}</h2>
+    </div>
+
+    <div class="faq-list">
+      {% for question, answer in faq %}
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-a-{{ forloop.counter }}">
+          <span>{{ question }}</span>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="faq-icon"
+            aria-hidden="true" focusable="false">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="faq-answer" id="faq-a-{{ forloop.counter }}">
+          <p>{{ answer }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">{{ faq_schema|safe }}</script>
+
+<script>
+  // Jeden delegowany listener zamiast atrybutu onclick przy każdym pytaniu.
+  document.querySelectorAll('.faq-list').forEach(function (list) {
+    list.addEventListener('click', function (event) {
+      var button = event.target.closest('.faq-question');
+      if (!button) return;
+      var item = button.parentElement;
+      var open = item.classList.toggle('active');
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+</script>

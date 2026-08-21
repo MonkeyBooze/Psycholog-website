@@ -16,12 +16,8 @@ class DomainRedirectMiddleware:
         # Target domain
         target_domain = 'spektrumumyslu.pl'
         
-        # Domains to redirect (www, old domain, old domain www)
-        redirect_sources = [
-            'www.spektrumumyslu.pl',
-            'psychoedukacjaopole.pl',
-            'www.psychoedukacjaopole.pl'
-        ]
+        # Domains to redirect to the canonical host
+        redirect_sources = ['www.spektrumumyslu.pl']
 
         if hostname in redirect_sources:
             new_url = f"https://{target_domain}{request.get_full_path()}"

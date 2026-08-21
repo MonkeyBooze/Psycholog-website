@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block meta_title %}Psycholog Opole i Nysa | Diagnoza ADHD i Autyzmu | {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Profesjonalny gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD, test ADOS (autyzm),
-TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% endblock %}
+{% block meta_title %}Psycholog Opole i Nysa, diagnoza ADHD i autyzmu{% endblock %}
+{% block meta_description %}Gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD (DIVA-5) i autyzmu (ADOS-2), TUS, terapia, konsultacje online. Krótkie terminy. Tel. 606 841 722{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
@@ -10,24 +9,23 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
-        <h1 class="hero-headline fade-in">Psycholog Opole i Nysa – Diagnoza ADHD i autyzmu w 3 dni</h1>
-        <p class="hero-subtitle fade-in">Profesjonalny gabinet psychologiczny w Opolu i Nysie. Oferujemy diagnozę DIVA-5, test ADOS-2, terapię
-          indywidualną i wsparcie online. Tworzymy bezpieczną przestrzeń.</p>
+        <h1 class="hero-headline fade-in">Psycholog Opole i Nysa, diagnoza ADHD i spektrum autyzmu</h1>
+        <p class="hero-subtitle fade-in">Gabinety w <a href="/opole/">Opolu</a> i <a href="/nysa/">Nysie</a>. Diagnoza ADHD metodą DIVA-5, diagnoza spektrum autyzmu testem ADOS-2, terapia indywidualna, TUS i konsultacje online. Pierwszy termin zwykle w ciągu 3 dni roboczych.</p>
         <div class="hero-buttons fade-in">
           <a href="#booking"
             onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'}); return false;"
             class="btn btn-primary">Umów wizytę</a>
-          <a href="tel:+48606841722" class="btn btn-secondary">Zadzwoń: 606 841 722</a>
+          <a href="tel:{{ PHONE_E164 }}" class="btn btn-secondary">Zadzwoń: {{ PHONE_SHORT }}</a>
         </div>
-        <a href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+        <a href="{{ ZNANYLEKARZ_URL }}"
           target="_blank" rel="noopener noreferrer" class="trust-badge fade-in">
           <span class="trust-badge-star">⭐</span>
-          <span class="trust-badge-text">4.9/5 na ZnanyLekarz · 25+ opinii</span>
+          <span class="trust-badge-text">{{ REVIEWS.rating }} na ZnanyLekarz · {{ REVIEWS.count }} opinii</span>
         </a>
       </div>
       <div class="hero-image">
-        <img src="{% static 'images/Logo_with_signature.png' %}" alt="{{ SITE_NAME }} - Logo" class="hero-img"
-          loading="lazy">
+        <img src="{% static 'images/logo-with-signature.png' %}" alt="{{ SITE_NAME }}, psycholog Opole i Nysa"
+          class="hero-img" width="660" height="500" fetchpriority="high">
       </div>
     </div>
   </div>
@@ -115,7 +113,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
       </div>
     </div>
     <div class="testimonials-footer">
-      <a href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+      <a href="{{ ZNANYLEKARZ_URL }}"
         target="_blank" rel="noopener noreferrer" class="testimonials-link">
         Zobacz wszystkie opinie na ZnanyLekarz →
       </a>
@@ -127,116 +125,46 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
 <section class="services-section section scroll-fade-in">
   <div class="container">
     <div class="section-header">
-      <h2>Usługi psychologiczne – Opole i Nysa</h2>
-      <p>Oferujemy kompleksową pomoc psychologiczną dostosowaną do Twoich indywidualnych potrzeb</p>
+      <h2>Usługi psychologiczne, Opole i Nysa</h2>
+      <p>Ceny i zakres każdej usługi są takie same w obu gabinetach. Pełne stawki znajdziesz
+        w <a href="/cennik/">cenniku</a>.</p>
     </div>
     <div class="services-grid">
-      <!-- Card 1: Terapia indywidualna -->
-      <a href="/terapia-indywidualna/" class="service-card">
-        <div class="service-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>Terapia indywidualna</h3>
-        <p class="service-description">Sesje dopasowane do Twoich potrzeb — w gabinecie lub online. Pracujemy w nurcie
-          poznawczo-behawioralnym i schematów.</p>
-        <p class="service-specs">Sesja 50 min · od 180 zł</p>
+      {% for key, svc in SERVICES.items %}
+      <a href="{{ svc.path }}" class="service-card">
+        <h3>{{ svc.name }}</h3>
+        <p class="service-description">{{ svc.short }}</p>
+        <p class="service-specs">{{ svc.specs }}</p>
         <span class="service-link">Dowiedz się więcej →</span>
       </a>
-
-      <!-- Card 2: Konsultacje psychologiczne -->
-      <a href="/konsultacje-psychologiczne/" class="service-card">
-        <div class="service-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 6h-2l-1-2H6L5 6H3v2h1v11c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8h1V6zm-4 13H7V8h10v11z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>Konsultacje psychologiczne</h3>
-        <p class="service-description">Jednorazowe lub krótkoterminowe wsparcie w trudnym momencie życia. Pomoc w
-          podjęciu decyzji, kryzys, orientacja diagnostyczna.</p>
-        <p class="service-specs">Spotkanie 50 min · od 180 zł</p>
-        <span class="service-link">Dowiedz się więcej →</span>
-      </a>
-
-      <!-- Card 3: Wsparcie online -->
-      <a href="/wsparcie-online/" class="service-card">
-        <div class="service-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>Wsparcie online</h3>
-        <p class="service-description">Pełnowartościowe sesje terapeutyczne przez bezpieczną platformę wideo. Bez
-          dojazdu, z dowolnego miejsca w Polsce.</p>
-        <p class="service-specs">Sesja 50 min · online</p>
-        <span class="service-link">Dowiedz się więcej →</span>
-      </a>
-
-      <!-- Card 4: Diagnoza ADHD -->
-      <a href="/diagnoza-adhd/" class="service-card">
-        <div class="service-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
-              fill="none" />
-          </svg>
-        </div>
-        <h3>Diagnoza ADHD</h3>
-        <p class="service-description">Kompleksowa diagnoza metodą DIVA-5 + wywiad kliniczny. Dla dorosłych i młodzieży.
-        </p>
-        <p class="service-specs">2 spotkania · wynik w 7 dni · od 500 zł</p>
-        <span class="service-link">Dowiedz się więcej →</span>
-      </a>
-
-      <!-- Card 5: Diagnoza autyzmu (ADOS-2) -->
-      <a href="/diagnoza-autyzmu/" class="service-card">
-        <div class="service-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>Diagnoza autyzmu (ADOS-2)</h3>
-        <p class="service-description">Test ADOS-2 — standard w diagnostyce spektrum autyzmu. Przeprowadzony przez
-          certyfikowanych diagności.</p>
-        <p class="service-specs">2–3 spotkania · łącznie 1000 zł</p>
-        <span class="service-link">Dowiedz się więcej →</span>
-      </a>
-
-      <!-- Card 6: TUS -->
-      <a href="/trening-umiejetnosci-spolecznych/" class="service-card">
-        <div class="service-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>TUS — Trening Umiejętności Społecznych</h3>
-        <p class="service-description">Zajęcia grupowe rozwijające kompetencje społeczne i komunikacyjne. Dla dzieci,
-          młodzieży i dorosłych.</p>
-        <p class="service-specs">Cykl 10 spotkań · grupy 4-8 osób</p>
-        <span class="service-link">Dowiedz się więcej →</span>
-      </a>
+      {% endfor %}
       <a href="/szkolenia-dla-firm/" class="service-card" style="border: 1px solid var(--emerald);">
-        <div class="service-icon" style="color: var(--emerald);">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5M9 12.75h1.5M9 18.75h1.5M13.5 6.75h1.5M13.5 12.75h1.5M13.5 18.75h1.5M6.75 6.75h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm10.5-12h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75z" />
-          </svg>
-        </div>
         <h3>Szkolenia dla firm</h3>
-        <p class="service-description">Profesjonalne szkolenia antymobbingowe, wellbeing i neuroróżnorodność dla Twojego
-          zespołu.</p>
-        <p class="service-specs">Oferta B2B · Opole/Nysa/Online</p>
+        <p class="service-description">Szkolenia antymobbingowe, wellbeing i neuroróżnorodność
+          dla zespołów, stacjonarnie w Opolu i Nysie lub zdalnie.</p>
+        <p class="service-specs">Oferta B2B · wycena indywidualna</p>
         <span class="service-link">Zobacz ofertę →</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- Lokalizacje -->
+<section class="who-section section bg-light scroll-fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2>Gdzie nas znajdziesz</h2>
+      <p>Dwa gabinety, ten sam zespół i ten sam standard postępowania</p>
+    </div>
+    <div class="services-grid">
+      {% for loc in LOCATIONS %}
+      <a href="{{ loc.path }}" class="service-card">
+        <h3>Psycholog {{ loc.city }}</h3>
+        <p class="service-description">{{ loc.street }} {{ loc.postal_code }} {{ loc.city }}</p>
+        <p class="service-specs">{{ OPENING_HOURS.display }}</p>
+        <span class="service-link">Zobacz gabinet w {{ loc.locative }} →</span>
+      </a>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -255,7 +183,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
         <!-- Member 1 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/Agata_Brzozowska.JPG' %}" alt="Mgr Agata Brzozowska – Psycholog Dzieci i Mło​dzieży Opole" class="team-avatar">
+            <img src="{% static 'images/agata-brzozowska.jpg' %}" alt="Mgr Agata Brzozowska, Psycholog Dzieci i Młodzieży Opole" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Agata Brzozowska</span>
@@ -265,7 +193,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
         <!-- Member 2 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/Jakub_Lewandowski.jpg' %}" alt="Mgr Jakub Lewandowski – Psycholog Opole i Nysa" class="team-avatar">
+            <img src="{% static 'images/jakub-lewandowski.jpg' %}" alt="Mgr Jakub Lewandowski, Psycholog Opole i Nysa" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Jakub Lewandowski</span>
@@ -275,7 +203,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
         <!-- Member 3 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/Katarzyna_Kuś.jpg' %}" alt="Mgr Katarzyna Kuś-Kozłowska – Psycholog Diagno​sta Opole" class="team-avatar">
+            <img src="{% static 'images/katarzyna-kus.jpg' %}" alt="Mgr Katarzyna Kuś-Kozłowska, Psycholog Diagnosta Opole" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Katarzyna Kuś-Kozłowska</span>
@@ -297,7 +225,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
 
     <div class="booking-options">
       <!-- Option 1: ZnanyLekarz -->
-      <a href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+      <a href="{{ ZNANYLEKARZ_URL }}"
         target="_blank" rel="noopener noreferrer" class="booking-option">
         <div class="booking-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,7 +239,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
       </a>
 
       <!-- Option 2: Phone -->
-      <a href="tel:+48606841722" class="booking-option">
+      <a href="tel:{{ PHONE_E164 }}" class="booking-option">
         <div class="booking-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -320,7 +248,7 @@ TUS, terapia indywidualna i grupowa. Krótkie terminy. Zadzwoń: 606 841 722{% e
           </svg>
         </div>
         <h3>Telefon</h3>
-        <p>Zadzwoń: 606 841 722</p>
+        <p>Zadzwoń: {{ PHONE_SHORT }}</p>
       </a>
 
       <!-- Option 3: Form -->

@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
-{% block meta_title %}Kontakt – Umów Wizytę u Psychologa Opole | {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Skontaktuj się z gabinetem psychologicznym w Opolu i Nysie. Umów wizytę telefonicznie +48
-606 841
-722 lub przez formularz. Odpowiadamy w ciągu 24h.{% endblock %}
+{% block meta_title %}Kontakt, psycholog Opole i Nysa{% endblock %}
+{% block meta_description %}Umów wizytę w gabinecie w Opolu lub Nysie. Telefon 606 841 722, formularz kontaktowy, rezerwacja online. Odpowiadamy w ciągu 24 godzin.{% endblock %}
 {% block content %}
 
 <!-- Contact Hero Section -->
 <section class="contact-hero section">
   <div class="container">
     <div class="section-header">
-      <h1>Kontakt – Gabinet Psychologiczny Opole i Nysa</h1>
+      <h1>Kontakt, Gabinet Psychologiczny Opole i Nysa</h1>
       <p>Skontaktuj się z naszym zespołem psychologicznym. Umów wizytę w gabinecie w Opolu, Nysie lub wybierz terapię online. Odpowiemy w ciągu 24 godzin.</p>
     </div>
   </div>
@@ -21,7 +19,13 @@
     <div class="contact-grid">
       <!-- Contact Information -->
       <div class="contact-info-section">
-        <h2>Gabinet w Opolu i Nysie – Informacje kontaktowe</h2>
+        <h2>Gabinet w Opolu i Nysie, informacje kontaktowe</h2>
+        <p>
+          Najszybciej odpowiadamy na telefon. Jeśli nie odbierzemy, oddzwaniamy, zwykle tego
+          samego dnia. Termin zarezerwujesz też przez
+          <a href="{{ ZNANYLEKARZ_URL }}" target="_blank" rel="noopener noreferrer">ZnanyLekarz</a>
+          albo formularzem obok. Ceny wszystkich usług znajdziesz w <a href="/cennik/">cenniku</a>.
+        </p>
 
         <div class="contact-method">
           <div class="contact-method-icon">
@@ -32,8 +36,8 @@
           </div>
           <div class="contact-method-content">
             <h3>Telefon</h3>
-            <p><a href="tel:+48606841722">+48 606 841 722</a></p>
-            <p class="contact-note">Dostępny: poniedziałek-sobota, 8:00-18:00</p>
+            <p><a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a></p>
+            <p class="contact-note">Dostępny: {{ OPENING_HOURS.display }}</p>
           </div>
         </div>
 
@@ -46,9 +50,10 @@
             </svg>
           </div>
           <div class="contact-method-content">
-            <h3>Lokalizacja</h3>
-            <p>Opole, ul. Koraszewskiego </p>
-            <p>Nysa, ul. Celna 5</p>
+            <h3>Gabinety</h3>
+            {% for loc in LOCATIONS %}
+            <p><a href="{{ loc.path }}">{{ loc.city }}, {{ loc.street }}, {{ loc.postal_code }} {{ loc.city }}</a></p>
+            {% endfor %}
           </div>
         </div>
 
@@ -61,7 +66,7 @@
           </div>
           <div class="contact-method-content">
             <h3>Godziny pracy</h3>
-            <p>Poniedziałek - Niedziela: 8:00 - 20:00</p>
+            <p>{{ OPENING_HOURS.display }}</p>
             <p class="contact-note">Możliwość konsultacji online poza godzinami pracy</p>
           </div>
         </div>

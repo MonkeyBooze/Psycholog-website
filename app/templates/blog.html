@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block meta_title %}Blog psychologiczny - {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Blog psychologiczny – artykuły o zdrowiu psychicznym, ADHD, autyzmie i terapii. Porady psychologa z Opola i Nysy.{% endblock %}
+{% block meta_title %}Blog psychologiczny, ADHD, autyzm, terapia{% endblock %}
+{% block meta_description %}Artykuły o ADHD, spektrum autyzmu, terapii i zdrowiu psychicznym. Pisane przez psychologów z gabinetów w Opolu i Nysie.{% endblock %}
+
+{% block meta_robots %}{% if search_query %}<meta name="robots" content="noindex, follow">{% endif %}{% endblock %}
+{% block canonical_path %}{{ request.path }}{% if page_obj.number > 1 %}?page={{ page_obj.number }}{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -49,7 +52,7 @@
                         </li>
                         {% for category in categories %}
                         <li>
-                            <a href="?category={{ category.slug }}">
+                            <a href="{% url 'blog_category' category.slug %}">
                                 {{ category.name }}
                             </a>
                         </li>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block meta_title %}Standardy Ochrony Małoletnich | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}Standardy Ochrony Małoletnich obowiązujące w gabinetach Spektrum Umysłu w Opolu i Nysie, wraz z wersją skróconą dla dzieci i młodzieży.{% endblock %}
+
+{% block content %}
+
+<section class="section-small">
+  <div class="container">
+    <div class="section-header">
+      <h1>Standardy Ochrony Małoletnich</h1>
+      <p>
+        Dokument obowiązujący w gabinetach Spektrum Umysłu w Opolu i w Nysie.
+        Przyjęty na podstawie {{ CHILD_PROTECTION_META.legal_basis }}.
+      </p>
+    </div>
+
+    <div class="who-content">
+      <p>
+        Poniżej znajdziesz pełną treść standardów oraz
+        <a href="#dla-dzieci">wersję skróconą, napisaną dla dzieci i młodzieży</a>.
+        Oba dokumenty są też wywieszone w widocznym miejscu w każdym z naszych gabinetów.
+      </p>
+
+      {% for title, paragraphs in CHILD_PROTECTION %}
+      <h2>{{ forloop.counter }}. {{ title }}</h2>
+      {% for paragraph in paragraphs %}
+      <p>{{ paragraph }}</p>
+      {% endfor %}
+      {% endfor %}
+
+      <h2>Dane dokumentu</h2>
+      <p>
+        <strong>Osoba przyjmująca zgłoszenia:</strong> {{ CHILD_PROTECTION_META.responsible_person }}<br>
+        <strong>Osoba odpowiedzialna za standardy i szkolenia:</strong> {{ CHILD_PROTECTION_META.training_person }}<br>
+        <strong>Data przyjęcia dokumentu:</strong> {{ CHILD_PROTECTION_META.adopted_on }}<br>
+        <strong>Najbliższy przegląd:</strong> {{ CHILD_PROTECTION_META.review_due }}<br>
+        <strong>Kontakt:</strong> <a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a>,
+        <a href="mailto:{{ EMAIL }}">{{ EMAIL }}</a>
+      </p>
+      <p>
+        Zobacz również: <a href="/privacy/">polityka prywatności i RODO</a>,
+        <a href="/terms/">regulamin świadczenia usług</a>,
+        <a href="/data-subject-rights/">realizacja praw osób, których dane dotyczą</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section-small bg-light" id="dla-dzieci">
+  <div class="container">
+    <div class="section-header">
+      <h2>Wersja dla dzieci i młodzieży</h2>
+      <p>To jest ta sama umowa, tylko napisana prościej.</p>
+    </div>
+
+    <div class="who-content">
+      {% for title, text in CHILD_PROTECTION_SHORT %}
+      <h3>{{ title }}</h3>
+      <p>{{ text }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

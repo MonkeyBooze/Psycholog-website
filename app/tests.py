@@ -373,6 +373,35 @@ class StaticAssetTests(SimpleTestCase):
         self.assertNotIn('fonts.googleapis.com', css)
 
 
+class RenderVisibilityTests(SimpleTestCase):
+    """Treść musi być widoczna bez JavaScriptu i bez przewijania strony.
+
+    Sekcje miały opacity: 0 i dostawały klasę .visible dopiero od
+    IntersectionObservera. Renderer Google nie przewija strony, więc wszystko
+    poniżej pierwszego ekranu zostawało niewidoczne, a nagłówek H1 pojawiał się
+    dopiero po 800 ms animacji, co opóźniało Largest Contentful Paint.
+    """
+
+    CSS_ROOT = Path(settings.BASE_DIR) / 'app' / 'static' / 'css'
+
+    def test_no_css_rule_hides_content_by_default(self):
+        pattern = re.compile(r'([^{}]+)\{[^{}]*opacity:\s*0\s*[;}]')
+        hidden = []
+        for css in self.CSS_ROOT.rglob('*.css'):
+            for selector in pattern.findall(css.read_text(encoding='utf-8')):
+                selector = ' '.join(selector.split())
+                # Natywny checkbox chowany pod własnym znacznikiem .checkmark.
+                if 'checkbox' in selector:
+                    continue
+                hidden.append(f'{css.name}: {selector}')
+        self.assertEqual(hidden, [], 'CSS ukrywa treść, zanim uruchomi się JavaScript')
+
+    def test_reveal_does_not_depend_on_scrolling(self):
+        base = (Path(settings.BASE_DIR) / 'app' / 'templates' / 'base.html').read_text(encoding='utf-8')
+        self.assertFalse('IntersectionObserver' in base,
+                         'pojawienie się treści zależy od przewinięcia strony')
+
+
 class DomainTests(SimpleTestCase):
     """Stara domena nie należy już do właściciela i nie może zostawać w konfiguracji."""
 

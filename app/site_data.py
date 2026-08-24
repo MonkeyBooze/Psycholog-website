@@ -727,10 +727,11 @@ LOGOPEDIA_STEPS = [
 # ---------------------------------------------------------------------------
 
 CHILD_PROTECTION_META = {
-    "responsible_person": "DO UZUPEŁNIENIA",
-    "training_person": "DO UZUPEŁNIENIA",
-    "adopted_on": "DO UZUPEŁNIENIA",
-    "review_due": "DO UZUPEŁNIENIA",
+    "responsible_person": "Jakub Lewandowski, psycholog, właściciel gabinetu",
+    "training_person": "Jakub Lewandowski, psycholog, właściciel gabinetu",
+    "adopted_on": "24 sierpnia 2026 r.",
+    # Art. 22c ust. 6: ocena standardów co najmniej raz na dwa lata.
+    "review_due": "24 sierpnia 2028 r.",
     "legal_basis": (
         "Ustawa z dnia 13 maja 2016 r. o przeciwdziałaniu zagrożeniom przestępczością "
         "na tle seksualnym i ochronie małoletnich (art. 22b i 22c)"

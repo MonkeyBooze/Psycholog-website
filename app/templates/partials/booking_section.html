@@ -8,7 +8,7 @@
 
         <div class="booking-options">
             <!-- Option 1: ZnanyLekarz -->
-            <a href="https://www.znanylekarz.pl/placowki/spektrum-umyslu-gabinety-psychoedukacji-logopedii-i-terapii"
+            <a href="{{ ZNANYLEKARZ_URL }}"
                 target="_blank" rel="noopener noreferrer" class="booking-option">
                 <div class="booking-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
             </a>
 
             <!-- Option 2: Phone -->
-            <a href="tel:+48606841722" class="booking-option">
+            <a href="tel:{{ PHONE_E164 }}" class="booking-option">
                 <div class="booking-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -31,7 +31,7 @@
                     </svg>
                 </div>
                 <h3>Telefon</h3>
-                <p>Zadzwoń: 606 841 722</p>
+                <p>Zadzwoń: {{ PHONE_SHORT }}</p>
             </a>
 
             <!-- Option 3: Form -->
@@ -75,11 +75,9 @@
                     <label for="id_subject">Czego dotyczy? *</label>
                     <select id="id_subject" name="subject" required class="form-control">
                         <option value="">Wybierz...</option>
-                        <option value="terapia">Terapia indywidualna</option>
-                        <option value="konsultacja">Konsultacja psychologiczna</option>
-                        <option value="adhd">Diagnoza ADHD</option>
-                        <option value="autyzm">Diagnoza autyzmu (ADOS-2)</option>
-                        <option value="tus">Trening Umiejętności Społecznych</option>
+                        {% for klucz, usluga in SERVICES.items %}
+                        <option value="{{ klucz }}">{{ usluga.name }}</option>
+                        {% endfor %}
                         <option value="inne">Inne</option>
                     </select>
                 </div>
@@ -103,25 +101,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    // Simple form toggle without external libraries
-    document.addEventListener('DOMContentLoaded', function () {
-        const showFormBtn = document.getElementById('show-form-btn');
-        const hideFormBtn = document.getElementById('hide-form-btn');
-        const formWrapper = document.getElementById('booking-form-wrapper');
-
-        if (showFormBtn && formWrapper) {
-            showFormBtn.addEventListener('click', function () {
-                formWrapper.style.display = 'block';
-                formWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            });
-        }
-
-        if (hideFormBtn && formWrapper) {
-            hideFormBtn.addEventListener('click', function () {
-                formWrapper.style.display = 'none';
-            });
-        }
-    });
-</script>

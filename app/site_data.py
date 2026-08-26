@@ -59,7 +59,7 @@ LOCATIONS = [
             "Nasz opolski gabinet mieści się w ścisłym centrum miasta, przy ulicy Bronisława "
             "Koraszewskiego, kilka minut pieszo od Rynku i od placu Wolności. To główna lokalizacja "
             "Spektrum Umysłu, prowadzimy tu pełen zakres usług: diagnozę ADHD i spektrum autyzmu, "
-            "terapię indywidualną, konsultacje, grupy TUS oraz szkolenia dla firm."
+            "terapię indywidualną, konsultacje oraz grupy TUS."
         ),
         "who": (
             "Do gabinetu w Opolu trafiają najczęściej osoby dorosłe, które przez lata podejrzewały "
@@ -75,10 +75,6 @@ LOCATIONS = [
         ),
         "nearby": ["Brzeg", "Kędzierzyn-Koźle", "Krapkowice", "Namysłów",
                    "Strzelce Opolskie", "Ozimek", "Prószków"],
-        "extra_note": (
-            "W Opolu prowadzimy również szkolenia antymobbingowe, wellbeing i z zakresu "
-            "neuroróżnorodności dla firm i instytucji z całego województwa."
-        ),
     },
     {
         "slug": "nysa",

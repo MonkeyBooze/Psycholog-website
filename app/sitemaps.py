@@ -18,7 +18,6 @@ class StaticViewSitemap(Sitemap):
         'tus': 0.9,
         'logopedia': 0.9,
         'wsparcie_online': 0.8,
-        'trainings': 0.9,
         'pricing': 0.8,
         'about_us': 0.8,
         'contact': 0.8,

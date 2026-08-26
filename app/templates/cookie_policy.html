@@ -68,7 +68,7 @@
 
       <h3>6.1 Panel preferencji</h3>
       <p>Możesz zarządzać swoimi preferencjami dotyczącymi cookies, klikając poniższy przycisk:</p>
-      <button onclick="document.getElementById('cookie-preferences').style.display='block'"
+      <button type="button" data-akcja="ustawienia-cookies"
         style="padding: 12px 24px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; margin: 10px 0;">
         Zarządzaj preferencjami cookies
       </button>
@@ -102,8 +102,8 @@
       <p>Jeśli masz pytania dotyczące naszej polityki cookies, skontaktuj się z nami:</p>
       <ul>
         <li>Email: <a
-            href="mailto:jakub.lewandowski@spektrumumyslu.pl">jakub.lewandowski@spektrumumyslu.pl</a></li>
-        <li>Telefon: <a href="tel:+48606841722">+48 606 841 722</a></li>
+            href="mailto:{{ EMAIL }}">{{ EMAIL }}</a></li>
+        <li>Telefon: <a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a></li>
         <li>Adres: Nysa, ul. Morcinka 15</li>
       </ul>
 

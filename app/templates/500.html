@@ -1,32 +1,137 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block meta_title %}Błąd serwera | {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}Przepraszamy, wystąpił błąd serwera. Prosimy spróbować później lub skontaktować się z nami telefonicznie.{% endblock %}
-{% block content %}
+{% comment %}
+Strona 500 celowo nie rozszerza base.html i nie używa zmiennych z procesorów kontekstu.
 
-<section class="error-page section">
-    <div class="container">
-        <div class="error-content">
-            <div class="error-icon">
-                <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.2" />
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                        fill="currentColor" opacity="0.3" />
-                    <path d="M12 8v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    <circle cx="12" cy="16" r="1" fill="currentColor" />
-                </svg>
-            </div>
-            <h1 class="error-code">500</h1>
-            <h2 class="error-title">Coś poszło nie tak</h2>
-            <p class="error-message">Przepraszamy za niedogodności. Nasz zespół został powiadomiony o problemie. Spróbuj
-                ponownie za chwilę.</p>
-            <div class="error-actions">
-                <a href="/" class="btn btn-primary">Wróć na stronę główną</a>
-                <a href="tel:+48606841722" class="btn btn-secondary">Zadzwoń: 606 841 722</a>
-            </div>
-        </div>
+Django renderuje ten szablon przez template.render() bez kontekstu i bez obiektu
+request (django/views/defaults.py, server_error), więc każda zmienna byłaby pusta:
+znikłaby nazwa firmy, stopka i numer telefonu. Nie działałby też {% templatetag openblock %} static {% templatetag closeblock %},
+gdyby zabrakło manifestu plików statycznych, czyli akurat w jednej z sytuacji,
+które ten błąd wywołują.
+
+Strona błędu ma działać wtedy, gdy reszta aplikacji nie działa, więc jest
+samodzielna: własne style, numer telefonu wpisany wprost. To jedyne miejsce
+w serwisie, gdzie powielenie numeru jest zamierzone.
+{% endcomment %}<!doctype html>
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Błąd serwera, Spektrum Umysłu</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --tlo: #f7f6f3;
+      --karta: #ffffff;
+      --tekst: #1d2b32;
+      --przygaszony: #5c6b73;
+      --akcent: #2f6f5e;
+      --linia: #dfe4e2;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --tlo: #131a1d;
+        --karta: #1b2428;
+        --tekst: #e8eeef;
+        --przygaszony: #9aa8ad;
+        --akcent: #6cbfa6;
+        --linia: #2a363b;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--tlo);
+      color: var(--tekst);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    .karta {
+      background: var(--karta);
+      border: 1px solid var(--linia);
+      border-radius: 10px;
+      padding: 44px 36px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .kod {
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--przygaszony);
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      line-height: 1.25;
+      margin: 0 0 14px;
+      text-wrap: balance;
+    }
+
+    p {
+      color: var(--przygaszony);
+      margin: 0 0 28px;
+    }
+
+    .akcje {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    a {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--akcent);
+    }
+
+    .glowny {
+      background: var(--akcent);
+      color: var(--karta);
+    }
+
+    .drugi {
+      color: var(--akcent);
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--akcent);
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="karta">
+    <p class="kod">Błąd 500</p>
+    <h1>Coś poszło nie tak po naszej stronie</h1>
+    <p>
+      Przepraszamy. Spróbuj ponownie za chwilę, a jeśli sprawa jest pilna, zadzwoń.
+      Odbieramy codziennie w godzinach 8:00 do 20:00.
+    </p>
+    <div class="akcje">
+      <a class="glowny" href="/">Strona główna</a>
+      <a class="drugi" href="tel:+48606841722">Zadzwoń: 606 841 722</a>
     </div>
-</section>
+  </main>
+</body>
 
-{% endblock %}
+</html>

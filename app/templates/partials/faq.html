@@ -5,7 +5,7 @@
 
   Wymaga w kontekście: faq (lista krotek), faq_schema (gotowy JSON-LD).
 {% endcomment %}
-<section class="faq-section section scroll-fade-in">
+<section class="faq-section section">
   <div class="container">
     <div class="section-header">
       <h2>{{ faq_heading|default:"Najczęściej zadawane pytania" }}</h2>
@@ -31,16 +31,3 @@
 </section>
 
 <script type="application/ld+json">{{ faq_schema|safe }}</script>
-
-<script>
-  // Jeden delegowany listener zamiast atrybutu onclick przy każdym pytaniu.
-  document.querySelectorAll('.faq-list').forEach(function (list) {
-    list.addEventListener('click', function (event) {
-      var button = event.target.closest('.faq-question');
-      if (!button) return;
-      var item = button.parentElement;
-      var open = item.classList.toggle('active');
-      button.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  });
-</script>

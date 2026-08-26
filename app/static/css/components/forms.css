@@ -81,7 +81,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-
 /* === BOOKING/CONTACT === */
 .booking-section {
   background: var(--color-primary-700);
@@ -280,14 +279,4 @@
   font-size: var(--font-size-sm);
   color: var(--text-muted);
   font-style: italic;
-}
-
-.booking-widget {
-  flex: 1;
-  min-width: 250px;
-  background: var(--bg-default);
-  padding: 20px;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 5px 15px var(--shadow-md);
-  border: 1px solid var(--border-color);
 }

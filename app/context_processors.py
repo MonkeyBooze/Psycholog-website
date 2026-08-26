@@ -12,7 +12,6 @@ def _breadcrumb(path):
         '/o-nas/': 'Zespół',
         '/kontakt/': 'Kontakt',
         '/blog/': 'Blog',
-        '/szkolenia-dla-firm/': 'Szkolenia dla firm',
         '/standardy-ochrony-maloletnich/': 'Standardy Ochrony Małoletnich',
     })
     name = names.get(path)

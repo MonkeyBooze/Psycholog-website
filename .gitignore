@@ -7,7 +7,6 @@ __pycache__/
 .env
 .venv/
 venv/
-CLAUDE.md
 
 # Django / build artifacts
 /staticfiles
@@ -16,4 +15,10 @@ CLAUDE.md
 .DS_Store
 .idea/
 .vscode/
-.css_standards.md
+
+# Dokumentacja, raporty i artefakty narzedzi.
+# Zostaja na dysku, nie wchodza do repozytorium. Katalog docs/ jest wyjsciem
+# skryptu scripts/generuj_teksty.py, wiec i tak jest odtwarzalny.
+# Jesli kiedys jakis plik .md ma trafic do repo: git add -f nazwa.md
+*.md
+docs/

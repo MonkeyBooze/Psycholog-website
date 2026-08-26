@@ -26,7 +26,13 @@ class Appointment(models.Model):
 
 
 class TrainingInquiry(models.Model):
-    """B2B training inquiry from the szkolenia page."""
+    """Zapytania ze zlikwidowanej strony szkoleń dla firm.
+
+    Strona, widok i formularz zostały usunięte. Model i panel administracyjny
+    zostają wyłącznie po to, żeby dało się odczytać zapytania zapisane wcześniej.
+    ponytail: martwy model, do skasowania razem z tabelą, gdy potwierdzisz,
+    że w panelu nie ma nic wartego zachowania.
+    """
     SUBJECT_CHOICES = [
         ("antymobbingowe_pracownicy", "Szkolenie antymobbingowe dla pracowników"),
         ("antymobbingowe_kadra", "Szkolenie dla kadry zarządzającej i HR"),
@@ -185,51 +191,6 @@ class BlogPost(models.Model):
         verbose_name = "Blog Post"
         verbose_name_plural = "Blog Posts"
         ordering = ['-published_at', '-created_at']
-
-
-class StaffMember(models.Model):
-    """Model for team/staff members"""
-    
-    # Basic Information
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    title = models.CharField(max_length=200, help_text='np. Psycholog, Terapeuta')
-    specialization = models.CharField(max_length=300, help_text='np. Terapia poznawczo-behawioralna, Terapia par')
-    
-    # Professional Details  
-    bio = models.TextField(help_text='Krótki opis osoby i doświadczenia')
-    education = models.TextField(blank=True, help_text='Wykształcenie i kwalifikacje')
-    experience_years = models.PositiveIntegerField(default=0, help_text='Lata doświadczenia')
-    
-    # Contact Information
-    email = models.EmailField(blank=True)
-    phone = models.CharField(max_length=20, blank=True)
-    
-    # Media
-    photo = models.CharField(
-        max_length=500, 
-        blank=True,
-        help_text='URL do zdjęcia pracownika'
-    )
-    
-    # Display Options
-    is_active = models.BooleanField(default=True)
-    display_order = models.PositiveIntegerField(default=0, help_text='Kolejność wyświetlania na stronie')
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    def get_full_name(self):
-        return f"{self.first_name} {self.last_name}"
-    
-    def __str__(self):
-        return f"{self.get_full_name()} - {self.title}"
-    
-    class Meta:
-        verbose_name = "Staff Member"
-        verbose_name_plural = "Staff Members"
-        ordering = ['display_order', 'last_name']
 
 
 class CookieConsent(models.Model):

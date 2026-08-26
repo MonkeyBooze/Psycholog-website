@@ -48,7 +48,7 @@
 </section>
 
 <!-- Dla kogo -->
-<section class="who-section section bg-light scroll-fade-in">
+<section class="who-section section bg-light">
   <div class="container">
     <div class="section-header">
       <h2>Dla kogo jest gabinet w {{ loc.locative }}</h2>
@@ -56,13 +56,13 @@
     <div class="who-content">
       <p>{{ loc.who }}</p>
       <p>{{ loc.practical }}</p>
-      <p>{{ loc.extra_note }}</p>
+      {% if loc.extra_note %}<p>{{ loc.extra_note }}</p>{% endif %}
     </div>
   </div>
 </section>
 
 <!-- Usługi dostępne w tej lokalizacji -->
-<section class="services-section section scroll-fade-in">
+<section class="services-section section">
   <div class="container">
     <div class="section-header">
       <h2>Co robimy w gabinecie w {{ loc.locative }}</h2>
@@ -99,7 +99,7 @@
 </section>
 
 <!-- Zasięg -->
-<section class="who-section section bg-light scroll-fade-in">
+<section class="who-section section bg-light">
   <div class="container">
     <div class="section-header">
       <h2>Skąd przyjeżdżają do nas pacjenci</h2>
@@ -122,7 +122,7 @@
 </section>
 
 <!-- Kontakt / adres -->
-<section class="contact-content section scroll-fade-in">
+<section class="contact-content section">
   <div class="container">
     <div class="section-header">
       <h2>Gabinet {{ loc.city }}, dane kontaktowe</h2>

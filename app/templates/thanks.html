@@ -77,13 +77,13 @@
         <h3 style="color: white; margin-bottom: 15px; font-size: 1.3rem;">Pilna sprawa?</h3>
         <p style="margin-bottom: 20px; opacity: 0.95;">Możesz również skontaktować się z nami bezpośrednio:</p>
         <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-          <a href="tel:+48606841722"
+          <a href="tel:{{ PHONE_E164 }}"
             style="background: rgba(255,255,255,0.2); padding: 12px 25px; border-radius: 8px; color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; backdrop-filter: blur(10px); display: inline-block;"
             onmouseover="this.style.background='rgba(255,255,255,0.3)'"
             onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-            📞 +48 606 841 722
+            📞 {{ PHONE_DISPLAY }}
           </a>
-          <a href="mailto:jakub.lewandowski@spektrumumyslu.pl"
+          <a href="mailto:{{ EMAIL }}"
             style="background: rgba(255,255,255,0.2); padding: 12px 25px; border-radius: 8px; color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; backdrop-filter: blur(10px); display: inline-block;"
             onmouseover="this.style.background='rgba(255,255,255,0.3)'"
             onmouseout="this.style.background='rgba(255,255,255,0.2)'">

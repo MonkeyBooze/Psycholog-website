@@ -10,6 +10,7 @@ Bez tej zmiennej Django zbuduje bazę testowa obok bazy wskazanej w .env.
 
 import json
 import re
+import subprocess
 from pathlib import Path
 
 from django.conf import settings
@@ -22,7 +23,7 @@ from app import site_data
 PAGES = [
     'home', 'about_us', 'pricing', 'contact', 'blog',
     'diagnoza_adhd', 'diagnoza_autyzmu', 'terapia_indywidualna',
-    'konsultacje', 'tus', 'wsparcie_online', 'logopedia', 'trainings',
+    'konsultacje', 'tus', 'wsparcie_online', 'logopedia',
     'lokalizacja_opole', 'lokalizacja_nysa',
     'privacy', 'cookie_policy', 'terms', 'data_subject_rights', 'thanks',
     'standardy_ochrony_maloletnich',
@@ -456,3 +457,200 @@ class ChildProtectionTests(TestCase):
         missing = [k for k, v in site_data.CHILD_PROTECTION_META.items()
                    if isinstance(v, str) and 'DO UZUPEŁNIENIA' in v]
         self.assertEqual(missing, [], f'pola do uzupełnienia przez właściciela: {missing}')
+
+
+# Poczta w testach: własny backend zbierający wiadomości, plus dane logowania,
+# których brak wyłącza wysyłkę. Bez tego wynik zależałby od lokalnego pliku .env.
+with_email = override_settings(
+    EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
+    EMAIL_HOST_USER='test@example.com',
+    EMAIL_HOST_PASSWORD='haslo-testowe',
+    EMAIL_FROM='no-reply@example.com',
+    ADMIN_NOTIFICATION_EMAIL='gabinet@example.com',
+)
+
+
+@without_manifest
+@with_email
+class BookingFlowTests(TestCase):
+    """Zgłoszenia nie docierały mailem, więc ścieżka wysyłki ma własne testy.
+
+    Wcześniej mail szedł z wątku daemon, którego Railway ubija przy wymianie
+    procesu, a niepowodzenie lądowało w logu jako informacja.
+    """
+
+    PAYLOAD = {
+        'name': 'Anna Kowalska',
+        'phone': '600100200',
+        'email': 'anna@example.com',
+        'subject': 'logopedia',
+        'data_processing_consent': 'on',
+        'hp_field': '',
+    }
+
+    def test_booking_saves_and_sends_two_emails(self):
+        from django.core import mail
+        from app.models import Appointment
+
+        response = self.client.post(reverse('book'), self.PAYLOAD)
+        self.assertRedirects(response, reverse('thanks'))
+
+        appointment = Appointment.objects.get()
+        self.assertEqual(appointment.name, 'Anna Kowalska')
+        # Zgoda zapisuje się przez ModelForm, wcześniej robił to ręcznie widok.
+        self.assertTrue(appointment.data_processing_consent)
+
+        odbiorcy = sorted(address for wiadomosc in mail.outbox for address in wiadomosc.to)
+        self.assertEqual(odbiorcy, ['anna@example.com', 'gabinet@example.com'])
+
+    def test_email_names_the_service_the_way_the_price_list_does(self):
+        """Mail mówił „Diagnoza autyzmu (ADOS-2)”, a cennik „Diagnoza spektrum autyzmu”."""
+        from django.core import mail
+
+        self.client.post(reverse('book'), dict(self.PAYLOAD, subject='autyzm'))
+        do_gabinetu = next(w for w in mail.outbox if 'gabinet@example.com' in w.to)
+        self.assertIn(site_data.SERVICES['autyzm']['name'], do_gabinetu.body)
+
+    def test_booking_without_consent_saves_nothing(self):
+        from django.core import mail
+        from app.models import Appointment
+
+        payload = dict(self.PAYLOAD)
+        del payload['data_processing_consent']
+        self.client.post(reverse('book'), payload)
+
+        self.assertEqual(Appointment.objects.count(), 0)
+        self.assertEqual(mail.outbox, [])
+
+    def test_honeypot_blocks_the_submission(self):
+        from app.models import Appointment
+
+        self.client.post(reverse('book'), dict(self.PAYLOAD, hp_field='bot'))
+        self.assertEqual(Appointment.objects.count(), 0)
+
+
+class EmailConfigurationTests(TestCase):
+    """Brak danych logowania musi być głośny, bo to najczęstsza przyczyna braku maili."""
+
+    @override_settings(EMAIL_HOST_USER='', EMAIL_HOST_PASSWORD='')
+    def test_missing_credentials_are_logged_as_error(self):
+        from app.models import Appointment
+
+        with self.assertLogs('app.views', level='ERROR') as log:
+            self.client.post(reverse('book'), BookingFlowTests.PAYLOAD)
+
+        # Zgłoszenie nie może przepaść tylko dlatego, że poczta nie działa.
+        self.assertEqual(Appointment.objects.count(), 1)
+        self.assertTrue(any('nieskonfigurowana' in wiersz.lower() for wiersz in log.output))
+
+
+class ClientIpTests(SimpleTestCase):
+    """Rejestr zgód ma być dowodem, więc nie może ufać nagłówkowi od klienta."""
+
+    def _ip(self, **meta):
+        from django.test import RequestFactory
+        from app.views import get_client_ip
+        return get_client_ip(RequestFactory().get('/', **meta))
+
+    def test_cloudflare_header_wins(self):
+        address = self._ip(HTTP_CF_CONNECTING_IP='203.0.113.7',
+                         HTTP_X_FORWARDED_FOR='1.2.3.4, 203.0.113.7')
+        self.assertEqual(address, '203.0.113.7')
+
+    def test_spoofed_first_entry_is_ignored(self):
+        """Pierwszy wpis X-Forwarded-For podaje sam klient, liczy się ostatni."""
+        address = self._ip(HTTP_X_FORWARDED_FOR='6.6.6.6, 198.51.100.20')
+        self.assertEqual(address, '198.51.100.20')
+
+
+class PhoneConsistencyTests(SimpleTestCase):
+    """Numer telefonu był wklejony w 22 miejscach mimo że site_data go udostępnia."""
+
+    # Strona 500 renderuje się bez procesorów kontekstu, więc numer musi tam
+    # zostać wpisany wprost. To jedyny dozwolony wyjątek.
+    WYJATKI = {'500.html'}
+
+    def test_phone_number_is_not_hardcoded_in_templates(self):
+        directory = Path(settings.BASE_DIR) / 'app' / 'templates'
+        hardcoded = [
+            str(p.relative_to(directory))
+            for p in directory.rglob('*.html')
+            if p.name not in self.WYJATKI
+            and re.search(r'606\s?841\s?722', p.read_text(encoding='utf-8'))
+        ]
+        self.assertEqual(hardcoded, [])
+
+    def test_phone_number_is_not_hardcoded_in_python(self):
+        directory = Path(settings.BASE_DIR) / 'app'
+        hardcoded = [
+            str(p.relative_to(directory))
+            for p in directory.rglob('*.py')
+            if p.name != 'site_data.py' and 'tests' not in p.name
+            and re.search(r'606\s?841\s?722', p.read_text(encoding='utf-8'))
+        ]
+        self.assertEqual(hardcoded, [])
+
+
+class StaticReferenceTests(SimpleTestCase):
+    """Windows nie rozróżnia wielkości liter w nazwach plików, Linux rozróżnia.
+
+    W repozytorium leżało images/Logo.png, a szablon prosił o images/logo.png.
+    Lokalnie działało, bo system plików uznaje te nazwy za tę samą. Na serwerze
+    collectstatic zbudował manifest z kluczem images/Logo.png, więc {% static %}
+    nie znajdował wpisu i podnosił ValueError przy renderowaniu base.html,
+    czyli na każdej podstronie serwisu.
+
+    Punktem odniesienia jest git, bo to jego zapis nazw trafia na serwer.
+    """
+
+    def _repository_files(self):
+        """Zawartość gita plus pliki jeszcze niezacommitowane, ale nieignorowane,
+        czyli dokładnie to, co znajdzie się na serwerze po najbliższym wdrożeniu."""
+        try:
+            result = subprocess.run(
+                ['git', 'ls-files', '--cached', '--others', '--exclude-standard'],
+                cwd=settings.BASE_DIR,
+                capture_output=True, text=True, timeout=30)
+        except (OSError, subprocess.SubprocessError):
+            self.skipTest('git niedostępny')
+        if result.returncode:
+            self.skipTest('directory nie jest repozytorium git')
+        return {line for line in result.stdout.splitlines() if line}
+
+    def test_static_references_match_repository_filenames(self):
+        tracked = self._repository_files()
+        directory = Path(settings.BASE_DIR) / 'app' / 'templates'
+        missing = []
+        for template in directory.rglob('*.html'):
+            for reference in re.findall(r"""{%\s*static\s+['"]([^'"]+)['"]""",
+                                    template.read_text(encoding='utf-8')):
+                if f'app/static/{reference}' not in tracked:
+                    missing.append(f'{template.name}: {reference}')
+        self.assertEqual(
+            missing, [],
+            'szablon odwołuje się do pliku, którego nie ma w repozytorium '
+            '(najczęściej rozjazd wielkości liter): ' + str(missing))
+
+    def test_repository_filenames_match_the_filesystem(self):
+        """Na Windowsie git potrafi trzymać starą wielkość liter po zmianie nazwy."""
+        tracked = self._repository_files()
+        mismatched = []
+        for wpis in tracked:
+            path = Path(settings.BASE_DIR) / wpis
+            directory = path.parent
+            if directory.is_dir() and path.name not in {x.name for x in directory.iterdir()}:
+                mismatched.append(wpis)
+        self.assertEqual(mismatched, [], f'git i dysk różnią się nazwami: {mismatched}')
+
+
+class EmailConsistencyTests(SimpleTestCase):
+    """Adres był wklejony w 17 miejscach, tak samo jak wcześniej numer telefonu."""
+
+    def test_contact_email_is_not_hardcoded_in_templates(self):
+        directory = Path(settings.BASE_DIR) / 'app' / 'templates'
+        hardcoded = [
+            str(p.relative_to(directory))
+            for p in directory.rglob('*.html')
+            if site_data.EMAIL in p.read_text(encoding='utf-8')
+        ]
+        self.assertEqual(hardcoded, [])

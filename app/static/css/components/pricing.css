@@ -81,35 +81,3 @@
 .pricing-footer {
   padding: 0 30px 40px;
 }
-
-.offer-icon {
-  font-size: var(--font-size-5xl);
-  margin-bottom: 20px;
-}
-
-.offer-price {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  margin: 20px 0;
-  flex-wrap: wrap;
-}
-
-.old-price {
-  font-size: var(--font-size-lg);
-  color: var(--text-muted);
-  text-decoration: line-through;
-}
-
-.new-price {
-  font-size: var(--font-size-2xl);
-  color: var(--color-primary-900);
-  font-weight: var(--font-weight-bold);
-}
-
-.discount {
-  font-size: var(--font-size-3xl-sm);
-  color: var(--color-primary-900);
-  font-weight: var(--font-weight-bold);
-}

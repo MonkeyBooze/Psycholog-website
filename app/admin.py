@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Appointment, DataSubjectRightsRequest, BlogCategory, BlogPost, StaffMember, CookieConsent, TrainingInquiry
+from .models import (Appointment, DataSubjectRightsRequest, BlogCategory, BlogPost,
+                     CookieConsent, TrainingInquiry)
 
 
 @admin.register(Appointment)
@@ -82,32 +83,6 @@ class BlogPostAdmin(admin.ModelAdmin):
         queryset.update(status='draft')
         self.message_user(request, f'{queryset.count()} artykułów zostało oznaczonych jako szkic.')
     make_draft.short_description = 'Oznacz jako szkic'
-
-
-@admin.register(StaffMember)
-class StaffMemberAdmin(admin.ModelAdmin):
-    list_display = ['get_full_name', 'title', 'specialization', 'experience_years', 'is_active', 'display_order']
-    list_filter = ['is_active', 'title']
-    search_fields = ['first_name', 'last_name', 'title', 'specialization']
-    list_editable = ['display_order', 'is_active']
-    
-    fieldsets = (
-        ('Informacje podstawowe', {
-            'fields': ('first_name', 'last_name', 'title', 'specialization')
-        }),
-        ('Doświadczenie zawodowe', {
-            'fields': ('bio', 'education', 'experience_years')
-        }),
-        ('Kontakt', {
-            'fields': ('email', 'phone')
-        }),
-        ('Media', {
-            'fields': ('photo',)
-        }),
-        ('Ustawienia wyświetlania', {
-            'fields': ('is_active', 'display_order')
-        })
-    )
 
 
 @admin.register(CookieConsent)

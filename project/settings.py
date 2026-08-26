@@ -11,12 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 
-import os
 from pathlib import Path
-from dotenv import load_dotenv
-import environ
 
-load_dotenv()
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,7 +33,6 @@ DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost', 'spektrumumyslu.pl', 'www.spektrumumyslu.pl'])
 
-PREPEND_WWW = False
 
 # Application definition
 
@@ -130,7 +126,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'app' / 'static']
+# Bez STATICFILES_DIRS: wskazywalo app/static, czyli katalog, ktory i tak zbiera
+# AppDirectoriesFinder z aplikacji 'app'. Kazdy plik byl przez to znajdowany
+# dwa razy, a collectstatic ostrzegal o powielonej sciezce docelowej.
 # Django 5.1 usunęło STATICFILES_STORAGE — ustawione tu wcześniej było po cichu ignorowane,
 # przez co pliki szły bez hashy (cache 60 s zamiast roku) i bez wariantów gzip/brotli.
 STORAGES = {
@@ -159,14 +157,18 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[])
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
 CSRF_COOKIE_HTTPONLY = False  # Allow JS to read CSRF token cookie for AJAX calls
 
 # Content Security Policy — restricts what resources the browser can load
 CONTENT_SECURITY_POLICY = {
     'DIRECTIVES': {
         'default-src': ["'self'"],
-        'script-src': ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
+        # Bez 'unsafe-inline': w szablonach nie ma już ani jednego wykonywalnego
+        # bloku <script> ani atrybutu onclick, wszystko siedzi w static/js/site.js.
+        # Bloki application/ld+json nie są skryptami wykonywalnymi, więc ich to nie dotyczy.
+        'script-src': ["'self'", 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
+        # style-src zostaje z 'unsafe-inline': w szablonach jest 148 atrybutów style=,
+        # a ich przepisanie to zmiana wizualna bez pokrycia testami. Osobne zadanie.
         'style-src': ["'self'", "'unsafe-inline'"],
         'img-src': ["'self'", 'data:', 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
         'font-src': ["'self'", 'https://fonts.gstatic.com'],
@@ -192,7 +194,8 @@ EMAIL_PORT = env.int("EMAIL_PORT", default=465)
 EMAIL_USE_SSL = True
 EMAIL_TIMEOUT = 10
 EMAIL_FROM = env("EMAIL_FROM", default="no-reply@example.com")
-ADMIN_NOTIFICATION_EMAIL = "jakub.lewandowski@spektrumumyslu.pl"
+ADMIN_NOTIFICATION_EMAIL = env("ADMIN_NOTIFICATION_EMAIL",
+                              default="jakub.lewandowski@spektrumumyslu.pl")
 
 # GA4 i Google Search Console
 GA_MEASUREMENT_ID = env('GA_MEASUREMENT_ID', default='')

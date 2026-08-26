@@ -128,7 +128,7 @@ endblock %}
                   target="_blank" class="share-btn linkedin">
                   LinkedIn
                 </a>
-                <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')" class="share-btn copy-link">
+                <button type="button" data-kopiuj="{{ request.build_absolute_uri }}" class="share-btn copy-link">
                   Kopiuj link
                 </button>
               </div>
@@ -141,7 +141,7 @@ endblock %}
                 <p>Skontaktuj się z nami, aby umówić konsultację psychologiczną.</p>
                 <div class="cta-buttons">
                   <a href="{% url 'contact' %}" class="btn btn-primary">Umów wizytę</a>
-                  <a href="tel:+48606841722" class="btn btn-secondary">Zadzwoń teraz</a>
+                  <a href="tel:{{ PHONE_E164 }}" class="btn btn-secondary">Zadzwoń teraz</a>
                 </div>
               </div>
             </div>
@@ -193,7 +193,7 @@ endblock %}
           <div class="sidebar-widget contact-widget">
             <h3>Kontakt</h3>
             <div class="contact-info">
-              <p><strong>Telefon:</strong><br><a href="tel:+48606841722">+48 606 841 722</a></p>
+              <p><strong>Telefon:</strong><br><a href="tel:{{ PHONE_E164 }}">{{ PHONE_DISPLAY }}</a></p>
               <p><strong>Lokalizacja:</strong><br>Opole, Nysa</p>
               <a href="{% url 'contact' %}" class="btn btn-primary btn-small">Umów konsultację</a>
             </div>
@@ -204,12 +204,4 @@ endblock %}
     </div>
   </div>
 </article>
-
-<script>
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(function () {
-      alert('Link został skopiowany do schowka!');
-    });
-  }
-</script>
 {% endblock %}

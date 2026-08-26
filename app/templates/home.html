@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block meta_title %}Psycholog Opole i Nysa, diagnoza ADHD i autyzmu{% endblock %}
-{% block meta_description %}Gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD (DIVA-5) i autyzmu (ADOS-2), TUS, terapia, konsultacje online. Krótkie terminy. Tel. 606 841 722{% endblock %}
+{% block meta_description %}Gabinet psychologiczny w Opolu i Nysie. Diagnoza ADHD (DIVA-5) i autyzmu (ADOS-2), TUS, terapia, konsultacje online. Krótkie terminy. Tel. {{ PHONE_SHORT }}{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
@@ -9,16 +9,15 @@
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
-        <h1 class="hero-headline fade-in">Psycholog Opole i Nysa, diagnoza ADHD i spektrum autyzmu</h1>
-        <p class="hero-subtitle fade-in">Gabinety w <a href="/opole/">Opolu</a> i <a href="/nysa/">Nysie</a>. Diagnoza ADHD metodą DIVA-5, diagnoza spektrum autyzmu testem ADOS-2, terapia indywidualna, TUS i konsultacje online. Pierwszy termin zwykle w ciągu 3 dni roboczych.</p>
-        <div class="hero-buttons fade-in">
+        <h1 class="hero-headline">Psycholog Opole i Nysa, diagnoza ADHD i spektrum autyzmu</h1>
+        <p class="hero-subtitle">Gabinety w <a href="/opole/">Opolu</a> i <a href="/nysa/">Nysie</a>. Diagnoza ADHD metodą DIVA-5, diagnoza spektrum autyzmu testem ADOS-2, terapia indywidualna, TUS i konsultacje online. Pierwszy termin zwykle w ciągu 3 dni roboczych.</p>
+        <div class="hero-buttons">
           <a href="#booking"
-            onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'}); return false;"
             class="btn btn-primary">Umów wizytę</a>
           <a href="tel:{{ PHONE_E164 }}" class="btn btn-secondary">Zadzwoń: {{ PHONE_SHORT }}</a>
         </div>
         <a href="{{ ZNANYLEKARZ_URL }}"
-          target="_blank" rel="noopener noreferrer" class="trust-badge fade-in">
+          target="_blank" rel="noopener noreferrer" class="trust-badge">
           <span class="trust-badge-star">⭐</span>
           <span class="trust-badge-text">{{ REVIEWS.rating }} na ZnanyLekarz · {{ REVIEWS.count }} opinii</span>
         </a>
@@ -34,7 +33,7 @@
 
 
 <!-- Testimonials Section -->
-<section class="testimonials-section section scroll-fade-in">
+<section class="testimonials-section section">
   <div class="container">
     <div class="section-header">
       <h2>Co mówią o nas pacjenci</h2>
@@ -122,7 +121,7 @@
 </section>
 
 <!-- Services Section -->
-<section class="services-section section scroll-fade-in">
+<section class="services-section section">
   <div class="container">
     <div class="section-header">
       <h2>Usługi psychologiczne, Opole i Nysa</h2>
@@ -138,19 +137,12 @@
         <span class="service-link">Dowiedz się więcej →</span>
       </a>
       {% endfor %}
-      <a href="/szkolenia-dla-firm/" class="service-card" style="border: 1px solid var(--emerald);">
-        <h3>Szkolenia dla firm</h3>
-        <p class="service-description">Szkolenia antymobbingowe, wellbeing i neuroróżnorodność
-          dla zespołów, stacjonarnie w Opolu i Nysie lub zdalnie.</p>
-        <p class="service-specs">Oferta B2B · wycena indywidualna</p>
-        <span class="service-link">Zobacz ofertę →</span>
-      </a>
     </div>
   </div>
 </section>
 
 <!-- Lokalizacje -->
-<section class="who-section section bg-light scroll-fade-in">
+<section class="who-section section bg-light">
   <div class="container">
     <div class="section-header">
       <h2>Gdzie nas znajdziesz</h2>
@@ -170,7 +162,7 @@
 </section>
 
 <!-- Team Teaser Section -->
-<section class="team-teaser-section section bg-light scroll-fade-in">
+<section class="team-teaser-section section bg-light">
   <div class="container">
     <div class="team-teaser-content">
       <div class="team-teaser-intro">
@@ -183,7 +175,7 @@
         <!-- Member 1 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/agata-brzozowska.jpg' %}" alt="Mgr Agata Brzozowska, Psycholog Dzieci i Młodzieży Opole" class="team-avatar">
+            <img src="{% static 'images/agata-brzozowska.jpg' %}" loading="lazy" width="401" height="600" alt="Mgr Agata Brzozowska, Psycholog Dzieci i Młodzieży Opole" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Agata Brzozowska</span>
@@ -193,7 +185,7 @@
         <!-- Member 2 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/jakub-lewandowski.jpg' %}" alt="Mgr Jakub Lewandowski, Psycholog Opole i Nysa" class="team-avatar">
+            <img src="{% static 'images/jakub-lewandowski.jpg' %}" loading="lazy" width="450" height="600" alt="Mgr Jakub Lewandowski, Psycholog Opole i Nysa" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Jakub Lewandowski</span>
@@ -203,7 +195,7 @@
         <!-- Member 3 -->
         <div class="team-member-preview">
           <div class="member-photo">
-            <img src="{% static 'images/katarzyna-kus.jpg' %}" alt="Mgr Katarzyna Kuś-Kozłowska, Psycholog Diagnosta Opole" class="team-avatar">
+            <img src="{% static 'images/katarzyna-kus.jpg' %}" loading="lazy" width="450" height="600" alt="Mgr Katarzyna Kuś-Kozłowska, Psycholog Diagnosta Opole" class="team-avatar">
           </div>
           <div class="member-details">
             <span class="member-name">Mgr Katarzyna Kuś-Kozłowska</span>
@@ -216,129 +208,6 @@
 </section>
 
 <!-- Booking Section -->
-<section id="booking" class="booking-section section scroll-fade-in">
-  <div class="container">
-    <div class="section-header">
-      <h2>Umów wizytę</h2>
-      <p>Wybierz sposób kontaktu, który Ci odpowiada</p>
-    </div>
-
-    <div class="booking-options">
-      <!-- Option 1: ZnanyLekarz -->
-      <a href="{{ ZNANYLEKARZ_URL }}"
-        target="_blank" rel="noopener noreferrer" class="booking-option">
-        <div class="booking-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>ZnanyLekarz</h3>
-        <p>Zarezerwuj termin online</p>
-      </a>
-
-      <!-- Option 2: Phone -->
-      <a href="tel:{{ PHONE_E164 }}" class="booking-option">
-        <div class="booking-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>Telefon</h3>
-        <p>Zadzwoń: {{ PHONE_SHORT }}</p>
-      </a>
-
-      <!-- Option 3: Form -->
-      <button type="button" class="booking-option" id="show-form-btn">
-        <div class="booking-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
-              fill="currentColor" />
-          </svg>
-        </div>
-        <h3>Formularz</h3>
-        <p>Napisz do nas</p>
-      </button>
-    </div>
-
-    <!-- Minimal Contact Form (Hidden by default) -->
-    <div class="booking-form-wrapper" id="booking-form-wrapper" style="display: none;">
-      <form action="{% url 'book' %}" method="post" class="booking-form-minimal">
-        {% csrf_token %}
-        {{ form.hp_field }}
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="id_name">Imię i nazwisko *</label>
-            {{ form.name }}
-          </div>
-
-          <div class="form-group">
-            <label for="id_phone">Telefon *</label>
-            {{ form.phone }}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="id_email">Email *</label>
-          {{ form.email }}
-        </div>
-
-        <div class="form-group">
-          <label for="id_subject">Czego dotyczy? *</label>
-          <select id="id_subject" name="subject" required class="form-control">
-            <option value="">Wybierz...</option>
-            <option value="terapia">Terapia indywidualna</option>
-            <option value="konsultacja">Konsultacja psychologiczna</option>
-            <option value="adhd">Diagnoza ADHD</option>
-            <option value="autyzm">Diagnoza autyzmu (ADOS-2)</option>
-            <option value="tus">Trening Umiejętności Społecznych</option>
-            <option value="inne">Inne</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="checkbox-label">
-            {{ form.data_processing_consent }}
-            <span class="checkmark"></span>
-            Akceptuję <a href="{% url 'privacy' %}" target="_blank">politykę prywatności</a> *
-          </label>
-          {% for error in form.data_processing_consent.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
-        </div>
-
-        <div class="form-buttons">
-          <button type="submit" class="btn btn-primary">Wyślij zapytanie</button>
-          <button type="button" class="btn btn-secondary" id="hide-form-btn">Anuluj</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<script>
-  // Simple form toggle without external libraries
-  document.addEventListener('DOMContentLoaded', function () {
-    const showFormBtn = document.getElementById('show-form-btn');
-    const hideFormBtn = document.getElementById('hide-form-btn');
-    const formWrapper = document.getElementById('booking-form-wrapper');
-
-    if (showFormBtn && formWrapper) {
-      showFormBtn.addEventListener('click', function () {
-        formWrapper.style.display = 'block';
-        formWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
-    }
-
-    if (hideFormBtn && formWrapper) {
-      hideFormBtn.addEventListener('click', function () {
-        formWrapper.style.display = 'none';
-      });
-    }
-  });
-</script>
+{% include 'partials/booking_section.html' %}
 
 {% endblock %}

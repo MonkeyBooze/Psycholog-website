@@ -49,7 +49,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for key, svc in SERVICES.items %}
+            {% for key, svc in SERVICES.items %}{% if not svc.itemised %}
             <tr>
               <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">
                 <a href="{{ svc.path }}">{{ svc.name }}</a>
@@ -59,10 +59,12 @@
                 <strong>{{ svc.price_label }}</strong>
               </td>
             </tr>
-            {% endfor %}
+            {% endif %}{% endfor %}
             {% for pozycja in LOGOPEDIA_PRICES %}
             <tr>
-              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ pozycja.name }}</td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">
+                <a href="{{ SERVICES.logopedia.path }}">{{ pozycja.name }}</a>
+              </td>
               <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ pozycja.scope }}</td>
               <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color); text-align: right; white-space: nowrap;">
                 <strong>{{ pozycja.price }} zł</strong>

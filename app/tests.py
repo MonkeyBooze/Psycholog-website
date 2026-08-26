@@ -348,6 +348,22 @@ class InternalLinkTests(TestCase):
             with self.subTest(page=name):
                 self.assertTrue(self._body_links(name) & paths)
 
+    def test_pricing_table_links_to_every_service(self):
+        """Każdy wiersz tabeli cennika prowadzi na stronę swojej usługi.
+
+        Logopedia nie ma tam wiersza zbiorczego, tylko trzy własne pozycje.
+        Bez odnośnika w nich tabela byłaby jedynym miejscem, gdzie usługa jest
+        wymieniona, a nie da się z niej przejść dalej. Sprawdzamy samą tabelę,
+        bo niżej na stronie są jeszcze karty usług i one zawsze linkują.
+        """
+        html = html_of(self.client, 'pricing')
+        tabela = re.search(r'(?s)<tbody>.*?</tbody>', html)
+        self.assertIsNotNone(tabela, 'brak tabeli cennika')
+        links = set(re.findall(r'href="(/[^"#]*)"', tabela.group(0)))
+        for key, svc in site_data.SERVICES.items():
+            with self.subTest(service=key):
+                self.assertIn(svc['path'], links)
+
     def test_location_pages_link_to_services_available_there(self):
         """Strona gabinetu wymienia usługi prowadzone w tym mieście i tylko je.
 

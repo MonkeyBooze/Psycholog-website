@@ -245,6 +245,8 @@ SERVICES = {
         "unit": "za spotkanie 60 minut",
         "duration": "60 min",
         "specs": "Spotkanie 60 min · od 130 zł",
+        # Cennik wypisuje stawki z LOGOPEDIA_PRICES zamiast jednego wiersza zbiorczego.
+        "itemised": True,
     },
 
 }
@@ -659,12 +661,12 @@ FAQ["logopedia"] = [
 # Trzy odrębne stawki. Jedna liczba w cenniku nie oddawała różnicy między samą
 # diagnozą, pełną oceną kompetencji komunikacyjnych a spotkaniem terapeutycznym.
 LOGOPEDIA_PRICES = [
-    {"name": "Diagnoza logopedyczna", "scope": "", "price": 150},
+    {"name": "Diagnoza logopedyczna",
+     "scope": "badanie mowy i wskazanie rodzaju trudności", "price": 150},
     {"name": "Diagnoza, ocena rozwoju kompetencji komunikacyjnych",
-     "scope": "wywiad rozwojowy z rodzicem i obserwacja dziecka", "price": 250},
+     "scope": "wywiad z rodzicem i obserwacja dziecka", "price": 250},
     {"name": "Terapia logopedyczna",
-     "scope": "60 minut: 50 minut pracy z dzieckiem i 10 minut rozmowy z rodzicem",
-     "price": 130},
+     "scope": "60 min: 50 min z dzieckiem, 10 min z rodzicem", "price": 130},
 ]
 
 LOGOPEDIA_SCOPE = [

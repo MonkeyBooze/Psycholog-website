@@ -33,9 +33,9 @@ REVIEWS = {"rating": "5,0", "count": 28, "url": ZNANYLEKARZ_URL}
 # Godziny są takie same dla obu gabinetów. Format dni jak w schema.org.
 OPENING_HOURS = {
     "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "08:00",
+    "opens": "09:00",
     "closes": "20:00",
-    "display": "codziennie w godzinach 8:00-20:00",
+    "display": "codziennie w godzinach 9:00-20:00",
 }
 
 LOCATIONS = [
@@ -68,11 +68,11 @@ LOCATIONS = [
             "potrzebujące szybkiego terminu na konsultację."
         ),
         "practical": (
-            "Gabinet jest przystosowany do spokojnej rozmowy, poczekalnia jest oddzielona od "
-            "gabinetów, a wizyty planujemy tak, żeby osoby wchodzące i wychodzące nie mijały się "
+            "Gabinet jest przystosowany do spokojnej rozmowy, a wizyty planujemy tak, żeby osoby wchodzące i wychodzące nie mijały się "
             "w drzwiach. Ma to znaczenie zwłaszcza dla osób w spektrum, dla których przypadkowy "
             "kontakt bywa obciążający."
         ),
+        "unavailable_services": [],
         "nearby": ["Brzeg", "Kędzierzyn-Koźle", "Krapkowice", "Namysłów",
                    "Strzelce Opolskie", "Ozimek", "Prószków"],
     },
@@ -109,6 +109,8 @@ LOCATIONS = [
             "zwykle szybciej niż w Opolu. Jeśli w jednej lokalizacji terminy są zajęte, sprawdzamy "
             "dostępność w drugiej; zespół i standard postępowania są takie same."
         ),
+        # TUS prowadzimy wyłącznie w Opolu, więc nie pokazujemy go na stronie Nysy.
+        "unavailable_services": ["tus"],
         "nearby": ["Otmuchów", "Paczków", "Głuchołazy", "Prudnik",
                    "Grodków", "Ziębice", "Korfantów"],
         "extra_note": (
@@ -176,19 +178,22 @@ SERVICES = {
     "adhd": {
         "name": "Diagnoza ADHD (DIVA-5)",
         "includes": [
-            "Spotkanie 1: szczegółowy wywiad kliniczny",
-            "Spotkanie 2: ustrukturyzowane badanie DIVA-5",
-            "Spotkanie 3: omówienie wyników i zaleceń",
+            "Spotkanie 1: szczegółowy wywiad kliniczny, 250 zł",
+            "Spotkania 2 i 3: badanie DIVA-5 oraz omówienie wyników, 500 zł",
             "Pisemna opinia psychologiczna z pieczątką i podpisem",
         ],
-        "price_label": "500 zł za cały proces",
+        "price_label": "750 zł za cały proces",
         "short": "Wywiad kliniczny i badanie DIVA-5 zgodne z DSM-5, zakończone pisemną opinią.",
         "path": "/diagnoza-adhd/",
-        "price": 500,
+        "price": 750,
         "price_prefix": "",
         "unit": "cały proces diagnostyczny z opinią",
         "duration": "3 spotkania × 1h",
-        "specs": "3 spotkania · pełna opinia · 500 zł",
+        "specs": "3 spotkania · pełna opinia · 750 zł",
+        "price_breakdown": [
+            {"name": "Wywiad kliniczny", "price": 250},
+            {"name": "Badanie DIVA-5 i omówienie wyników", "price": 500},
+        ],
     },
     "autyzm": {
         "name": "Diagnoza autyzmu (ADOS-2)",
@@ -227,21 +232,19 @@ SERVICES = {
     "logopedia": {
         "name": "Terapia i diagnoza logopedyczna",
         "includes": [
-            "Spotkanie 50 minut",
+            "Spotkanie 60 minut: 50 minut pracy z dzieckiem i 10 minut rozmowy z rodzicem",
             "Diagnoza logopedyczna przed rozpoczęciem terapii",
             "Plan terapii dostosowany do rodzaju zaburzenia",
             "Wskazówki i ćwiczenia do pracy w domu",
         ],
-        "price_label": "od 150 zł",
+        "price_label": "od 130 zł",
         "short": "Diagnoza i terapia zaburzeń mowy u dzieci i dorosłych, prowadzona przez logopedę.",
         "path": "/logopedia/",
-        "price": 150,
+        "price": 130,
         "price_prefix": "od",
-        "unit": "za spotkanie 50 minut",
-        "duration": "50 min",
-        "specs": "Spotkanie 50 min · od 150 zł",
-        # >>> CENA PROWIZORYCZNA: test app.tests będzie czerwony, dopóki tej flagi nie usuniesz <<<
-        "provisional_price": True,
+        "unit": "za spotkanie 60 minut",
+        "duration": "60 min",
+        "specs": "Spotkanie 60 min · od 130 zł",
     },
 
 }
@@ -264,9 +267,12 @@ FAQ = {
         ),
         (
             "Ile kosztuje diagnoza ADHD?",
-            "Koszt pełnej diagnozy ADHD (3 spotkania po 1 godzinie wraz z pisemną opinią) wynosi "
-            "500 zł. Cena obejmuje wywiad szczegółowy, badanie DIVA-5 oraz omówienie wyników "
-            "z wydaniem oficjalnej opinii psychologicznej. Pełny cennik znajdziesz w zakładce Cennik.",
+            f"Koszt pełnej diagnozy ADHD (3 spotkania po 1 godzinie wraz z pisemną opinią) wynosi "
+            f"{SERVICES['adhd']['price']} zł: "
+            + ", ".join(f"{p['price']} zł za {p['name'][0].lower()}{p['name'][1:]}"
+                        for p in SERVICES["adhd"]["price_breakdown"])
+            + ". Cena obejmuje wydanie oficjalnej opinii psychologicznej. "
+              "Pełny cennik znajdziesz w zakładce Cennik.",
         ),
         (
             "Czy otrzymam oficjalną opinię diagnostyczną?",
@@ -306,7 +312,8 @@ FAQ = {
         ),
         (
             "Ile kosztuje diagnoza spektrum autyzmu?",
-            "Koszt pełnego procesu diagnostycznego z badaniem ADOS-2 i pisemną opinią wynosi 1000 zł. "
+            f"Koszt pełnego procesu diagnostycznego z badaniem ADOS-2 i pisemną opinią wynosi "
+            f"{SERVICES['autyzm']['price']} zł. "
             "Cena obejmuje wywiad rozwojowy, badanie ADOS-2 oraz spotkanie z omówieniem wyników "
             "i wydaniem opinii.",
         ),
@@ -649,6 +656,17 @@ FAQ["logopedia"] = [
 
 # Zakres i przebieg terapii logopedycznej.
 # >>> DO WERYFIKACJI MERYTORYCZNEJ: czy to pokrywa to, co faktycznie prowadzicie? <<<
+# Trzy odrębne stawki. Jedna liczba w cenniku nie oddawała różnicy między samą
+# diagnozą, pełną oceną kompetencji komunikacyjnych a spotkaniem terapeutycznym.
+LOGOPEDIA_PRICES = [
+    {"name": "Diagnoza logopedyczna", "scope": "", "price": 150},
+    {"name": "Diagnoza, ocena rozwoju kompetencji komunikacyjnych",
+     "scope": "wywiad rozwojowy z rodzicem i obserwacja dziecka", "price": 250},
+    {"name": "Terapia logopedyczna",
+     "scope": "60 minut: 50 minut pracy z dzieckiem i 10 minut rozmowy z rodzicem",
+     "price": 130},
+]
+
 LOGOPEDIA_SCOPE = [
     {
         "title": "Opóźniony rozwój mowy",

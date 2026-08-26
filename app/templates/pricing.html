@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block meta_title %}Cennik, psycholog Opole i Nysa{% endblock %}
-{% block meta_description %}Cennik usług psychologicznych w Opolu i Nysie: konsultacja od 180 zł, terapia od 200 zł, diagnoza ADHD 500 zł, ADOS-2 1000 zł, TUS 120 zł za spotkanie.{% endblock %}
+{% block meta_description %}Cennik usług psychologicznych w Opolu i Nysie: konsultacja od 180 zł, terapia od 200 zł, diagnoza ADHD {{ SERVICES.adhd.price }} zł, ADOS-2 {{ SERVICES.autyzm.price }} zł, TUS 120 zł za spotkanie.{% endblock %}
 
 {% block schema_extra %},
 {
@@ -57,6 +57,15 @@
               <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ svc.duration }}</td>
               <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color); text-align: right; white-space: nowrap;">
                 <strong>{{ svc.price_label }}</strong>
+              </td>
+            </tr>
+            {% endfor %}
+            {% for pozycja in LOGOPEDIA_PRICES %}
+            <tr>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ pozycja.name }}</td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color);">{{ pozycja.scope }}</td>
+              <td style="padding: 12px 8px; border-bottom: 1px solid var(--border-color); text-align: right; white-space: nowrap;">
+                <strong>{{ pozycja.price }} zł</strong>
               </td>
             </tr>
             {% endfor %}

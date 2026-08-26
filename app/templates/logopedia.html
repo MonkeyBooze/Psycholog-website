@@ -77,6 +77,26 @@
   </div>
 </section>
 
+<!-- Stawki -->
+<section class="section-small">
+  <div class="container">
+    <div class="section-header">
+      <h2>Ile kosztuje logopedia</h2>
+    </div>
+    <div class="who-content">
+      <ul>
+        {% for pozycja in LOGOPEDIA_PRICES %}
+        <li>
+          <strong>{{ pozycja.name }}, {{ pozycja.price }} zł</strong>{% if pozycja.scope %},
+          {{ pozycja.scope }}{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      <p>Pełny cennik wszystkich usług znajdziesz w <a href="/cennik/">cenniku</a>.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Gdzie -->
 <section class="who-section section bg-light">
   <div class="container">

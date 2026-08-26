@@ -43,6 +43,7 @@ def site_settings(request):
         'OPENING_HOURS': site_data.OPENING_HOURS,
         # Ceny — patrz app/site_data.py, nie wpisywać ich ponownie w szablonach.
         'SERVICES': site_data.SERVICES,
+        'LOGOPEDIA_PRICES': site_data.LOGOPEDIA_PRICES,
         'LOGOPEDIA_SCOPE': site_data.LOGOPEDIA_SCOPE,
         'LOGOPEDIA_STEPS': site_data.LOGOPEDIA_STEPS,
         'TUS_CYCLE_LENGTH': site_data.TUS_CYCLE_LENGTH,

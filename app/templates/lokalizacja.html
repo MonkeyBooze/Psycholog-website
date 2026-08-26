@@ -69,7 +69,7 @@
       <p>Pełen zakres usług dostępnych pod adresem {{ loc.street }}</p>
     </div>
     <div class="services-grid">
-      {% for key, svc in SERVICES.items %}
+      {% for key, svc in SERVICES.items %}{% if key not in loc.unavailable_services %}
       <a href="{{ svc.path }}" class="service-card">
         <h3>{{ svc.name }}</h3>
         <p class="service-description">
@@ -90,7 +90,7 @@
         <p class="service-specs">{{ svc.specs }}</p>
         <span class="service-link">Dowiedz się więcej →</span>
       </a>
-      {% endfor %}
+      {% endif %}{% endfor %}
     </div>
     <p class="text-center" style="margin-top: 24px;">
       Wszystkie stawki znajdziesz w <a href="/cennik/">cenniku usług psychologicznych</a>.

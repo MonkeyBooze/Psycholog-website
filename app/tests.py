@@ -262,6 +262,27 @@ class PriceConsistencyTests(TestCase):
             with self.subTest(page=page):
                 self.assertIn(f'{site_data.SERVICES[key]["price"]} zł', html)
 
+    def test_no_price_on_any_page_is_unknown_to_site_data(self):
+        """Każda kwota widoczna na stronie musi pochodzić z app/site_data.py.
+
+        Cena diagnozy ADHD siedziała w treści odpowiedzi FAQ i w opisie meta,
+        więc po podniesieniu stawki w cenniku strona usługi dalej podawała starą.
+        """
+        znane = {str(v['price']) for v in site_data.SERVICES.values()}
+        znane |= {str(b['price']) for v in site_data.SERVICES.values()
+                  for b in v.get('price_breakdown', [])}
+        znane |= {str(item['price']) for item in site_data.LOGOPEDIA_PRICES}
+        znane.add(str(site_data.TUS_CYCLE_PRICE))
+
+        obce = []
+        for name in PAGES:
+            html = self.client.get(reverse(name)).content.decode()
+            for kwota in re.findall(r'(\d{2,5})\s*(?:zł|PLN)', html):
+                if kwota not in znane:
+                    obce.append(f'{name}: {kwota}')
+        self.assertEqual(sorted(set(obce)), [],
+                         'kwota, której nie ma w site_data, czyli rozjazd cen')
+
     def test_no_provisional_prices_left(self):
         """Cena oznaczona jako prowizoryczna nie może trafić na produkcję.
 
@@ -327,12 +348,21 @@ class InternalLinkTests(TestCase):
             with self.subTest(page=name):
                 self.assertTrue(self._body_links(name) & paths)
 
-    def test_location_pages_link_to_every_service(self):
-        for name in ['lokalizacja_opole', 'lokalizacja_nysa']:
-            links = self._body_links(name)
+    def test_location_pages_link_to_services_available_there(self):
+        """Strona gabinetu wymienia usługi prowadzone w tym mieście i tylko je.
+
+        TUS jest prowadzony wyłącznie w Opolu, więc strona Nysy nie może go
+        oferować, a strona Opola nie może go pominąć.
+        """
+        for loc in site_data.LOCATIONS:
+            links = self._body_links(f'lokalizacja_{loc["slug"]}')
+            niedostepne = loc.get('unavailable_services', [])
             for key, svc in site_data.SERVICES.items():
-                with self.subTest(page=name, service=key):
-                    self.assertIn(svc['path'], links)
+                with self.subTest(city=loc['city'], service=key):
+                    if key in niedostepne:
+                        self.assertNotIn(svc['path'], links)
+                    else:
+                        self.assertIn(svc['path'], links)
 
 
 class StaticAssetTests(SimpleTestCase):

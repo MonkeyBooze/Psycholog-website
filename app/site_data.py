@@ -54,7 +54,7 @@ LOCATIONS = [
             "Gabinet psychologiczny w Opolu, ul. Koraszewskiego 8/16. Diagnoza ADHD (DIVA-5), "
             "autyzmu (ADOS-2), TUS, terapia. Tel. 606 841 722"
         ),
-        "heading": "Psycholog Opole, gabinet przy ul. Koraszewskiego",
+        "heading": "Psycholog w Opolu przy ul. Koraszewskiego",
         "intro": (
             "Nasz opolski gabinet mieści się w ścisłym centrum miasta, przy ulicy Bronisława "
             "Koraszewskiego, kilka minut pieszo od Rynku i od placu Wolności. To główna lokalizacja "
@@ -91,7 +91,7 @@ LOCATIONS = [
             "Gabinet psychologiczny w Nysie, ul. Celna 5. Diagnoza ADHD (DIVA-5), autyzmu "
             "(ADOS-2), TUS, terapia i konsultacje. Tel. 606 841 722"
         ),
-        "heading": "Psycholog Nysa, gabinet przy ul. Celnej",
+        "heading": "Psycholog w Nysie przy ul. Celnej",
         "intro": (
             "Gabinet w Nysie działa przy ulicy Celnej 5, w centrum miasta. Powstał dlatego, "
             "że mieszkańcy powiatu nyskiego po diagnozę ADHD czy badanie ADOS-2 musieli wcześniej "

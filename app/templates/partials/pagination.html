@@ -1,0 +1,22 @@
+{% comment %}
+  Paginacja listy artykułów. Wcześniej ten sam blok był wpisany osobno w blog.html
+  i w blog_category.html, w obu wersjach z rozjechanym zagnieżdżeniem tagów.
+
+  Wymaga w kontekście: page_obj. Opcjonalnie search_query i selected_category,
+  żeby przejście na kolejną stronę nie gubiło filtrów.
+{% endcomment %}
+{% with q=search_query|default:'' kat=selected_category.slug|default:'' %}
+<nav class="pagination" aria-label="Strony artykułów">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}{% if q %}&amp;q={{ q }}{% endif %}{% if kat %}&amp;category={{ kat }}{% endif %}"
+    rel="prev">Poprzednia</a>
+  {% endif %}
+
+  <span class="pagination-status">Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}</span>
+
+  {% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}{% if q %}&amp;q={{ q }}{% endif %}{% if kat %}&amp;category={{ kat }}{% endif %}"
+    rel="next">Następna</a>
+  {% endif %}
+</nav>
+{% endwith %}

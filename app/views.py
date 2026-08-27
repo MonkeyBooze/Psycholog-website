@@ -317,7 +317,9 @@ def blog_post_detail(request, slug):
     return render(request, 'blog_post_detail.html', {
         'post': post,
         'related_posts': related if post.category else [],
-        'recent_posts': BlogPost.objects.filter(status='published').exclude(pk=post.pk)[:5],
+        # Sekcja rezerwacji na dole artykulu potrzebuje formularza, inaczej
+        # wyrenderowalyby sie puste pola.
+        'form': AppointmentForm(),
     })
 
 

@@ -1,108 +1,53 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block meta_title %}{{ category.name }} | Blog | {{ SITE_NAME }}{% endblock %}
-{% block meta_description %}{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{ category.name }} - porady psychologiczne, terapia, rozwój osobisty.{% endif %}{% endblock %}
+{% block meta_title %}{{ category.name }}, blog, {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% if category.description %}{{ category.description }}{% else %}Artykuły z kategorii {{ category.name }}: porady psychologiczne, terapia, rozwój osobisty.{% endif %}{% endblock %}
+{% block canonical_path %}{{ request.path }}{% if page_obj.number > 1 %}?page={{ page_obj.number }}{% endif %}{% endblock %}
 
 {% block content %}
-<!-- Category Header -->
-<section class="category-hero section-small">
+
+<section class="blog-hero section">
   <div class="container">
-    <div class="hero-content">
-
-      <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <a href="{% url 'home' %}">Strona główna</a>
-        <span>/</span>
-        <a href="{% url 'blog' %}">Blog</a>
-        <span>/</span>
-        <span>{{ category.name }}</span>
-      </nav>
-
+    <div class="section-header">
       <h1>{{ category.name }}</h1>
-      {% if category.description %}
-      <p class="category-description">{{ category.description }}</p>
-      {% endif %}
-
-      <div class="category-meta">
-        <span>{{ page_obj.paginator.count }} {% if page_obj.paginator.count == 1 %}artykuł{% else %}artykułów{% endif
-          %}</span>
-      </div>
+      {% if category.description %}<p>{{ category.description }}</p>{% endif %}
     </div>
   </div>
 </section>
 
-<!-- Category Content -->
-<section class="category-content section bg-light">
+<section class="section-small bg-light">
   <div class="container">
 
-    <!-- Back to Blog -->
-    <div class="category-nav">
-      <a href="{% url 'blog' %}" class="back-to-blog">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-        </svg>
-        Powrót do bloga
-      </a>
+    <div class="blog-filters">
+      <nav class="blog-categories" aria-label="Kategorie artykułów">
+        <a href="{% url 'blog' %}" class="blog-category-link">Wszystkie artykuły</a>
+      </nav>
+      <p class="blog-count">
+        {{ page_obj.paginator.count }} {% if page_obj.paginator.count == 1 %}artykuł{% else %}artykułów{% endif %}
+      </p>
     </div>
 
     {% if page_obj %}
-    <div class="blog-grid">
+    <div class="services-grid">
       {% for post in page_obj %}
-      <article class="blog-card">
-        {% if post.featured_image %}
-        <div class="blog-card-image">
-          <img src="{{ post.featured_image }}" alt="{{ post.title }}" loading="lazy">
-        </div>
-        {% endif %}
-
-        <div class="blog-card-content">
-          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-          <p class="blog-excerpt">{{ post.excerpt }}</p>
-
-          <div class="blog-footer">
-            <div class="blog-meta-info">
-              <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:'d.m.Y' }}</time>
-              <span class="read-time">{{ post.read_time }} min czytania</span>
-            </div>
-            <a href="{{ post.get_absolute_url }}" class="read-more">Czytaj więcej</a>
-          </div>
-        </div>
-      </article>
+      {% include 'partials/blog_card.html' %}
       {% endfor %}
     </div>
 
-    <!-- Pagination -->
     {% if page_obj.has_other_pages %}
-    <nav class="pagination-nav">
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; Poprzednia</a></li>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-        <li class="active"><span>{{ num }}</span></li>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li><a href="?page={{ num }}">{{ num
-            }}</a></li>
-          {% endif %}
-          {% endfor %}
-
-          {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}">Następna &raquo;</a></li>
-          {% endif %}
-      </ul>
-    </nav>
+    {% include 'partials/pagination.html' %}
     {% endif %}
 
     {% else %}
-    <div class="no-posts">
+    <div class="section-header">
       <h2>Brak artykułów w tej kategorii</h2>
-      <p>Wkrótce dodamy nowe artykuły do kategorii "{{ category.name }}".</p>
+      <p>Wkrótce dodamy nowe artykuły.</p>
       <a href="{% url 'blog' %}" class="btn btn-secondary">Zobacz wszystkie artykuły</a>
     </div>
     {% endif %}
 
   </div>
 </section>
+
 {% endblock %}

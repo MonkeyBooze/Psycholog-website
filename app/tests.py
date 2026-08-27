@@ -700,3 +700,68 @@ class EmailConsistencyTests(SimpleTestCase):
             if site_data.EMAIL in p.read_text(encoding='utf-8')
         ]
         self.assertEqual(hardcoded, [])
+
+
+@without_manifest
+class BlogRenderTests(TestCase):
+    """Strony bloga nie były pokryte niczym, bo wymagają rekordu w bazie.
+
+    Dane strukturalne artykułu miały brakujące przecinki po "description"
+    i po "image", więc blok nie był poprawnym JSON-em i Google nie odczytywał
+    z niego niczego. Żaden test tego nie widział.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        from django.utils import timezone
+        from app.models import BlogCategory, BlogPost
+        cls.category = BlogCategory.objects.create(name='ADHD', slug='adhd')
+        cls.post = BlogPost.objects.create(
+            title='Jak rozpoznać ADHD u dorosłych', slug='adhd-u-doroslych',
+            category=cls.category, excerpt='Zajawka artykułu.',
+            content='<h2>Objawy</h2><p>Treść.</p>', status='published',
+            published_at=timezone.now(), read_time=6,
+            featured_image='https://example.com/obrazek.jpg')
+
+    def _adresy(self):
+        return {
+            'lista': reverse('blog'),
+            'kategoria': reverse('blog_category', kwargs={'slug': self.category.slug}),
+            'artykuł': self.post.get_absolute_url(),
+            'wyszukiwanie': reverse('blog') + '?q=ADHD',
+        }
+
+    def test_blog_pages_render(self):
+        for nazwa, url in self._adresy().items():
+            with self.subTest(page=nazwa):
+                self.assertEqual(self.client.get(url, secure=True).status_code, 200)
+
+    def test_every_json_ld_block_is_valid_json(self):
+        for nazwa, url in self._adresy().items():
+            html = self.client.get(url, secure=True).content.decode()
+            bloki = re.findall(
+                r'(?s)<script type="application/ld\+json">(.*?)</script>', html)
+            self.assertTrue(bloki, f'{nazwa}: brak danych strukturalnych')
+            for i, blok in enumerate(bloki):
+                with self.subTest(page=nazwa, block=i):
+                    try:
+                        json.loads(blok)
+                    except json.JSONDecodeError as blad:
+                        self.fail(f'{nazwa}, blok {i}: niepoprawny JSON, {blad}')
+
+    def test_article_carries_the_fields_google_reads(self):
+        html = self.client.get(self.post.get_absolute_url(), secure=True).content.decode()
+        artykul = next(b for b in json_ld_blocks(html) if b.get('@type') == 'Article')
+        for pole in ['headline', 'datePublished', 'dateModified', 'author',
+                     'publisher', 'mainEntityOfPage', 'image', 'articleSection']:
+            with self.subTest(field=pole):
+                self.assertIn(pole, artykul)
+
+    def test_blog_reuses_the_shared_card(self):
+        """Blog był osobnym systemem wizualnym: 70 własnych klas, 12 wspólnych."""
+        html = self.client.get(reverse('blog'), secure=True).content.decode()
+        self.assertIn('service-card', html)
+        self.assertIn('services-grid', html)
+        for porzucona in ['blog-grid', 'blog-sidebar', 'blog-layout', 'sidebar-widget']:
+            with self.subTest(klasa=porzucona):
+                self.assertNotIn(porzucona, html)

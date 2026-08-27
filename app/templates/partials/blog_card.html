@@ -1,0 +1,20 @@
+{% comment %}
+  Karta artykułu. Ta sama siatka i ta sama karta, co na stronach usług, żeby blog
+  nie był osobnym systemem wizualnym. Wcześniej ten blok był wpisany trzy razy:
+  na liście, na stronie kategorii i wśród artykułów powiązanych.
+
+  Wymaga w kontekście: post.
+{% endcomment %}
+<a href="{{ post.get_absolute_url }}" class="service-card blog-card">
+  {% if post.featured_image %}
+  <img src="{{ post.featured_image }}" alt="" class="blog-card-image" loading="lazy">
+  {% endif %}
+  <h3>{{ post.title }}</h3>
+  <p class="service-description">{{ post.excerpt }}</p>
+  <p class="service-specs">
+    {% if post.category %}{{ post.category.name }} · {% endif %}
+    <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:'d.m.Y' }}</time>
+    · {{ post.read_time }} min czytania
+  </p>
+  <span class="service-link">Czytaj więcej →</span>
+</a>

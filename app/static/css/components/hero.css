@@ -1,6 +1,6 @@
 /* === HERO === */
 .hero-section {
-  min-height: 80vh;
+  min-height: min(80vh, 900px);
   display: flex;
   align-items: center;
   padding: 120px 0;

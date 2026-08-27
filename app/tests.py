@@ -827,3 +827,31 @@ class JavaScriptWiringTests(SimpleTestCase):
         for porzucony in ['data-akcja', 'data-kopiuj']:
             with self.subTest(atrybut=porzucony):
                 self.assertNotIn(porzucony, szablony)
+
+
+class ViewportHeightTests(SimpleTestCase):
+    """Robot Google renderuje strone w oknie o wysokosci kilkunastu tysiecy pikseli.
+
+    Sekcja, ktora bierze minimalna wysokosc z jednostki vh i jednoczesnie centruje
+    tresc w pionie, spycha ja wtedy o tysiace pikseli w dol, poza kadr zrzutu
+    ekranu. Strona glowna wygladala tam przez to na pusta: nagłowek, zielone tlo
+    i nic wiecej, mimo kompletnego HTML i wszystkich wczytanych arkuszy.
+
+    Samo vh jest w porzadku, dopoki jest ograniczone przez min().
+    """
+
+    def test_no_centred_section_takes_its_height_only_from_the_viewport(self):
+        katalog = Path(settings.BASE_DIR) / 'app' / 'static' / 'css'
+        ryzykowne = []
+        for arkusz in katalog.rglob('*.css'):
+            src = re.sub(r'/\*.*?\*/', '', arkusz.read_text(encoding='utf-8'), flags=re.S)
+            for regula in re.finditer(r'([^{}]+)\{([^{}]*)\}', src):
+                selektor, tresc = regula.group(1).strip(), regula.group(2)
+                centruje = 'align-items: center' in tresc or 'justify-content: center' in tresc
+                bez_ograniczenia = re.search(r'min-height:\s*\d+vh', tresc)
+                if centruje and bez_ograniczenia:
+                    ryzykowne.append(f'{arkusz.name}: {selektor}')
+        self.assertEqual(
+            ryzykowne, [],
+            'sekcja centruje tresc w pionie i bierze wysokosc wprost z okna; '
+            'ogranicz ja przez min(), np. min-height: min(80vh, 900px)')

@@ -1,6 +1,6 @@
 /* === ERROR PAGES (404, 500) === */
 .error-page {
-  min-height: 60vh;
+  min-height: min(60vh, 640px);
   display: flex;
   align-items: center;
   justify-content: center;

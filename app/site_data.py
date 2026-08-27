@@ -961,7 +961,7 @@ CHILD_PROTECTION_SHORT = [
         "ani karać. Naszym zadaniem jest Ci pomóc.",
     ),
     (
-        "Gdzie jeszcze możesz zadzwonić",
+        "Gdzie jeszcze możesz zadzwonić?",
         "Telefon Zaufania dla Dzieci i Młodzieży: 116 111, czynny całą dobę, bezpłatny. "
         "Telefon alarmowy: 112.",
     ),

@@ -276,7 +276,7 @@ class PriceConsistencyTests(TestCase):
 
         obce = []
         for name in PAGES:
-            html = self.client.get(reverse(name)).content.decode()
+            html = html_of(self.client, name)
             for kwota in re.findall(r'(\d{2,5})\s*(?:zł|PLN)', html):
                 if kwota not in znane:
                     obce.append(f'{name}: {kwota}')
@@ -538,8 +538,8 @@ class BookingFlowTests(TestCase):
         from django.core import mail
         from app.models import Appointment
 
-        response = self.client.post(reverse('book'), self.PAYLOAD)
-        self.assertRedirects(response, reverse('thanks'))
+        response = self.client.post(reverse('book'), self.PAYLOAD, secure=True)
+        self.assertRedirects(response, reverse('thanks'), fetch_redirect_response=False)
 
         appointment = Appointment.objects.get()
         self.assertEqual(appointment.name, 'Anna Kowalska')
@@ -553,7 +553,7 @@ class BookingFlowTests(TestCase):
         """Mail mówił „Diagnoza autyzmu (ADOS-2)”, a cennik „Diagnoza spektrum autyzmu”."""
         from django.core import mail
 
-        self.client.post(reverse('book'), dict(self.PAYLOAD, subject='autyzm'))
+        self.client.post(reverse('book'), dict(self.PAYLOAD, subject='autyzm'), secure=True)
         do_gabinetu = next(w for w in mail.outbox if 'gabinet@example.com' in w.to)
         self.assertIn(site_data.SERVICES['autyzm']['name'], do_gabinetu.body)
 
@@ -563,7 +563,7 @@ class BookingFlowTests(TestCase):
 
         payload = dict(self.PAYLOAD)
         del payload['data_processing_consent']
-        self.client.post(reverse('book'), payload)
+        self.client.post(reverse('book'), payload, secure=True)
 
         self.assertEqual(Appointment.objects.count(), 0)
         self.assertEqual(mail.outbox, [])
@@ -571,7 +571,7 @@ class BookingFlowTests(TestCase):
     def test_honeypot_blocks_the_submission(self):
         from app.models import Appointment
 
-        self.client.post(reverse('book'), dict(self.PAYLOAD, hp_field='bot'))
+        self.client.post(reverse('book'), dict(self.PAYLOAD, hp_field='bot'), secure=True)
         self.assertEqual(Appointment.objects.count(), 0)
 
 
@@ -583,7 +583,7 @@ class EmailConfigurationTests(TestCase):
         from app.models import Appointment
 
         with self.assertLogs('app.views', level='ERROR') as log:
-            self.client.post(reverse('book'), BookingFlowTests.PAYLOAD)
+            self.client.post(reverse('book'), BookingFlowTests.PAYLOAD, secure=True)
 
         # Zgłoszenie nie może przepaść tylko dlatego, że poczta nie działa.
         self.assertEqual(Appointment.objects.count(), 1)

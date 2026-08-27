@@ -171,7 +171,10 @@ CONTENT_SECURITY_POLICY = {
         'script-src': ["'self'", 'https://*.googletagmanager.com'],
         # style-src zostaje z 'unsafe-inline': w szablonach jest 148 atrybutów style=,
         # a ich przepisanie to zmiana wizualna bez pokrycia testami. Osobne zadanie.
-        'style-src': ["'self'", "'unsafe-inline'"],
+        # fonts.googleapis.com serwuje arkusz z czcionkami, fonts.gstatic.com same
+        # pliki. Bez tego pierwszego przegladarka blokowala arkusz i strona szla
+        # na czcionkach zastepczych. Bledu nie bylo widac inaczej niz w konsoli.
+        'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         'img-src': ["'self'", 'data:', 'https://*.google-analytics.com', 'https://*.googletagmanager.com'],
         'font-src': ["'self'", 'https://fonts.gstatic.com'],
         # GA4 wysyla zdarzenia z Europy na region1.google-analytics.com, a nie na

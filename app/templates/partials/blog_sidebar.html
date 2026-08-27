@@ -1,0 +1,36 @@
+{% comment %}
+  Lewa kolumna bloga: wyszukiwarka i kategorie.
+
+  Wymaga w kontekście: categories, opcjonalnie search_query i selected_category.
+  Uwaga: {# #} działa w Django tylko w jednej linii, wielolinijkowy komentarz
+  trzeba pisać właśnie tak, inaczej wychodzi na stronę jako tekst.
+{% endcomment %}
+<aside class="blog-aside blog-aside-start">
+
+  <div class="blog-widget">
+    <h2 class="blog-widget-title">Szukaj</h2>
+    <form method="get" action="{% url 'blog' %}" role="search" class="blog-search">
+      <label class="visually-hidden" for="blog-q">Szukaj w artykułach</label>
+      <input type="search" id="blog-q" name="q" value="{{ search_query }}" placeholder="Np. ADHD u dorosłych">
+      <button type="submit" class="btn btn-primary">Szukaj</button>
+    </form>
+  </div>
+
+  {% if categories %}
+  <div class="blog-widget">
+    <h2 class="blog-widget-title">Kategorie</h2>
+    <nav class="blog-categories" aria-label="Kategorie artykułów">
+      <a href="{% url 'blog' %}" class="blog-category-link{% if not selected_category %} active{% endif %}">
+        Wszystkie
+      </a>
+      {% for category in categories %}
+      <a href="{% url 'blog_category' category.slug %}"
+        class="blog-category-link{% if selected_category.slug == category.slug %} active{% endif %}">
+        {{ category.name }}
+      </a>
+      {% endfor %}
+    </nav>
+  </div>
+  {% endif %}
+
+</aside>

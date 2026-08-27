@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<section class="blog-hero section">
+<section class="blog-hero section-small">
   <div class="container">
     <div class="section-header">
       <h1>{{ category.name }}</h1>
@@ -18,35 +18,39 @@
 
 <section class="section-small bg-light">
   <div class="container">
+    <div class="blog-layout{% if recent_posts %} blog-layout-wide{% endif %}">
 
-    <div class="blog-filters">
-      <nav class="blog-categories" aria-label="Kategorie artykułów">
-        <a href="{% url 'blog' %}" class="blog-category-link">Wszystkie artykuły</a>
-      </nav>
-      <p class="blog-count">
-        {{ page_obj.paginator.count }} {% if page_obj.paginator.count == 1 %}artykuł{% else %}artykułów{% endif %}
-      </p>
+      {% include 'partials/blog_sidebar.html' %}
+
+      <main class="blog-main">
+        <p class="blog-count">
+          {{ page_obj.paginator.count }} {% if page_obj.paginator.count == 1 %}artykuł{% else %}artykułów{% endif %}
+          w tej kategorii
+        </p>
+
+        {% if page_obj %}
+        <div class="blog-list">
+          {% for post in page_obj %}
+          {% include 'partials/blog_card.html' %}
+          {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+        {% include 'partials/pagination.html' %}
+        {% endif %}
+
+        {% else %}
+        <div class="blog-empty">
+          <h2>Brak artykułów w tej kategorii</h2>
+          <p>Wkrótce dodamy nowe.</p>
+          <a href="{% url 'blog' %}" class="btn btn-secondary">Zobacz wszystkie artykuły</a>
+        </div>
+        {% endif %}
+      </main>
+
+      {% include 'partials/blog_recent.html' %}
+
     </div>
-
-    {% if page_obj %}
-    <div class="services-grid">
-      {% for post in page_obj %}
-      {% include 'partials/blog_card.html' %}
-      {% endfor %}
-    </div>
-
-    {% if page_obj.has_other_pages %}
-    {% include 'partials/pagination.html' %}
-    {% endif %}
-
-    {% else %}
-    <div class="section-header">
-      <h2>Brak artykułów w tej kategorii</h2>
-      <p>Wkrótce dodamy nowe artykuły.</p>
-      <a href="{% url 'blog' %}" class="btn btn-secondary">Zobacz wszystkie artykuły</a>
-    </div>
-    {% endif %}
-
   </div>
 </section>
 

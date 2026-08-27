@@ -283,6 +283,20 @@ def data_subject_rights(request):
 # Blog
 # ─────────────────────────────────────────────────────────────────────
 
+def _blog_columns(selected_category=None, search_query=''):
+    """Kolumny boczne bloga: wyszukiwarka z kategoriami po lewej, ostatnie po prawej.
+
+    Lista artykułów i strona kategorii pokazują te same kolumny, więc kontekst
+    dla nich powstaje w jednym miejscu.
+    """
+    return {
+        'categories': BlogCategory.objects.all(),
+        'selected_category': selected_category,
+        'search_query': search_query,
+        'recent_posts': BlogPost.objects.filter(status='published')[:5],
+    }
+
+
 def blog(request):
     category_slug = request.GET.get('category', '')
     search_query = request.GET.get('q', '')
@@ -299,13 +313,12 @@ def blog(request):
         )
 
     page_obj = Paginator(posts, 6).get_page(request.GET.get('page'))
+    wybrana = get_object_or_404(BlogCategory, slug=category_slug) if category_slug else None
     return render(request, 'blog.html', {
         'page_obj': page_obj,
-        'categories': BlogCategory.objects.all(),
-        'selected_category': get_object_or_404(BlogCategory, slug=category_slug) if category_slug else None,
-        'search_query': search_query,
         # Paginator policzył już rekordy, drugie zapytanie zliczające było zbędne.
         'total_posts': page_obj.paginator.count,
+        **_blog_columns(wybrana, search_query),
     })
 
 
@@ -329,6 +342,7 @@ def blog_category(request, slug):
     return render(request, 'blog_category.html', {
         'category': category,
         'page_obj': Paginator(posts, 6).get_page(request.GET.get('page')),
+        **_blog_columns(category),
     })
 
 

@@ -1,0 +1,30 @@
+{% comment %}
+  Prawa kolumna bloga: ostatnie artykuły i jedno wejście do rezerwacji.
+
+  Wymaga w kontekście: recent_posts. Gdy lista jest pusta, cała kolumna znika,
+  żeby nie zostawiać pustej ramki obok treści.
+{% endcomment %}
+{% if recent_posts %}
+<aside class="blog-aside blog-aside-end">
+
+  <div class="blog-widget">
+    <h2 class="blog-widget-title">Ostatnio dodane</h2>
+    <ul class="blog-recent">
+      {% for recent in recent_posts %}
+      <li>
+        <a href="{{ recent.get_absolute_url }}">{{ recent.title }}</a>
+        <time datetime="{{ recent.published_at|date:'c' }}">{{ recent.published_at|date:'d.m.Y' }}</time>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="blog-widget blog-widget-cta">
+    <h2 class="blog-widget-title">Potrzebujesz rozmowy</h2>
+    <p>Umów konsultację w Opolu, w Nysie albo online.</p>
+    <a href="tel:{{ PHONE_E164 }}" class="btn btn-primary">{{ PHONE_DISPLAY }}</a>
+    <a href="{% url 'contact' %}" class="blog-widget-link">Napisz do nas</a>
+  </div>
+
+</aside>
+{% endif %}

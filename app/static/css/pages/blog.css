@@ -1,13 +1,13 @@
 /* === BLOG ===
  *
- * Blog korzysta z tych samych sekcji, nagłówków i kart, co reszta serwisu:
- * .section, .section-header, .services-grid i .service-card. Tutaj zostaje
- * wyłącznie to, czego nigdzie indziej nie ma, czyli filtry nad listą, kolumna
- * tekstu artykułu, paginacja i pasek udostępniania.
+ * Kolory, typografia i przyciski pochodzą z tokenów serwisu, tak jak na każdej
+ * innej podstronie. Tutaj jest wyłącznie to, czego nigdzie indziej nie ma:
+ * układ trzech kolumn, kafelki kolumn bocznych, kolumna tekstu artykułu,
+ * paginacja i pasek udostępniania.
  *
- * Wcześniej ten plik miał 712 linii i 133 reguły, bo blog był osobnym systemem:
- * własna siatka, własne karty, własny panel boczny i własny hero, mimo że
- * odpowiedniki wszystkich tych elementów już w serwisie istniały.
+ * Układ: wyszukiwarka i kategorie po lewej, artykuły w środku, ostatnie wpisy
+ * po prawej. Kolumny boczne są przyklejone, ale poniżej nagłówka strony, który
+ * sam jest przyklejony i ma około 82 px wysokości.
  */
 
 /* Etykieta czytana przez czytnik ekranu, niewidoczna na stronie. */
@@ -23,39 +23,86 @@
   border: 0;
 }
 
-/* === Filtry nad listą === */
+/* === Układ === */
 
-.blog-filters {
+/* Domyślnie dwie kolumny. Trzecia dochodzi dopiero, gdy są ostatnie wpisy,
+   bo zadeklarowany tor siatki istnieje nawet pusty i zabierałby treści miejsce. */
+.blog-layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.blog-layout-wide {
+  grid-template-columns: 230px minmax(0, 1fr) 260px;
+}
+
+.blog-aside {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  position: sticky;
+  top: 96px;
+}
+
+.blog-main {
+  min-width: 0;
+}
+
+.blog-main-heading {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-2xs);
+  text-wrap: balance;
+}
+
+.blog-count {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-lg);
+}
+
+/* === Kafelki kolumn bocznych === */
+
+.blog-widget {
+  background: var(--bg-default);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+}
+
+.blog-widget-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
 }
 
 .blog-search {
   display: flex;
+  flex-direction: column;
   gap: var(--space-xs);
 }
 
 .blog-search input {
-  padding: 10px 14px;
+  width: 100%;
+  padding: 10px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-family: var(--font-family-body);
-  font-size: var(--font-size-base);
-  min-width: 220px;
+  font-size: var(--font-size-sm);
 }
 
 .blog-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
+  gap: var(--space-2xs);
 }
 
 .blog-category-link {
-  padding: 6px 14px;
+  padding: 6px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-pill);
   color: var(--text-secondary);
@@ -71,31 +118,117 @@
   color: var(--text-on-dark);
 }
 
-.blog-count {
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
+.blog-recent {
+  list-style: none;
+  padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
-/* === Karta artykułu ===
-   Wygląd bierze z .service-card, tutaj tylko obrazek, którego karty usług
-   nie mają, i wyrównanie do lewej, bo tekst zajawki źle się czyta wyśrodkowany. */
+.blog-recent li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-light);
+}
 
+.blog-recent li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.blog-recent a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.blog-recent a:hover {
+  color: var(--color-primary-700);
+}
+
+.blog-recent time {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.blog-widget-cta {
+  background: var(--color-primary-700);
+  border-color: var(--color-primary-700);
+  color: var(--text-on-dark);
+  text-align: center;
+}
+
+.blog-widget-cta .blog-widget-title {
+  color: var(--text-on-dark-muted);
+}
+
+.blog-widget-cta p {
+  color: var(--text-on-dark-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.blog-widget-cta .btn {
+  width: 100%;
+}
+
+.blog-widget-link {
+  display: inline-block;
+  margin-top: var(--space-xs);
+  color: var(--text-on-dark);
+  font-size: var(--font-size-sm);
+}
+
+/* === Lista artykułów === */
+
+.blog-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--grid-gap);
+}
+
+/* Wygląd karty bierze się z .service-card. Tutaj tylko obrazek, którego karty
+   usług nie mają, i wyrównanie do lewej, bo zajawka źle się czyta wyśrodkowana. */
 .blog-card {
   text-align: left;
-  padding: 0 0 var(--space-lg);
+  padding: 0 0 var(--space-md);
   overflow: hidden;
 }
 
 .blog-card>*:not(.blog-card-image) {
-  padding-inline: var(--space-lg);
+  padding-inline: var(--space-md);
+}
+
+.blog-card h3 {
+  font-size: var(--font-size-lg);
+  line-height: 1.35;
+  text-wrap: balance;
 }
 
 .blog-card-image {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.blog-empty {
+  background: var(--bg-default);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+.blog-empty p {
+  color: var(--text-secondary);
+  max-width: 46ch;
+  margin: var(--space-sm) auto var(--space-lg);
 }
 
 /* === Treść artykułu === */
@@ -115,8 +248,8 @@
   display: block;
 }
 
-/* Węższa kolumna od kontenera: przy pełnej szerokości linie tekstu robią się
-   za długie, żeby wzrok trafiał na początek następnej. */
+/* Węższa kolumna od kontenera: przy pełnej szerokości linie robią się za długie,
+   żeby wzrok pewnie trafiał na początek następnej. */
 .post-body {
   max-width: 68ch;
   margin: 0 auto;
@@ -227,15 +360,37 @@
   font-size: var(--font-size-sm);
 }
 
-@media (max-width: 768px) {
-  .blog-filters {
-    flex-direction: column;
-    align-items: stretch;
+/* === Zwężanie === */
+
+/* Ostatnie wpisy schodzą pod treść, zanim kolumny zrobią się nieczytelnie wąskie. */
+@media (max-width: 1100px) {
+  .blog-layout-wide {
+    grid-template-columns: 220px minmax(0, 1fr);
   }
 
-  .blog-search input {
-    min-width: 0;
-    flex: 1;
+  .blog-aside-end {
+    grid-column: 1 / -1;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .blog-aside-end .blog-widget {
+    flex: 1 1 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-aside {
+    position: static;
+  }
+
+  .blog-list {
+    grid-template-columns: 1fr;
   }
 
   .post-body {

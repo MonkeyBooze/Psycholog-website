@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<section class="blog-hero section">
+<section class="blog-hero section-small">
   <div class="container">
     <div class="section-header">
       <h1>Blog psychologiczny</h1>
@@ -20,63 +20,51 @@
 
 <section class="section-small bg-light">
   <div class="container">
+    <div class="blog-layout{% if recent_posts %} blog-layout-wide{% endif %}">
 
-    {# Filtry w jednym rzędzie zamiast panelu bocznego: reszta serwisu jest
-       jednokolumnowa, a przy kilku artykułach panel boczny i tak stoi pusty. #}
-    <div class="blog-filters">
-      <form method="get" class="blog-search" role="search">
-        <label class="visually-hidden" for="blog-q">Szukaj artykułów</label>
-        <input type="search" id="blog-q" name="q" value="{{ search_query }}" placeholder="Szukaj artykułów">
-        <button type="submit" class="btn btn-secondary">Szukaj</button>
-      </form>
+      {% include 'partials/blog_sidebar.html' %}
 
-      {% if categories %}
-      <nav class="blog-categories" aria-label="Kategorie artykułów">
-        <a href="{% url 'blog' %}" class="blog-category-link{% if not selected_category %} active{% endif %}">Wszystkie</a>
-        {% for category in categories %}
-        <a href="{% url 'blog_category' category.slug %}"
-          class="blog-category-link{% if selected_category.slug == category.slug %} active{% endif %}">{{ category.name }}</a>
-        {% endfor %}
-      </nav>
-      {% endif %}
+      <main class="blog-main">
+        {% if selected_category or search_query %}
+        <h2 class="blog-main-heading">
+          {% if search_query %}Wyniki wyszukiwania: {{ search_query }}
+          {% else %}{{ selected_category.name }}{% endif %}
+        </h2>
+        {% if search_query %}<p class="blog-count">Znaleziono {{ total_posts }} artykułów</p>{% endif %}
+        {% if selected_category.description %}<p class="blog-count">{{ selected_category.description }}</p>{% endif %}
+        {% endif %}
+
+        {% if page_obj %}
+        <div class="blog-list">
+          {% for post in page_obj %}
+          {% include 'partials/blog_card.html' %}
+          {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+        {% include 'partials/pagination.html' %}
+        {% endif %}
+
+        {% else %}
+        <div class="blog-empty">
+          <h2>{% if search_query %}Nic nie znaleźliśmy{% else %}Pierwsze artykuły w drodze{% endif %}</h2>
+          <p>
+            {% if search_query %}Spróbuj innego słowa albo przejrzyj wszystkie artykuły.
+            {% else %}Piszemy o diagnozie ADHD, spektrum autyzmu i o tym, jak wygląda terapia.
+            Do czasu pierwszego wpisu najwięcej znajdziesz na stronach usług.{% endif %}
+          </p>
+          {% if search_query %}
+          <a href="{% url 'blog' %}" class="btn btn-secondary">Zobacz wszystkie artykuły</a>
+          {% else %}
+          <a href="{% url 'pricing' %}" class="btn btn-secondary">Zobacz, co robimy</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </main>
+
+      {% include 'partials/blog_recent.html' %}
+
     </div>
-
-    {% if selected_category %}
-    <div class="section-header">
-      <h2>{{ selected_category.name }}</h2>
-      {% if selected_category.description %}<p>{{ selected_category.description }}</p>{% endif %}
-    </div>
-    {% endif %}
-
-    {% if search_query %}
-    <div class="section-header">
-      <h2>Wyniki wyszukiwania: {{ search_query }}</h2>
-      <p>Znaleziono {{ total_posts }} artykułów</p>
-    </div>
-    {% endif %}
-
-    {% if page_obj %}
-    <div class="services-grid">
-      {% for post in page_obj %}
-      {% include 'partials/blog_card.html' %}
-      {% endfor %}
-    </div>
-
-    {% if page_obj.has_other_pages %}
-    {% include 'partials/pagination.html' %}
-    {% endif %}
-
-    {% else %}
-    <div class="section-header">
-      <h2>Brak artykułów</h2>
-      <p>
-        {% if search_query %}Nie znaleziono artykułów dla tego zapytania.
-        {% else %}Wkrótce dodamy nowe artykuły.{% endif %}
-      </p>
-      {% if search_query %}<a href="{% url 'blog' %}" class="btn btn-secondary">Zobacz wszystkie artykuły</a>{% endif %}
-    </div>
-    {% endif %}
-
   </div>
 </section>
 

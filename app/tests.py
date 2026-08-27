@@ -703,6 +703,26 @@ class EmailConsistencyTests(SimpleTestCase):
 
 
 @without_manifest
+class TemplateSyntaxLeakTests(TestCase):
+    """Wielolinijkowy {# #} wyszedł na stronę jako widoczny tekst.
+
+    W Django komentarz {# #} działa tylko w obrębie jednej linii. Rozbity na
+    kilka linii przestaje być komentarzem i renderuje się w całości, razem
+    z klamrami. Trafiło to na produkcję, bo nic nie sprawdzało wyniku pod kątem
+    resztek składni szablonu.
+    """
+
+    ZNACZNIKI = ['{#', '#}', '{%', '%}']
+
+    def test_no_template_syntax_reaches_the_page(self):
+        for name in PAGES:
+            html = html_of(self.client, name)
+            for znacznik in self.ZNACZNIKI:
+                with self.subTest(page=name, marker=znacznik):
+                    self.assertNotIn(znacznik, html)
+
+
+@without_manifest
 class BlogRenderTests(TestCase):
     """Strony bloga nie były pokryte niczym, bo wymagają rekordu w bazie.
 
@@ -758,10 +778,23 @@ class BlogRenderTests(TestCase):
                 self.assertIn(pole, artykul)
 
     def test_blog_reuses_the_shared_card(self):
-        """Blog był osobnym systemem wizualnym: 70 własnych klas, 12 wspólnych."""
+        """Blog był osobnym systemem wizualnym: 70 własnych klas, 12 wspólnych.
+
+        Własny układ trzech kolumn jest w porządku, bo żadna inna podstrona go
+        nie ma. Nie w porządku byłby drugi komplet kart i siatek obok tych,
+        które w serwisie już są.
+        """
         html = self.client.get(reverse('blog'), secure=True).content.decode()
-        self.assertIn('service-card', html)
-        self.assertIn('services-grid', html)
-        for porzucona in ['blog-grid', 'blog-sidebar', 'blog-layout', 'sidebar-widget']:
-            with self.subTest(klasa=porzucona):
-                self.assertNotIn(porzucona, html)
+        self.assertIn('service-card', html, 'karty artykułów mają korzystać ze wspólnej karty')
+        for rownolegla in ['blog-grid', 'blog-card-content', 'sidebar-widget', 'blog-excerpt']:
+            with self.subTest(klasa=rownolegla):
+                self.assertNotIn(rownolegla, html)
+
+    def test_blog_has_the_three_column_layout(self):
+        """Wyszukiwarka po lewej, artykuły w środku, ostatnie wpisy po prawej."""
+        html = self.client.get(reverse('blog'), secure=True).content.decode()
+        for element in ['blog-layout', 'blog-aside-start', 'blog-main', 'blog-aside-end']:
+            with self.subTest(element=element):
+                self.assertIn(element, html)
+        self.assertIn('blog-search', html)
+        self.assertIn('blog-recent', html)

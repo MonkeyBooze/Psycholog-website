@@ -61,8 +61,10 @@
 
   <div class="section-small">
     <div class="container">
-      {# Sam tekst artykułu. Węższa kolumna, bo pełna szerokość kontenera daje
-         linie zbyt długie, żeby wygodnie się je czytało. #}
+      {% comment %}
+        Sam tekst artykułu. Węższa kolumna, bo pełna szerokość kontenera daje
+        linie zbyt długie, żeby wygodnie się je czytało.
+      {% endcomment %}
       <div class="post-body">
         {% if post.excerpt %}<p class="post-lead">{{ post.excerpt }}</p>{% endif %}
         {{ post.content|sanitize_html }}

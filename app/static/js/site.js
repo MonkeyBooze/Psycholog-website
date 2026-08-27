@@ -20,18 +20,18 @@
 
   // ── Zgoda na cookies i Google Analytics ──────────────────────────
 
-  function idAnalityki() {
+  function analyticsId() {
     return document.body.getAttribute('data-ga-id') || '';
   }
 
-  function wczytajGA() {
-    var id = idAnalityki();
+  function loadAnalytics() {
+    var id = analyticsId();
     if (!id) return;
 
-    var skrypt = document.createElement('script');
-    skrypt.async = true;
-    skrypt.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
-    document.head.appendChild(skrypt);
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+    document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
@@ -48,7 +48,7 @@
     });
   }
 
-  function zapisanaZgoda() {
+  function storedConsent() {
     try {
       return JSON.parse(localStorage.getItem('cookie_preferences')) || null;
     } catch (e) {
@@ -56,18 +56,18 @@
     }
   }
 
-  function tokenCsrf() {
-    var ciasteczka = document.cookie.split(';');
-    for (var i = 0; i < ciasteczka.length; i++) {
-      var c = ciasteczka[i].trim();
+  function csrfToken() {
+    var cookieList = document.cookie.split(';');
+    for (var i = 0; i < cookieList.length; i++) {
+      var c = cookieList[i].trim();
       if (c.indexOf('csrftoken=') === 0) return c.substring('csrftoken='.length);
     }
     return '';
   }
 
-  function zapiszZgode(preferencje) {
+  function saveConsent(preferences) {
     try {
-      localStorage.setItem('cookie_preferences', JSON.stringify(preferencje));
+      localStorage.setItem('cookie_preferences', JSON.stringify(preferences));
     } catch (e) { /* tryb prywatny albo zablokowane dane witryny */ }
 
     // Rejestr po stronie serwera jest ścieżką audytową, więc jego awaria
@@ -75,163 +75,163 @@
     try {
       fetch('/api/log-cookie-consent/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': tokenCsrf() },
-        body: JSON.stringify({ analytics: preferencje.analytics || false })
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken() },
+        body: JSON.stringify({ analytics: preferences.analytics || false })
       }).catch(function () { });
     } catch (e) { /* bez fetch nic nie zapiszemy, wybór i tak działa */ }
   }
 
-  function usunCiasteczkaGA() {
-    document.cookie.split(';').forEach(function (wpis) {
-      var nazwa = wpis.split('=')[0].trim();
-      if (nazwa.indexOf('_ga') === 0 || nazwa.indexOf('_gid') === 0) {
-        document.cookie = nazwa + '=; Max-Age=0; path=/';
-        document.cookie = nazwa + '=; Max-Age=0; path=/; domain=.' + location.hostname;
+  function clearAnalyticsCookies() {
+    document.cookie.split(';').forEach(function (entry) {
+      var cookieName = entry.split('=')[0].trim();
+      if (cookieName.indexOf('_ga') === 0 || cookieName.indexOf('_gid') === 0) {
+        document.cookie = cookieName + '=; Max-Age=0; path=/';
+        document.cookie = cookieName + '=; Max-Age=0; path=/; domain=.' + location.hostname;
       }
     });
   }
 
-  function obsluzCookies() {
+  function setupCookieConsent() {
     var banner = document.getElementById('cookie-banner');
-    var okno = document.getElementById('cookie-preferences');
-    var przelacznik = document.getElementById('analytics-cookies');
-    if (!banner || !okno || !przelacznik) return;
+    var dialog = document.getElementById('cookie-preferences');
+    var toggle = document.getElementById('analytics-cookies');
+    if (!banner || !dialog || !toggle) return;
 
-    var zgodaPrzyWczytaniu = zapisanaZgoda();
+    var consentOnLoad = storedConsent();
 
-    if (!zgodaPrzyWczytaniu) {
+    if (!consentOnLoad) {
       banner.style.display = 'block';
-    } else if (zgodaPrzyWczytaniu.analytics) {
-      wczytajGA();
+    } else if (consentOnLoad.analytics) {
+      loadAnalytics();
     }
 
-    function otworzOkno(zdarzenie) {
-      if (zdarzenie) zdarzenie.preventDefault();
-      var zapisana = zapisanaZgoda();
-      przelacznik.checked = !!(zapisana && zapisana.analytics);
-      okno.style.display = 'block';
+    function openDialog(event) {
+      if (event) event.preventDefault();
+      var stored = storedConsent();
+      toggle.checked = !!(stored && stored.analytics);
+      dialog.style.display = 'block';
     }
 
-    function zamknijOkno() {
-      okno.style.display = 'none';
+    function closeDialog() {
+      dialog.style.display = 'none';
     }
 
     document.getElementById('accept-cookies').addEventListener('click', function () {
-      zapiszZgode({ necessary: true, analytics: true });
+      saveConsent({ necessary: true, analytics: true });
       banner.style.display = 'none';
-      wczytajGA();
+      loadAnalytics();
     });
 
     document.getElementById('decline-cookies').addEventListener('click', function () {
-      zapiszZgode({ necessary: true, analytics: false });
+      saveConsent({ necessary: true, analytics: false });
       banner.style.display = 'none';
     });
 
-    document.getElementById('cookie-settings').addEventListener('click', otworzOkno);
-    document.getElementById('close-preferences').addEventListener('click', zamknijOkno);
+    document.getElementById('cookie-settings').addEventListener('click', openDialog);
+    document.getElementById('close-preferences').addEventListener('click', closeDialog);
 
     // Stałe wejście do ustawień z każdej podstrony. Bez niego zgody nie dało się
     // wycofać po zamknięciu bannera, a art. 7 ust. 3 RODO wymaga, żeby wycofanie
     // było tak samo łatwe jak udzielenie.
-    document.querySelectorAll('[data-akcja="ustawienia-cookies"]').forEach(function (el) {
-      el.addEventListener('click', otworzOkno);
+    document.querySelectorAll('[data-action="cookie-settings"]').forEach(function (el) {
+      el.addEventListener('click', openDialog);
     });
 
     document.getElementById('save-preferences').addEventListener('click', function () {
-      var wlaczona = przelacznik.checked;
-      var bylaWlaczona = !!(zgodaPrzyWczytaniu && zgodaPrzyWczytaniu.analytics);
+      var enabled = toggle.checked;
+      var wasEnabled = !!(consentOnLoad && consentOnLoad.analytics);
 
-      zapiszZgode({ necessary: true, analytics: wlaczona });
+      saveConsent({ necessary: true, analytics: enabled });
       banner.style.display = 'none';
-      zamknijOkno();
+      closeDialog();
 
-      if (wlaczona) {
-        wczytajGA();
-      } else if (bylaWlaczona) {
+      if (enabled) {
+        loadAnalytics();
+      } else if (wasEnabled) {
         // Skrypt GA jest już w pamięci strony, więc samo cofnięcie zgody by go
         // nie zatrzymało. Kasujemy ciasteczka i przeładowujemy stronę.
-        usunCiasteczkaGA();
+        clearAnalyticsCookies();
         location.reload();
       }
     });
 
-    okno.addEventListener('click', function (zdarzenie) {
-      if (zdarzenie.target === okno) zamknijOkno();
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) closeDialog();
     });
   }
 
   // ── Menu na telefonie ────────────────────────────────────────────
 
-  function obsluzMenu() {
-    var przycisk = document.querySelector('.mobile-menu-toggle');
+  function setupMobileMenu() {
+    var button = document.querySelector('.mobile-menu-toggle');
     var menu = document.querySelector('.navbar-menu');
-    var tlo = document.querySelector('.mobile-menu-overlay');
-    if (!przycisk || !menu || !tlo) return;
+    var overlay = document.querySelector('.mobile-menu-overlay');
+    if (!button || !menu || !overlay) return;
 
-    function zamknij() {
+    function close() {
       menu.classList.remove('active');
-      tlo.classList.remove('active');
+      overlay.classList.remove('active');
     }
 
-    przycisk.addEventListener('click', function () {
+    button.addEventListener('click', function () {
       menu.classList.toggle('active');
-      tlo.classList.toggle('active');
+      overlay.classList.toggle('active');
     });
-    tlo.addEventListener('click', zamknij);
+    overlay.addEventListener('click', close);
     menu.querySelectorAll('.nav-link').forEach(function (link) {
-      link.addEventListener('click', zamknij);
+      link.addEventListener('click', close);
     });
   }
 
   // ── Formularz rezerwacji ─────────────────────────────────────────
 
-  function obsluzFormularzRezerwacji() {
-    var pokaz = document.getElementById('show-form-btn');
-    var ukryj = document.getElementById('hide-form-btn');
-    var ramka = document.getElementById('booking-form-wrapper');
-    if (!ramka) return;
+  function setupBookingForm() {
+    var showButton = document.getElementById('show-form-btn');
+    var hideButton = document.getElementById('hide-form-btn');
+    var wrapper = document.getElementById('booking-form-wrapper');
+    if (!wrapper) return;
 
-    if (pokaz) {
-      pokaz.addEventListener('click', function () {
-        ramka.style.display = 'block';
-        ramka.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (showButton) {
+      showButton.addEventListener('click', function () {
+        wrapper.style.display = 'block';
+        wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
     }
-    if (ukryj) {
-      ukryj.addEventListener('click', function () {
-        ramka.style.display = 'none';
+    if (hideButton) {
+      hideButton.addEventListener('click', function () {
+        wrapper.style.display = 'none';
       });
     }
   }
 
   // ── Rozwijane pytania ────────────────────────────────────────────
 
-  function obsluzFaq() {
+  function setupFaq() {
     // Jeden delegowany listener na listę zamiast atrybutu przy każdym pytaniu.
-    document.querySelectorAll('.faq-list').forEach(function (lista) {
-      lista.addEventListener('click', function (zdarzenie) {
-        var przycisk = zdarzenie.target.closest('.faq-question');
-        if (!przycisk) return;
-        var otwarte = przycisk.parentElement.classList.toggle('active');
-        przycisk.setAttribute('aria-expanded', otwarte ? 'true' : 'false');
+    document.querySelectorAll('.faq-list').forEach(function (list) {
+      list.addEventListener('click', function (event) {
+        var button = event.target.closest('.faq-question');
+        if (!button) return;
+        var isOpen = button.parentElement.classList.toggle('active');
+        button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
     });
   }
 
   // ── Kopiowanie odnośnika do artykułu ─────────────────────────────
 
-  function obsluzKopiowanie() {
-    document.querySelectorAll('[data-kopiuj]').forEach(function (przycisk) {
-      przycisk.addEventListener('click', function () {
-        var adres = przycisk.getAttribute('data-kopiuj');
+  function setupCopyLink() {
+    document.querySelectorAll('[data-copy]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var url = button.getAttribute('data-copy');
         if (!navigator.clipboard) return;
-        navigator.clipboard.writeText(adres).then(function () {
-          var pierwotny = przycisk.getAttribute('aria-label') || przycisk.textContent;
-          przycisk.setAttribute('aria-label', 'Skopiowano odnośnik');
-          przycisk.classList.add('skopiowano');
+        navigator.clipboard.writeText(url).then(function () {
+          var original = button.getAttribute('aria-label') || button.textContent;
+          button.setAttribute('aria-label', 'Skopiowano odnośnik');
+          button.classList.add('copied');
           setTimeout(function () {
-            przycisk.setAttribute('aria-label', pierwotny);
-            przycisk.classList.remove('skopiowano');
+            button.setAttribute('aria-label', original);
+            button.classList.remove('copied');
           }, 2000);
         });
       });
@@ -240,25 +240,25 @@
 
   // ── Płynne przewijanie do kotwic ─────────────────────────────────
 
-  function obsluzKotwice() {
+  function setupSmoothScroll() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function (link) {
-      link.addEventListener('click', function (zdarzenie) {
-        var cel = document.getElementById(link.getAttribute('href').slice(1));
-        if (!cel) return;
-        zdarzenie.preventDefault();
-        cel.scrollIntoView({ behavior: 'smooth' });
+      link.addEventListener('click', function (event) {
+        var target = document.getElementById(link.getAttribute('href').slice(1));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
       });
     });
   }
 
   function start() {
-    obsluzCookies();
-    obsluzMenu();
-    obsluzFormularzRezerwacji();
-    obsluzFaq();
-    obsluzKopiowanie();
-    obsluzKotwice();
+    setupCookieConsent();
+    setupMobileMenu();
+    setupBookingForm();
+    setupFaq();
+    setupCopyLink();
+    setupSmoothScroll();
   }
 
   if (document.readyState === 'loading') {

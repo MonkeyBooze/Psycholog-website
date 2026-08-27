@@ -798,3 +798,32 @@ class BlogRenderTests(TestCase):
                 self.assertIn(element, html)
         self.assertIn('blog-search', html)
         self.assertIn('blog-recent', html)
+
+
+class JavaScriptWiringTests(SimpleTestCase):
+    """Zmiana nazwy atrybutu w site.js bez zmiany w szablonie cicho psuje przycisk.
+
+    Przy przenoszeniu nazw na angielski data-akcja stalo sie data-action, ale
+    jeden szablon zostal ze stara nazwa i jego przycisk przestal cokolwiek robic.
+    Nic tego nie zglosilo, bo strona renderuje sie normalnie.
+    """
+
+    def test_every_data_attribute_the_script_looks_for_exists_in_a_template(self):
+        skrypt = (Path(settings.BASE_DIR) / 'app' / 'static' / 'js' / 'site.js').read_text(encoding='utf-8')
+        szablony = ' '.join(
+            p.read_text(encoding='utf-8')
+            for p in (Path(settings.BASE_DIR) / 'app' / 'templates').rglob('*.html'))
+        atrybuty = set(re.findall(r"\[(data-[\w-]+)(?:=\"([^\"]*)\")?\]", skrypt))
+        self.assertTrue(atrybuty, 'nie znaleziono zadnego selektora data-')
+        for nazwa, wartosc in sorted(atrybuty):
+            oczekiwane = f'{nazwa}="{wartosc}"' if wartosc else nazwa
+            with self.subTest(selektor=oczekiwane):
+                self.assertIn(oczekiwane, szablony)
+
+    def test_no_template_uses_a_data_attribute_the_script_dropped(self):
+        szablony = ' '.join(
+            p.read_text(encoding='utf-8')
+            for p in (Path(settings.BASE_DIR) / 'app' / 'templates').rglob('*.html'))
+        for porzucony in ['data-akcja', 'data-kopiuj']:
+            with self.subTest(atrybut=porzucony):
+                self.assertNotIn(porzucony, szablony)

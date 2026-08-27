@@ -328,7 +328,7 @@
 }
 
 .post-share :is(a, button):hover,
-.post-share button.skopiowano {
+.post-share button.copied {
   border-color: var(--color-primary-600);
   color: var(--color-primary-700);
 }

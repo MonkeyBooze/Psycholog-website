@@ -166,13 +166,19 @@ CONTENT_SECURITY_POLICY = {
         # Bez 'unsafe-inline': w szablonach nie ma już ani jednego wykonywalnego
         # bloku <script> ani atrybutu onclick, wszystko siedzi w static/js/site.js.
         # Bloki application/ld+json nie są skryptami wykonywalnymi, więc ich to nie dotyczy.
-        'script-src': ["'self'", 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
+        # Wieloznacznik jest konieczny: gtag.js dociaga skrypty z podddomen
+        # googletagmanager.com, ktorych nazwy zaleza od konta.
+        'script-src': ["'self'", 'https://*.googletagmanager.com'],
         # style-src zostaje z 'unsafe-inline': w szablonach jest 148 atrybutów style=,
         # a ich przepisanie to zmiana wizualna bez pokrycia testami. Osobne zadanie.
         'style-src': ["'self'", "'unsafe-inline'"],
-        'img-src': ["'self'", 'data:', 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
+        'img-src': ["'self'", 'data:', 'https://*.google-analytics.com', 'https://*.googletagmanager.com'],
         'font-src': ["'self'", 'https://fonts.gstatic.com'],
-        'connect-src': ["'self'", 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
+        # GA4 wysyla zdarzenia z Europy na region1.google-analytics.com, a nie na
+        # www. Poprzednia lista dopuszczala tylko www, wiec przegladarka blokowala
+        # kazde zdarzenie i Analytics nie dostawal niczego mimo poprawnego klucza.
+        'connect-src': ["'self'", 'https://*.google-analytics.com',
+                        'https://*.analytics.google.com', 'https://*.googletagmanager.com'],
         'frame-src': ["'none'"],
         'object-src': ["'none'"],
         'base-uri': ["'self'"],

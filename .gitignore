@@ -16,9 +16,9 @@ venv/
 .idea/
 .vscode/
 
-# Dokumentacja, raporty i artefakty narzedzi.
-# Zostaja na dysku, nie wchodza do repozytorium. Katalog docs/ jest wyjsciem
-# skryptu scripts/generuj_teksty.py, wiec i tak jest odtwarzalny.
+# Do repozytorium trafia wylacznie to, co jest potrzebne aplikacji do dzialania.
+# Dokumentacja, raporty, artefakty narzedzi i skrypty pomocnicze zostaja na dysku.
 # Jesli kiedys jakis plik .md ma trafic do repo: git add -f nazwa.md
 *.md
 docs/
+scripts/

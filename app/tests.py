@@ -104,7 +104,7 @@ class SitemapTests(TestCase):
     def test_sitemap_covers_every_public_page(self):
         body = self.client.get('/sitemap.xml', HTTP_HOST=HOST, secure=True).content.decode()
         for name in PAGES:
-            if name in ('thanks', 'blog'):      # celowo poza indeksem; blog nie jest prowadzony
+            if name in ('thanks', 'blog'):      # celowo poza indeksem
                 continue
             with self.subTest(page=name):
                 self.assertIn(f'<loc>{site_data.SITE_URL}{reverse(name)}</loc>', body)
@@ -120,22 +120,27 @@ class SitemapTests(TestCase):
         self.assertNotIn('/blog/', body)
         self.assertIn('noindex', html_of(self.client, 'blog'))
         self.assertNotIn('href="/blog/"', html_of(self.client, 'home'))
+        self.assertNotIn('href="/blog/"', html_of(self.client, 'thanks'))
 
 
 @without_manifest
 class LlmsTxtTests(TestCase):
-    """llms.txt to wizytówka dla wyszukiwarek AI, więc dane muszą się zgadzać ze stroną."""
 
-    def test_llms_txt_lists_both_locations_and_every_service(self):
+    def test_llms_txt_matches_site_data(self):
         r = self.client.get('/llms.txt', HTTP_HOST=HOST, secure=True)
         self.assertEqual(r.status_code, 200)
         body = r.content.decode()
+        for value in (site_data.PHONE_DISPLAY, site_data.EMAIL, site_data.OPENING_HOURS['display']):
+            self.assertIn(value, body)
         for loc in site_data.LOCATIONS:
-            self.assertIn(loc['street'], body)
+            self.assertIn(f'{loc["street"]}, {loc["postal_code"]}', body)
             self.assertIn(f'{site_data.SITE_URL}{loc["path"]}', body)
         for svc in site_data.SERVICES.values():
             self.assertIn(f'{site_data.SITE_URL}{svc["path"]}', body)
-        self.assertNotIn('&quot;', body)
+            prefix = f'{svc["price_prefix"]} ' if svc['price_prefix'] else ''
+            self.assertIn(f'Cena: {prefix}{svc["price"]} zł, {svc["unit"]}.', body)
+        for person in site_data.TEAM:
+            self.assertIn(f'{person["name"]}, {person["role"]}', body)
 
 
 @without_manifest

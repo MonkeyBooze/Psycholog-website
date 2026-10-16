@@ -4,7 +4,7 @@
 {% block meta_title %}Blog psychologiczny, ADHD, autyzm, terapia{% endblock %}
 {% block meta_description %}Artykuły o ADHD, spektrum autyzmu, terapii i zdrowiu psychicznym. Pisane przez psychologów z gabinetów w Opolu i Nysie.{% endblock %}
 
-{% block meta_robots %}{% if search_query %}<meta name="robots" content="noindex, follow">{% endif %}{% endblock %}
+{% block meta_robots %}{% if search_query or not total_posts %}<meta name="robots" content="noindex, follow">{% endif %}{% endblock %}
 {% block canonical_path %}{{ request.path }}{% if page_obj.number > 1 %}?page={{ page_obj.number }}{% endif %}{% endblock %}
 
 {% block content %}

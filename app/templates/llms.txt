@@ -1,6 +1,6 @@
 {% autoescape off %}# {{ SITE_NAME }}: gabinet psychologii, logopedii i terapii w Opolu i Nysie
 
-> {{ SITE_NAME }} to prywatny gabinet psychologiczny z dwiema placówkami: w Opolu i w Nysie (województwo opolskie). Prowadzimy diagnozę ADHD u dorosłych i dzieci (wywiad DIVA-5), diagnozę spektrum autyzmu (ADOS-2), terapię indywidualną, konsultacje psychologiczne, terapię logopedyczną, Trening Umiejętności Społecznych (TUS) oraz konsultacje i terapię online. Przyjmujemy prywatnie, bez skierowania.
+> {{ SITE_NAME }} to prywatny gabinet psychologiczny z dwiema placówkami: w Opolu i w Nysie (województwo opolskie). Prowadzimy diagnozę ADHD u dorosłych (DIVA-5), diagnozę spektrum autyzmu (ADOS-2), terapię indywidualną, konsultacje psychologiczne, terapię logopedyczną, Trening Umiejętności Społecznych (TUS) oraz konsultacje i terapię online.
 
 Telefon: {{ PHONE_DISPLAY }}
 E-mail: {{ EMAIL }}
@@ -12,19 +12,16 @@ Opinie: {{ ZNANYLEKARZ_URL }}
 - [Psycholog {{ loc.city }}]({{ SITE_URL }}{{ loc.path }}): {{ loc.street }}, {{ loc.postal_code }} {{ loc.city }}. Pacjenci także z miejscowości: {{ loc.nearby|join:", " }}.{% endfor %}
 
 ## Usługi i ceny
-{% for key, svc in SERVICES.items %}
-- [{{ svc.name }}]({{ SITE_URL }}{{ svc.path }}): {{ svc.short }} Cena: {% if svc.price_prefix %}{{ svc.price_prefix }} {% endif %}{{ svc.price }} zł.{% endfor %}
-
-Trening Umiejętności Społecznych prowadzimy tylko w Opolu. Badanie ADOS-2 wymaga wizyty w gabinecie, pozostałe konsultacje są możliwe także online.
+{% for svc in SERVICES.values %}
+- [{{ svc.name }}]({{ SITE_URL }}{{ svc.path }}): {{ svc.short }} Cena: {% if svc.price_prefix %}{{ svc.price_prefix }} {% endif %}{{ svc.price }} zł, {{ svc.unit }}.{% endfor %}
 
 ## Zespół
 {% for person in TEAM %}
 - {{ person.name }}, {{ person.role }}: {{ person.knows_about|join:", " }}.{% endfor %}
 
-Biogramy: {{ SITE_URL }}/o-nas/
-
 ## Więcej informacji
 
+- [Zespół i biogramy]({{ SITE_URL }}/o-nas/)
 - [Cennik]({{ SITE_URL }}/cennik/)
 - [Kontakt i zapisy]({{ SITE_URL }}/kontakt/)
 {% endautoescape %}

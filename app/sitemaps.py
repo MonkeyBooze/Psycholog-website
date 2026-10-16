@@ -21,7 +21,6 @@ class StaticViewSitemap(Sitemap):
         'pricing': 0.8,
         'about_us': 0.8,
         'contact': 0.8,
-        'blog': 0.8,
         'standardy_ochrony_maloletnich': 0.5,
         'privacy': 0.4,
         'cookie_policy': 0.4,

@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
-from app.sitemaps import StaticViewSitemap, BlogPostSitemap, BlogCategorySitemap
+from app.sitemaps import StaticViewSitemap, BlogPostSitemap
 
+# Bez kategorii bloga: blog nie jest prowadzony, puste listy to cienkie strony.
 sitemaps = {
     'static': StaticViewSitemap,
     'blog': BlogPostSitemap,
-    'categories': BlogCategorySitemap,
 }
 
 urlpatterns = [
@@ -31,6 +31,8 @@ urlpatterns = [
     path('', include('app.urls')),
     # robots.txt as plain text template
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name='robots'),
+    # llms.txt: zwięzły opis gabinetu dla wyszukiwarek AI (llmstxt.org)
+    path('llms.txt', TemplateView.as_view(template_name="llms.txt", content_type="text/plain; charset=utf-8"), name='llms'),
     # sitemap
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]

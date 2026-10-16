@@ -33,9 +33,9 @@ REVIEWS = {"rating": "5,0", "count": 28, "url": ZNANYLEKARZ_URL}
 # Godziny są takie same dla obu gabinetów. Format dni jak w schema.org.
 OPENING_HOURS = {
     "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "09:00",
+    "opens": "08:00",
     "closes": "20:00",
-    "display": "codziennie w godzinach 9:00-20:00",
+    "display": "codziennie w godzinach 8:00-20:00",
 }
 
 LOCATIONS = [

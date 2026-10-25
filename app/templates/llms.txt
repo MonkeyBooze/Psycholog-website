@@ -22,6 +22,7 @@ Opinie: {{ ZNANYLEKARZ_URL }}
 ## Więcej informacji
 
 - [Zespół i biogramy]({{ SITE_URL }}/o-nas/)
+- [Test przesiewowy ADHD dla dorosłych]({{ SITE_URL }}/test-adhd/): 6 pytań skali ASRS v1.1, wynik liczony w przeglądarce, to nie diagnoza.
 - [Cennik]({{ SITE_URL }}/cennik/)
 - [Kontakt i zapisy]({{ SITE_URL }}/kontakt/)
 {% endautoescape %}

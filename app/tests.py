@@ -155,6 +155,11 @@ class AdhdTestPageTests(TestCase):
         self.assertIn(f'tel:{site_data.PHONE_E164}', html)
         self.assertIn('World Health Organization', html)
 
+    def test_test_is_linked_from_the_adhd_page_and_llms_txt(self):
+        self.assertIn('href="/test-adhd/"', html_of(self.client, 'diagnoza_adhd'))
+        llms = self.client.get('/llms.txt', HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertIn(f'{site_data.SITE_URL}/test-adhd/', llms)
+
 @without_manifest
 class LlmsTxtTests(TestCase):
 

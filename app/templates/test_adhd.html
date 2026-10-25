@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}Test na ADHD u dorosłych online | Spektrum Umysłu{% endblock %}
+{% block meta_description %}Bezpłatny test przesiewowy ADHD dla dorosłych (ASRS). Wynik od razu, odpowiedzi nie są zapisywane. Diagnostyka ADHD w Opolu, Nysie i online.{% endblock %}
+
+{% block content %}
+<section class="service-hero section">
+  <div class="container">
+    <div class="service-hero-content">
+      <h1>Test przesiewowy ADHD dla dorosłych</h1>
+      <p class="service-description">Osiem pytań, około dwóch minut. Test opiera się na skali ASRS v1.1
+        Światowej Organizacji Zdrowia. To narzędzie orientacyjne, nie diagnoza.</p>
+      <p class="service-description"><strong>Twoje odpowiedzi nie są zapisywane ani wysyłane.</strong>
+        Wynik liczy się w Twojej przeglądarce.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <form class="adhd-test" data-adhd-test novalidate>
+      <p class="adhd-test-instruction">{{ test.instruction }}</p>
+      <ol class="adhd-test-questions">
+        {% for question, threshold in test.questions %}
+        <li>
+          <fieldset>
+            <legend>{{ question }}</legend>
+            <div class="adhd-test-scale">
+              {% for label in test.scale %}
+              <label><input type="radio" name="q{{ forloop.parentloop.counter0 }}" value="{{ forloop.counter0 }}" required> {{ label }}</label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </li>
+        {% endfor %}
+        {% for question, options in test.extra %}
+        <li>
+          <fieldset>
+            <legend>{{ question }}</legend>
+            <div class="adhd-test-scale">
+              {% for label in options %}
+              <label><input type="radio" name="x{{ forloop.parentloop.counter0 }}" value="{{ label }}" required> {{ label }}</label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </li>
+        {% endfor %}
+      </ol>
+      <p class="adhd-test-missing" data-adhd-missing hidden>Odpowiedz na wszystkie pytania, żeby zobaczyć wynik.</p>
+      <button type="submit" class="btn btn-primary btn-large">Pokaż wynik</button>
+    </form>
+
+    <div class="adhd-test-result" data-adhd-result hidden tabindex="-1" aria-live="polite">
+      <h2>Twój wynik</h2>
+      <p class="adhd-test-verdict" data-adhd-verdict></p>
+      <p>Test przesiewowy nie jest diagnozą i nie wyklucza ADHD. Część osób z ADHD, częściej kobiety
+        i osoby, które latami maskowały trudności, uzyskuje w nim niski wynik. Rozpoznanie wymaga
+        wywiadu i diagnostyki prowadzonej przez specjalistę.</p>
+      <h3>Co warto omówić na konsultacji</h3>
+      <ul data-adhd-extra></ul>
+      <div class="adhd-test-actions">
+        <a href="tel:{{ PHONE_E164 }}" class="btn btn-primary btn-large">Umów wizytę: {{ PHONE_SHORT }}</a>
+        <a href="{% url 'diagnoza_adhd' %}" class="btn btn-secondary">Jak wygląda diagnoza ADHD</a>
+        <button type="button" class="btn btn-secondary" data-adhd-reset>Zrób test jeszcze raz</button>
+      </div>
+    </div>
+
+    {{ test|json_script:"adhd-test-data" }}
+    <p class="adhd-test-source"><small>Źródło: Adult ADHD Self-Report Scale (ASRS v1.1) Screener,
+      © World Health Organization.</small></p>
+  </div>
+</section>
+
+{% include 'partials/faq.html' with faq_heading="Pytania o test" %}
+
+{% endblock %}

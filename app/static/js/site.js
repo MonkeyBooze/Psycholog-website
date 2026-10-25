@@ -218,6 +218,59 @@
     });
   }
 
+  // ── Test przesiewowy ADHD ────────────────────────────────────────
+  // Wynik liczony wyłącznie tutaj. Nic nie idzie na serwer ani do Analytics.
+
+  function setupAdhdTest() {
+    var form = document.querySelector('[data-adhd-test]');
+    var dataEl = document.getElementById('adhd-test-data');
+    if (!form || !dataEl) return;
+    var test = JSON.parse(dataEl.textContent);
+    var result = document.querySelector('[data-adhd-result]');
+    var missing = form.querySelector('[data-adhd-missing]');
+
+    function answer(name) {
+      var checked = form.querySelector('input[name="' + name + '"]:checked');
+      return checked ? checked.value : null;
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var marked = 0;
+      var unanswered = false;
+      test.questions.forEach(function (q, i) {
+        var value = answer('q' + i);
+        if (value === null) { unanswered = true; return; }
+        if (Number(value) >= q[1]) marked += 1;
+      });
+      var extras = test.extra.map(function (q, i) { return [q[0], answer('x' + i)]; });
+      if (unanswered || extras.some(function (e) { return e[1] === null; })) {
+        missing.hidden = false;
+        return;
+      }
+      missing.hidden = true;
+      result.querySelector('[data-adhd-verdict]').textContent =
+        marked >= test.threshold ? test.result_high : test.result_low;
+      var list = result.querySelector('[data-adhd-extra]');
+      list.textContent = '';
+      extras.forEach(function (e) {
+        var li = document.createElement('li');
+        li.textContent = e[0] + ' ' + e[1];
+        list.appendChild(li);
+      });
+      form.hidden = true;
+      result.hidden = false;
+      result.focus();
+    });
+
+    result.querySelector('[data-adhd-reset]').addEventListener('click', function () {
+      form.reset();
+      result.hidden = true;
+      form.hidden = false;
+      form.scrollIntoView();
+    });
+  }
+
   // ── Kopiowanie odnośnika do artykułu ─────────────────────────────
 
   function setupCopyLink() {
@@ -257,6 +310,7 @@
     setupMobileMenu();
     setupBookingForm();
     setupFaq();
+    setupAdhdTest();
     setupCopyLink();
     setupSmoothScroll();
   }

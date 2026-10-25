@@ -23,7 +23,7 @@ from app import site_data
 PAGES = [
     'home', 'about_us', 'pricing', 'contact', 'blog',
     'diagnoza_adhd', 'diagnoza_autyzmu', 'terapia_indywidualna',
-    'konsultacje', 'tus', 'wsparcie_online', 'logopedia',
+    'konsultacje', 'tus', 'wsparcie_online', 'logopedia', 'test_adhd',
     'lokalizacja_opole', 'lokalizacja_nysa',
     'privacy', 'cookie_policy', 'terms', 'data_subject_rights', 'thanks',
     'standardy_ochrony_maloletnich',
@@ -121,6 +121,44 @@ class SitemapTests(TestCase):
         self.assertIn('noindex', html_of(self.client, 'blog'))
         self.assertNotIn('href="/blog/"', html_of(self.client, 'home'))
         self.assertNotIn('href="/blog/"', html_of(self.client, 'thanks'))
+
+
+@without_manifest
+class AdhdTestPageTests(TestCase):
+
+    def test_scoring_matches_asrs_part_a(self):
+        test = site_data.ADHD_TEST
+        self.assertEqual(len(test['questions']), 6)
+        self.assertEqual([t for _, t in test['questions']], [2, 2, 2, 3, 3, 3])
+        self.assertEqual(test['threshold'], 4)
+        self.assertEqual(len(test['scale']), 5)
+
+    def test_answers_never_leave_the_browser(self):
+        html = html_of(self.client, 'test_adhd')
+        form = re.search(r'(?s)<form class="adhd-test".*?</form>', html).group(0)
+        self.assertNotIn('action=', form)
+        self.assertNotIn('method=', form)
+        self.assertNotIn('csrfmiddlewaretoken', form)
+        js = (Path(settings.BASE_DIR) / 'app/static/js/site.js').read_text(encoding='utf-8')
+        block = js[js.index('function setupAdhdTest'):js.index('Kopiowanie odnośnika')]
+        for leak in ('fetch(', 'XMLHttpRequest', 'gtag', 'dataLayer', 'sendBeacon', 'localStorage'):
+            with self.subTest(leak=leak):
+                self.assertNotIn(leak, block)
+
+    def test_page_says_it_is_not_a_diagnosis_and_offers_a_visit(self):
+        html = html_of(self.client, 'test_adhd')
+        self.assertIn('nie jest diagnozą', html)
+        self.assertIn('nie są zapisywane', html)
+        self.assertIn(f'tel:{site_data.PHONE_E164}', html)
+        self.assertIn('World Health Organization', html)
+
+    def test_wording_is_taken_from_the_official_polish_asrs(self):
+        """Brzmienie pytań ma być przepisane z polskiej wersji ASRS v1.1, nie z opracowania roboczego.
+
+        Usuń klucz `provisional` w ADHD_TEST dopiero po podmianie pytań.
+        """
+        self.assertFalse(site_data.ADHD_TEST.get('provisional'),
+                         'pytania testu ADHD czekają na brzmienie z polskiej wersji ASRS')
 
 
 @without_manifest

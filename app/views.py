@@ -147,6 +147,14 @@ def service_page(request, key):
     })
 
 
+def adhd_test(request):
+    return render(request, 'test_adhd.html', {
+        'test': site_data.ADHD_TEST,
+        'faq': site_data.ADHD_TEST_FAQ,
+        'faq_schema': site_data.faq_schema(site_data.ADHD_TEST_FAQ),
+    })
+
+
 def lokalizacja(request, slug):
     """Strona gabinetu w danym mieście, /opole/ i /nysa/."""
     loc = next((l for l in site_data.LOCATIONS if l['slug'] == slug), None)

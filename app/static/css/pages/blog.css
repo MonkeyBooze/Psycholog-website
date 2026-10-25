@@ -260,7 +260,7 @@
 }
 
 /* The site-wide grey paragraph colour is for short blurbs; long text reads better dark. */
-.post-body :is(p, li) {
+.post-body :is(p, li):not(.post-lead) {
   color: inherit;
 }
 
@@ -282,8 +282,16 @@
   font-size: var(--font-size-xl);
 }
 
+.post-body> h4 {
+  font-size: var(--font-size-lg);
+}
+
 .post-body ul {
   list-style: disc;
+}
+
+.post-body ul ul {
+  list-style: circle;
 }
 
 .post-body ol {
@@ -300,7 +308,7 @@
 }
 
 .post-body li::marker {
-  color: var(--color-primary-500);
+  color: var(--color-primary-700);
 }
 
 .post-body a {
@@ -425,6 +433,10 @@
   }
 
   .post-body> h2 {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg-plus);
+  }
+
+  .post-body> h3 {
+    font-size: var(--font-size-lg-alt);
   }
 }

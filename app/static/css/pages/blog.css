@@ -251,29 +251,56 @@
 /* Węższa kolumna od kontenera: przy pełnej szerokości linie robią się za długie,
    żeby wzrok pewnie trafiał na początek następnej. */
 .post-body {
-  max-width: 68ch;
+  /* About 70 characters per line of Inter at this size. */
+  max-width: 62ch;
   margin: 0 auto;
   font-size: var(--font-size-lg);
-  line-height: 1.75;
+  line-height: 1.65;
   color: var(--text-primary);
 }
 
+/* The site-wide grey paragraph colour is for short blurbs; long text reads better dark. */
+.post-body :is(p, li) {
+  color: inherit;
+}
+
 .post-body> :is(p, ul, ol, blockquote, figure) {
-  margin-bottom: var(--space-md);
+  margin-bottom: 1.25em;
 }
 
 .post-body> :is(h2, h3, h4) {
-  margin: var(--space-xl) 0 var(--space-sm);
+  margin: 1.75em 0 0.5em;
   line-height: 1.3;
   text-wrap: balance;
 }
 
+.post-body> h2 {
+  font-size: var(--font-size-2xl);
+}
+
+.post-body> h3 {
+  font-size: var(--font-size-xl);
+}
+
+.post-body ul {
+  list-style: disc;
+}
+
+.post-body ol {
+  list-style: decimal;
+}
+
 .post-body :is(ul, ol) {
-  padding-left: var(--space-lg);
+  padding-left: 1.5em;
 }
 
 .post-body li {
-  margin-bottom: var(--space-2xs);
+  margin-bottom: 0.5em;
+  padding-left: 0.25em;
+}
+
+.post-body li::marker {
+  color: var(--color-primary-500);
 }
 
 .post-body a {
@@ -394,6 +421,10 @@
   }
 
   .post-body {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-md);
+  }
+
+  .post-body> h2 {
+    font-size: var(--font-size-xl);
   }
 }

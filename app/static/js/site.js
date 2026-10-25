@@ -227,7 +227,6 @@
     if (!form || !dataEl) return;
     var test = JSON.parse(dataEl.textContent);
     var result = document.querySelector('[data-adhd-result]');
-    var missing = form.querySelector('[data-adhd-missing]');
 
     function answer(name) {
       var checked = form.querySelector('input[name="' + name + '"]:checked');
@@ -236,19 +235,9 @@
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
-      var marked = 0;
-      var unanswered = false;
-      test.questions.forEach(function (q, i) {
-        var value = answer('q' + i);
-        if (value === null) { unanswered = true; return; }
-        if (Number(value) >= q[1]) marked += 1;
-      });
+      // Native `required` validation guarantees every group is answered before submit fires.
+      var marked = test.questions.filter(function (q, i) { return Number(answer('q' + i)) >= q[1]; }).length;
       var extras = test.extra.map(function (q, i) { return [q[0], answer('x' + i)]; });
-      if (unanswered || extras.some(function (e) { return e[1] === null; })) {
-        missing.hidden = false;
-        return;
-      }
-      missing.hidden = true;
       result.querySelector('[data-adhd-verdict]').textContent =
         marked >= test.threshold ? test.result_high : test.result_low;
       var list = result.querySelector('[data-adhd-extra]');
@@ -269,6 +258,7 @@
       form.hidden = false;
       form.scrollIntoView();
     });
+    form.querySelector('button[type="submit"]').disabled = false;
   }
 
   // ── Kopiowanie odnośnika do artykułu ─────────────────────────────

@@ -19,7 +19,7 @@
 
 <section class="section">
   <div class="container">
-    <form class="adhd-test" data-adhd-test novalidate>
+    <form class="adhd-test" data-adhd-test>
       <p class="adhd-test-instruction">{{ test.instruction }}</p>
       <ol class="adhd-test-questions">
         {% for question, threshold in test.questions %}
@@ -47,8 +47,9 @@
         </li>
         {% endfor %}
       </ol>
-      <p class="adhd-test-missing" data-adhd-missing hidden>Odpowiedz na wszystkie pytania, żeby zobaczyć wynik.</p>
-      <button type="submit" class="btn btn-primary btn-large">Pokaż wynik</button>
+      <noscript><p>Test liczy wynik w Twojej przeglądarce i potrzebuje do tego JavaScriptu. Nic nie zostało wysłane.</p></noscript>
+      {# Disabled until site.js owns the form, so a failed script never submits answers in the URL. #}
+      <button type="submit" class="btn btn-primary btn-large" disabled>Pokaż wynik</button>
     </form>
 
     <div class="adhd-test-result" data-adhd-result hidden tabindex="-1" aria-live="polite">

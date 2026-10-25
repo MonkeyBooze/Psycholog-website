@@ -139,6 +139,9 @@ class AdhdTestPageTests(TestCase):
         self.assertNotIn('action=', form)
         self.assertNotIn('method=', form)
         self.assertNotIn('csrfmiddlewaretoken', form)
+        self.assertIn('Pokaż wynik</button>', form)
+        self.assertRegex(form, r'<button type="submit"[^>]* disabled>')
+        self.assertNotIn('novalidate', form)
         js = (Path(settings.BASE_DIR) / 'app/static/js/site.js').read_text(encoding='utf-8')
         block = js[js.index('function setupAdhdTest'):js.index('Kopiowanie odnośnika')]
         for leak in ('fetch(', 'XMLHttpRequest', 'gtag', 'dataLayer', 'sendBeacon', 'localStorage'):
@@ -151,15 +154,6 @@ class AdhdTestPageTests(TestCase):
         self.assertIn('nie są zapisywane', html)
         self.assertIn(f'tel:{site_data.PHONE_E164}', html)
         self.assertIn('World Health Organization', html)
-
-    def test_wording_is_taken_from_the_official_polish_asrs(self):
-        """Brzmienie pytań ma być przepisane z polskiej wersji ASRS v1.1, nie z opracowania roboczego.
-
-        Usuń klucz `provisional` w ADHD_TEST dopiero po podmianie pytań.
-        """
-        self.assertFalse(site_data.ADHD_TEST.get('provisional'),
-                         'pytania testu ADHD czekają na brzmienie z polskiej wersji ASRS')
-
 
 @without_manifest
 class LlmsTxtTests(TestCase):

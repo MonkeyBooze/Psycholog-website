@@ -239,11 +239,6 @@
   cursor: pointer;
 }
 
-.adhd-test-missing {
-  color: var(--color-primary-700);
-  font-weight: 600;
-}
-
 .adhd-test-actions {
   display: flex;
   flex-wrap: wrap;

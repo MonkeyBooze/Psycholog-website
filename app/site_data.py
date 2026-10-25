@@ -969,20 +969,18 @@ CHILD_PROTECTION_SHORT = [
 
 
 # Test przesiewowy ADHD (ASRS v1.1, część A). Liczony wyłącznie w przeglądarce.
-# >>> PYTANIA DO PODMIANY na brzmienie z polskiej wersji ASRS v1.1 (PDF właściciela) <<<
-# `provisional` blokuje publikację testem, dopóki brzmienie nie jest przepisane ze źródła.
+# Brzmienie: polskie tłumaczenie ASRS v1.1, Monika Teodorowicz (2023, wersja poprawiona).
 ADHD_TEST = {
-    "provisional": True,
-    "instruction": "Zaznacz, jak często w ciągu ostatnich 6 miesięcy:",
+    "instruction": "Jak często w ciągu ostatnich 6 miesięcy:",
     "scale": ["Nigdy", "Rzadko", "Czasami", "Często", "Bardzo często"],
     # (treść, próg): pytanie jest „zaznaczone”, gdy odpowiedź ma wartość >= próg (0-4).
     "questions": [
-        ("Masz trudności z dokończeniem końcowych szczegółów projektu, gdy trudna część jest już za Tobą?", 2),
-        ("Masz trudności z uporządkowaniem rzeczy, gdy zadanie wymaga organizacji?", 2),
-        ("Masz problemy z pamiętaniem o spotkaniach lub zobowiązaniach?", 2),
-        ("Unikasz lub odkładasz zadania wymagające dużego wysiłku umysłowego?", 3),
-        ("Wiercisz się lub poruszasz rękami albo stopami, gdy musisz długo siedzieć?", 3),
-        ("Czujesz się nadmiernie aktywny i zmuszony do działania, jakby napędzał Cię silnik?", 3),
+        ("Jak często masz trudności z dopracowaniem szczegółów jakiegoś zadania, po tym jak już je prawie wykonałeś?", 2),
+        ("Jak często masz trudności w planowaniu i organizowaniu skomplikowanych zadań?", 2),
+        ("Jak często zapominasz o spotkaniach lub codziennych obowiązkach?", 2),
+        ("Jak często unikasz lub odkładasz zadania wymagające długotrwałego wysiłku umysłowego?", 3),
+        ("Jak często masz nerwowe ruchy rąk lub stóp, gdy musisz siedzieć przez dłuższy czas?", 3),
+        ("Jak często zdarza Ci się być tak pobudzonym, że czujesz, że musisz robić wiele różnych rzeczy, jakbyś „był nakręcony”?", 3),
     ],
     "threshold": 4,
     "extra": [

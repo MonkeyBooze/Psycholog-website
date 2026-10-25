@@ -218,6 +218,49 @@
     });
   }
 
+  // ── Test przesiewowy ADHD ────────────────────────────────────────
+  // Wynik liczony wyłącznie tutaj. Nic nie idzie na serwer ani do Analytics.
+
+  function setupAdhdTest() {
+    var form = document.querySelector('[data-adhd-test]');
+    var dataEl = document.getElementById('adhd-test-data');
+    if (!form || !dataEl) return;
+    var test = JSON.parse(dataEl.textContent);
+    var result = document.querySelector('[data-adhd-result]');
+
+    function answer(name) {
+      var checked = form.querySelector('input[name="' + name + '"]:checked');
+      return checked ? checked.value : null;
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      // Native `required` validation guarantees every group is answered before submit fires.
+      var marked = test.questions.filter(function (q, i) { return Number(answer('q' + i)) >= q[1]; }).length;
+      var extras = test.extra.map(function (q, i) { return [q[0], answer('x' + i)]; });
+      result.querySelector('[data-adhd-verdict]').textContent =
+        marked >= test.threshold ? test.result_high : test.result_low;
+      var list = result.querySelector('[data-adhd-extra]');
+      list.textContent = '';
+      extras.forEach(function (e) {
+        var li = document.createElement('li');
+        li.textContent = e[0] + ' ' + e[1];
+        list.appendChild(li);
+      });
+      form.hidden = true;
+      result.hidden = false;
+      result.focus();
+    });
+
+    result.querySelector('[data-adhd-reset]').addEventListener('click', function () {
+      form.reset();
+      result.hidden = true;
+      form.hidden = false;
+      form.scrollIntoView();
+    });
+    form.querySelector('button[type="submit"]').disabled = false;
+  }
+
   // ── Kopiowanie odnośnika do artykułu ─────────────────────────────
 
   function setupCopyLink() {
@@ -257,6 +300,7 @@
     setupMobileMenu();
     setupBookingForm();
     setupFaq();
+    setupAdhdTest();
     setupCopyLink();
     setupSmoothScroll();
   }

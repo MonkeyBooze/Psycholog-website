@@ -26,6 +26,7 @@ def _breadcrumb(path):
     names.update({loc['path']: f"Psycholog {loc['city']}" for loc in site_data.LOCATIONS})
     names.update({
         '/cennik/': 'Cennik',
+        '/test-adhd/': 'Test ADHD',
         '/o-nas/': 'Zespół',
         '/kontakt/': 'Kontakt',
         '/blog/': 'Blog',

@@ -966,3 +966,55 @@ CHILD_PROTECTION_SHORT = [
         "Telefon alarmowy: 112.",
     ),
 ]
+
+
+# Test przesiewowy ADHD (ASRS v1.1, część A). Liczony wyłącznie w przeglądarce.
+# Brzmienie: polskie tłumaczenie ASRS v1.1, Monika Teodorowicz (2023, wersja poprawiona).
+ADHD_TEST = {
+    "instruction": "Jak często w ciągu ostatnich 6 miesięcy:",
+    "scale": ["Nigdy", "Rzadko", "Czasami", "Często", "Bardzo często"],
+    # (treść, próg): pytanie jest „zaznaczone”, gdy odpowiedź ma wartość >= próg (0-4).
+    "questions": [
+        ("Jak często masz trudności z dopracowaniem szczegółów jakiegoś zadania, po tym jak już je prawie wykonałeś?", 2),
+        ("Jak często masz trudności w planowaniu i organizowaniu skomplikowanych zadań?", 2),
+        ("Jak często zapominasz o spotkaniach lub codziennych obowiązkach?", 2),
+        ("Jak często unikasz lub odkładasz zadania wymagające długotrwałego wysiłku umysłowego?", 3),
+        ("Jak często masz nerwowe ruchy rąk lub stóp, gdy musisz siedzieć przez dłuższy czas?", 3),
+        ("Jak często zdarza Ci się być tak pobudzonym, że czujesz, że musisz robić wiele różnych rzeczy, jakbyś „był nakręcony”?", 3),
+    ],
+    "threshold": 4,
+    "extra": [
+        ("Czy podobne trudności występowały u Ciebie już w dzieciństwie, przed 12. rokiem życia?",
+         ["Tak", "Nie", "Nie wiem"]),
+        ("Jak bardzo utrudniają Ci one pracę, naukę lub relacje?",
+         ["Wcale", "Trochę", "Wyraźnie", "Bardzo"]),
+    ],
+    "result_high": "Twoje odpowiedzi są zgodne z wzorcem, który warto skonsultować ze specjalistą.",
+    "result_low": "Twoje odpowiedzi nie wskazują na wyraźny wzorzec w teście przesiewowym.",
+}
+
+ADHD_TEST_FAQ = [
+    (
+        "Czym jest test przesiewowy ADHD?",
+        "To krótki kwestionariusz, który pomaga ocenić, czy warto skonsultować swoje trudności ze "
+        "specjalistą. Opiera się na skali ASRS v1.1 opracowanej dla Światowej Organizacji Zdrowia "
+        "i składa się z sześciu pytań o ostatnie pół roku.",
+    ),
+    (
+        "Czy wynik testu jest diagnozą?",
+        "Nie. Test przesiewowy nie stawia diagnozy i nie wyklucza ADHD. Około jedna trzecia osób "
+        "z ADHD uzyskuje w nim niski wynik, częściej kobiety i osoby, które latami maskowały "
+        "objawy. Rozpoznanie wymaga wywiadu klinicznego prowadzonego przez specjalistę.",
+    ),
+    (
+        "Czy moje odpowiedzi są gdzieś zapisywane?",
+        "Nie. Wynik liczy się w Twojej przeglądarce. Odpowiedzi nie są wysyłane na nasz serwer "
+        "ani do narzędzi analitycznych i znikają po zamknięciu strony.",
+    ),
+    (
+        "Co dalej, jeśli wynik wskazuje na ADHD?",
+        "Warto umówić konsultację diagnostyczną. U nas diagnoza ADHD u dorosłych to wywiad "
+        "kliniczny i badanie DIVA-5 zakończone pisemną opinią, w gabinecie w Opolu, w Nysie "
+        "albo częściowo online.",
+    ),
+]

@@ -21,6 +21,7 @@ class StaticViewSitemap(Sitemap):
         'pricing': 0.8,
         'about_us': 0.8,
         'contact': 0.8,
+        'blog': 0.8,
         'standardy_ochrony_maloletnich': 0.5,
         'privacy': 0.4,
         'cookie_policy': 0.4,
@@ -29,7 +30,10 @@ class StaticViewSitemap(Sitemap):
     }
 
     def items(self):
-        return list(self._priorities.keys())
+        pages = list(self._priorities.keys())
+        if not BlogPost.objects.filter(status='published').exists():
+            pages.remove('blog')
+        return pages
 
     def priority(self, item):
         return self._priorities.get(item, 0.5)

@@ -783,6 +783,29 @@ class BlogRenderTests(TestCase):
             with self.subTest(page=nazwa):
                 self.assertEqual(self.client.get(url, secure=True).status_code, 200)
 
+    def test_pages_render_without_the_menu_query(self):
+        from unittest import mock
+        from django.db import DatabaseError
+        with mock.patch('app.context_processors.BlogPost.objects.filter',
+                        side_effect=DatabaseError('down')), self.assertLogs('app.context_processors', 'ERROR'):
+            html = html_of(self.client, 'pricing')
+        self.assertNotIn('href="/blog/"', html)
+
+    def test_draft_post_alone_does_not_show_the_blog(self):
+        self.post.status = 'draft'
+        self.post.save()
+        home = self.client.get(reverse('home'), HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertNotIn('href="/blog/"', home)
+
+    def test_blog_with_a_post_is_linked_and_indexable(self):
+        home = self.client.get(reverse('home'), HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertIn('href="/blog/"', home)
+        blog = self.client.get(reverse('blog'), HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertNotIn('noindex', blog)
+        sitemap = self.client.get('/sitemap.xml', HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertIn(f'<loc>{site_data.SITE_URL}/blog/</loc>', sitemap)
+        self.assertIn(f'<loc>{site_data.SITE_URL}{self.post.get_absolute_url()}</loc>', sitemap)
+
     def test_every_json_ld_block_is_valid_json(self):
         for nazwa, url in self._adresy().items():
             html = self.client.get(url, secure=True).content.decode()

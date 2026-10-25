@@ -1,6 +1,23 @@
+import logging
+
 from django.conf import settings
+from django.db import DatabaseError
+from django.utils.functional import SimpleLazyObject
 
 from . import site_data
+from .models import BlogPost
+
+
+logger = logging.getLogger(__name__)
+
+
+def _blog_has_posts():
+    # A menu link must not take the page down with the database.
+    try:
+        return BlogPost.objects.filter(status='published').exists()
+    except DatabaseError:
+        logger.error('Blog menu link hidden: database unavailable', exc_info=True)
+        return False
 
 
 def _breadcrumb(path):
@@ -35,6 +52,7 @@ def site_settings(request):
         'REVIEWS': site_data.REVIEWS,
         'LOCATIONS': site_data.LOCATIONS,
         'TEAM': site_data.TEAM,
+        'BLOG_HAS_POSTS': SimpleLazyObject(_blog_has_posts),
         'BREADCRUMB': _breadcrumb(request.path),
         # Standardy Ochrony Małoletnich (obowiązek publikacji od 15.08.2024).
         'CHILD_PROTECTION': site_data.CHILD_PROTECTION,

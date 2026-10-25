@@ -1,6 +1,8 @@
 from django.conf import settings
+from django.utils.functional import SimpleLazyObject
 
 from . import site_data
+from .models import BlogPost
 
 
 def _breadcrumb(path):
@@ -35,6 +37,8 @@ def site_settings(request):
         'REVIEWS': site_data.REVIEWS,
         'LOCATIONS': site_data.LOCATIONS,
         'TEAM': site_data.TEAM,
+        'BLOG_HAS_POSTS': SimpleLazyObject(
+            lambda: BlogPost.objects.filter(status='published').exists()),
         'BREADCRUMB': _breadcrumb(request.path),
         # Standardy Ochrony Małoletnich (obowiązek publikacji od 15.08.2024).
         'CHILD_PROTECTION': site_data.CHILD_PROTECTION,

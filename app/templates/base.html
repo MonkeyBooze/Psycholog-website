@@ -153,6 +153,7 @@
           <a href="/nysa/" class="nav-link">Nysa</a>
           <a href="/o-nas/" class="nav-link">O nas</a>
           <a href="/cennik/" class="nav-link">Cennik</a>
+          {% if BLOG_HAS_POSTS %}<a href="/blog/" class="nav-link">Blog</a>{% endif %}
           <a href="/kontakt/" class="nav-link">Kontakt</a>
         </div>
         <div class="navbar-cta">
@@ -196,6 +197,7 @@
           <h5>Informacje</h5>
           <a href="/o-nas/">O nas</a>
           <a href="/cennik/">Cennik</a>
+          {% if BLOG_HAS_POSTS %}<a href="/blog/">Blog</a>{% endif %}
           <a href="/kontakt/">Kontakt</a>
           <a href="/privacy/">Polityka prywatności</a>
           <a href="/cookie-policy/">Polityka cookies</a>

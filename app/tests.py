@@ -783,6 +783,15 @@ class BlogRenderTests(TestCase):
             with self.subTest(page=nazwa):
                 self.assertEqual(self.client.get(url, secure=True).status_code, 200)
 
+    def test_blog_with_a_post_is_linked_and_indexable(self):
+        home = self.client.get(reverse('home'), HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertIn('href="/blog/"', home)
+        blog = self.client.get(reverse('blog'), HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertNotIn('noindex', blog)
+        sitemap = self.client.get('/sitemap.xml', HTTP_HOST=HOST, secure=True).content.decode()
+        self.assertIn(f'<loc>{site_data.SITE_URL}/blog/</loc>', sitemap)
+        self.assertIn(f'<loc>{site_data.SITE_URL}{self.post.get_absolute_url()}</loc>', sitemap)
+
     def test_every_json_ld_block_is_valid_json(self):
         for nazwa, url in self._adresy().items():
             html = self.client.get(url, secure=True).content.decode()

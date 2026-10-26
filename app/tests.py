@@ -433,8 +433,7 @@ class InternalLinkTests(TestCase):
     def test_location_pages_link_to_services_available_there(self):
         """Strona gabinetu wymienia usługi prowadzone w tym mieście i tylko je.
 
-        TUS jest prowadzony wyłącznie w Opolu, więc strona Nysy nie może go
-        oferować, a strona Opola nie może go pominąć.
+        Usługę spoza oferty miasta wpisuje się w `unavailable_services` gabinetu.
         """
         for loc in site_data.LOCATIONS:
             links = self._body_links(f'lokalizacja_{loc["slug"]}')

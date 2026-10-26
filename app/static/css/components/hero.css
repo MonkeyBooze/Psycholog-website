@@ -45,13 +45,10 @@
 .hero-img {
   width: 100%;
   max-width: 500px;
-  height: 400px;
-  object-fit: contain;
+  height: auto;
   border-radius: var(--radius-xl);
   box-shadow: 0 20px 40px var(--shadow-md);
-  background: var(--bg-default) url('/static/images/logo-with-signature.png') center/contain no-repeat;
-  padding: 40px;
-  animation: pulse-smooth 4s ease-in-out infinite;
+  animation: pulse-smooth 8s ease-in-out infinite;
   transform-style: preserve-3d;
   will-change: transform;
   backface-visibility: hidden;
@@ -80,6 +77,32 @@
   gap: var(--space-md);
   flex-wrap: wrap;
   margin-bottom: 32px;
+}
+
+/* Teal outline on the teal gradient was unreadable. */
+.hero-section .btn-secondary {
+  color: var(--text-on-dark);
+  border-color: var(--text-on-dark);
+}
+
+.hero-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.hero-shortcuts a {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-default);
+  color: var(--color-primary-700);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.hero-shortcuts a:hover {
+  background: var(--color-primary-100);
 }
 
 /* Trust Badge */

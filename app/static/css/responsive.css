@@ -186,8 +186,14 @@
     left: 20px;
   }
 
+  /* The sticky header already shows "Zadzwoń teraz"; the floating copy covered headings. */
+  .float-call {
+    display: none;
+  }
+
   /* Grid responsive */
   .services-grid,
+  .services-grid.grid-2,
   .approach-grid,
   .faq-grid,
   .offers-grid,

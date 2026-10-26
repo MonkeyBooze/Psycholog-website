@@ -31,18 +31,21 @@
   }
 }
 
-/* Subtle breathing / pulse — shared by hero images */
-/* Subtle breathing / pulse — optimized for GPU */
+/* Slow drift for the hero logo card (home, about). */
 @keyframes pulse-smooth {
-  0% {
-    transform: scale3d(1, 1, 1) rotate(0.01deg);
+  0%,
+  100% {
+    transform: translateY(0);
   }
 
   50% {
-    transform: scale3d(1.02, 1.02, 1) rotate(0.01deg);
+    transform: translateY(-6px);
   }
+}
 
-  100% {
-    transform: scale3d(1, 1, 1) rotate(0.01deg);
+@media (prefers-reduced-motion: reduce) {
+  .hero-img,
+  .about-main-img {
+    animation: none;
   }
 }

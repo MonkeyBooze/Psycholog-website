@@ -105,6 +105,11 @@
   background: var(--color-primary-100);
 }
 
+/* The global teal focus ring is invisible on the teal hero. */
+.hero-section a:focus-visible {
+  outline-color: var(--text-on-dark);
+}
+
 /* Trust Badge */
 .trust-badge {
   display: inline-flex;

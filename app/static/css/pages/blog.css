@@ -188,7 +188,7 @@
 
 .blog-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--grid-gap);
 }
 
@@ -196,8 +196,12 @@
    usług nie mają, i wyrównanie do lewej, bo zajawka źle się czyta wyśrodkowana. */
 .blog-card {
   text-align: left;
-  padding: 0 0 var(--space-md);
+  padding: var(--space-md) 0;
   overflow: hidden;
+}
+
+.blog-card:has(.blog-card-image) {
+  padding-top: 0;
 }
 
 .blog-card>*:not(.blog-card-image) {

@@ -155,8 +155,10 @@ class AdhdTestPageTests(TestCase):
         self.assertIn(f'tel:{site_data.PHONE_E164}', html)
         self.assertIn('World Health Organization', html)
 
-    def test_test_is_linked_from_the_adhd_page_and_llms_txt(self):
-        self.assertIn('href="/test-adhd/"', html_of(self.client, 'diagnoza_adhd'))
+    def test_test_is_linked_from_footer_home_adhd_page_and_llms_txt(self):
+        self.assertIn('href="/test-adhd/"', html_of(self.client, 'pricing'))  # footer, every page
+        self.assertIn('<a href="/test-adhd/" class="service-card">', html_of(self.client, 'home'))
+        self.assertIn('<a href="/test-adhd/" class="btn btn-secondary btn-large">', html_of(self.client, 'diagnoza_adhd'))
         llms = self.client.get('/llms.txt', HTTP_HOST=HOST, secure=True).content.decode()
         self.assertIn(f'{site_data.SITE_URL}/test-adhd/', llms)
 
@@ -431,8 +433,7 @@ class InternalLinkTests(TestCase):
     def test_location_pages_link_to_services_available_there(self):
         """Strona gabinetu wymienia usługi prowadzone w tym mieście i tylko je.
 
-        TUS jest prowadzony wyłącznie w Opolu, więc strona Nysy nie może go
-        oferować, a strona Opola nie może go pominąć.
+        Usługę spoza oferty miasta wpisuje się w `unavailable_services` gabinetu.
         """
         for loc in site_data.LOCATIONS:
             links = self._body_links(f'lokalizacja_{loc["slug"]}')

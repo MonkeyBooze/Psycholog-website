@@ -109,8 +109,7 @@ LOCATIONS = [
             "zwykle szybciej niż w Opolu. Jeśli w jednej lokalizacji terminy są zajęte, sprawdzamy "
             "dostępność w drugiej; zespół i standard postępowania są takie same."
         ),
-        # TUS prowadzimy wyłącznie w Opolu, więc nie pokazujemy go na stronie Nysy.
-        "unavailable_services": ["tus"],
+        "unavailable_services": [],
         "nearby": ["Otmuchów", "Paczków", "Głuchołazy", "Prudnik",
                    "Grodków", "Ziębice", "Korfantów"],
         "extra_note": (

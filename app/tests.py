@@ -155,8 +155,10 @@ class AdhdTestPageTests(TestCase):
         self.assertIn(f'tel:{site_data.PHONE_E164}', html)
         self.assertIn('World Health Organization', html)
 
-    def test_test_is_linked_from_the_adhd_page_and_llms_txt(self):
-        self.assertIn('href="/test-adhd/"', html_of(self.client, 'diagnoza_adhd'))
+    def test_test_is_linked_from_footer_home_adhd_page_and_llms_txt(self):
+        for page in ('diagnoza_adhd', 'home', 'pricing'):
+            with self.subTest(page=page):
+                self.assertIn('href="/test-adhd/"', html_of(self.client, page))
         llms = self.client.get('/llms.txt', HTTP_HOST=HOST, secure=True).content.decode()
         self.assertIn(f'{site_data.SITE_URL}/test-adhd/', llms)
 

@@ -153,8 +153,11 @@ class AdhdTestPageTests(TestCase):
         self.assertIn('nie jest diagnozą', html)
         self.assertIn('nie są zapisywane', html)
         self.assertIn(f'tel:{site_data.PHONE_E164}', html)
-        self.assertIn(f'href="{reverse("contact")}#formularz"', html)
-        self.assertIn('id="formularz"', html_of(self.client, 'contact'))
+        self.assertIn(f'href="{reverse("diagnoza_adhd")}#booking"', html)
+        booking = html_of(self.client, 'diagnoza_adhd')
+        self.assertIn('id="booking"', booking)
+        # The ADHD page form arrives with ADHD chosen, so the mail names the topic.
+        self.assertIn(f'<option value="adhd" selected>{site_data.SERVICES["adhd"]["name"]}</option>', booking)
         self.assertIn('World Health Organization', html)
 
     def test_test_is_linked_from_footer_home_adhd_page_and_llms_txt(self):

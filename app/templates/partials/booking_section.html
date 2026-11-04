@@ -76,7 +76,7 @@
                     <select id="id_subject" name="subject" required class="form-control">
                         <option value="">Wybierz...</option>
                         {% for klucz, usluga in SERVICES.items %}
-                        <option value="{{ klucz }}">{{ usluga.name }}</option>
+                        <option value="{{ klucz }}"{% if service.path == usluga.path %} selected{% endif %}>{{ usluga.name }}</option>
                         {% endfor %}
                         <option value="inne">Inne</option>
                     </select>

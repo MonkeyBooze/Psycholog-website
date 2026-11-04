@@ -149,7 +149,7 @@ SERVICES = {
             "Możliwość prowadzenia sesji online",
         ],
         "price_label": "od 200 zł",
-        "short": "Regularna psychoterapia psychologiczna, w gabinecie lub online.",
+        "short": "Regularna terapia psychologiczna z psychologiem, w gabinecie lub online.",
         "path": "/terapia-indywidualna/",
         "price": 200,
         "price_prefix": "od",
@@ -430,8 +430,7 @@ FAQ = {
     "wsparcie_online": [
         (
             "Czy terapia online jest tak samo skuteczna jak w gabinecie?",
-            "Dla większości trudności, tak. Badania nad terapią prowadzoną zdalnie pokazują "
-            "skuteczność porównywalną z pracą w gabinecie. Wyjątkiem są sytuacje "
+            "Dla większości trudności, tak. Wyjątkiem są sytuacje "
             "wymagające bezpośredniego kontaktu, np. diagnoza ADOS-2, której nie prowadzimy zdalnie.",
         ),
         (

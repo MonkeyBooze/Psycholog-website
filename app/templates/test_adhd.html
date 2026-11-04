@@ -62,6 +62,7 @@
       <ul data-adhd-extra></ul>
       <div class="adhd-test-actions">
         <a href="tel:{{ PHONE_E164 }}" class="btn btn-primary btn-large">Umów wizytę: {{ PHONE_SHORT }}</a>
+        <a href="{% url 'contact' %}#formularz" class="btn btn-secondary">Umów przez formularz</a>
         <a href="{% url 'diagnoza_adhd' %}" class="btn btn-secondary">Jak wygląda diagnoza ADHD</a>
         <button type="button" class="btn btn-secondary" data-adhd-reset>Zrób test jeszcze raz</button>
       </div>

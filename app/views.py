@@ -201,7 +201,7 @@ def _appointment_notification(request, appointment):
             f'Skontaktujemy się w ciągu 24 godzin, żeby potwierdzić dokładny termin.\n\n'
             f'W razie pytań prosimy o kontakt:\n'
             f'Telefon: {site_data.PHONE_DISPLAY}\n'
-            f'Email: {settings.EMAIL_FROM}\n\n'
+            f'Email: {site_data.EMAIL}\n\n'
             f'Z poważaniem,\n{site_data.SITE_NAME}'
         ),
     }

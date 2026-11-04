@@ -153,6 +153,8 @@ class AdhdTestPageTests(TestCase):
         self.assertIn('nie jest diagnozą', html)
         self.assertIn('nie są zapisywane', html)
         self.assertIn(f'tel:{site_data.PHONE_E164}', html)
+        self.assertIn(f'href="{reverse("contact")}#formularz"', html)
+        self.assertIn('id="formularz"', html_of(self.client, 'contact'))
         self.assertIn('World Health Organization', html)
 
     def test_test_is_linked_from_footer_home_adhd_page_and_llms_txt(self):
@@ -572,7 +574,9 @@ class ChildProtectionTests(TestCase):
 
 # Poczta w testach: własny backend zbierający wiadomości, plus dane logowania,
 # których brak wyłącza wysyłkę. Bez tego wynik zależałby od lokalnego pliku .env.
+# The booking form allows 5 posts a minute per IP; the suite posts more than that.
 with_email = override_settings(
+    RATELIMIT_ENABLE=False,
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     EMAIL_HOST_USER='test@example.com',
     EMAIL_HOST_PASSWORD='haslo-testowe',
@@ -614,6 +618,16 @@ class BookingFlowTests(TestCase):
         odbiorcy = sorted(address for wiadomosc in mail.outbox for address in wiadomosc.to)
         self.assertEqual(odbiorcy, ['anna@example.com', 'gabinet@example.com'])
 
+    def test_client_confirmation_gives_the_plain_contact_address(self):
+        """EMAIL_FROM ma postać „Nazwa <adres>”, więc w treści pokazywał się cały nagłówek."""
+        from django.core import mail
+
+        with self.settings(EMAIL_FROM='Spektrum Umysłu <nadawca@example.com>'):
+            self.client.post(reverse('book'), self.PAYLOAD, secure=True)
+        do_klienta = next(w for w in mail.outbox if 'anna@example.com' in w.to)
+        self.assertIn(f'Email: {site_data.EMAIL}', do_klienta.body)
+        self.assertNotIn('<nadawca@example.com>', do_klienta.body)
+
     def test_email_names_the_service_the_way_the_price_list_does(self):
         """Mail mówił „Diagnoza autyzmu (ADOS-2)”, a cennik „Diagnoza spektrum autyzmu”."""
         from django.core import mail
@@ -643,7 +657,7 @@ class BookingFlowTests(TestCase):
 class EmailConfigurationTests(TestCase):
     """Brak danych logowania musi być głośny, bo to najczęstsza przyczyna braku maili."""
 
-    @override_settings(EMAIL_HOST_USER='', EMAIL_HOST_PASSWORD='')
+    @override_settings(EMAIL_HOST_USER='', EMAIL_HOST_PASSWORD='', RATELIMIT_ENABLE=False)
     def test_missing_credentials_are_logged_as_error(self):
         from app.models import Appointment
 

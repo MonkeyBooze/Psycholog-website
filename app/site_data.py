@@ -144,12 +144,12 @@ SERVICES = {
         "name": "Terapia indywidualna",
         "includes": [
             "Sesja 50 minut, zwykle raz w tygodniu",
-            "Praca w nurcie CBT lub w terapii schematu",
+            "Terapia prowadzona przez psychologa",
             "Wspólnie ustalony plan i cele pracy",
             "Możliwość prowadzenia sesji online",
         ],
         "price_label": "od 200 zł",
-        "short": "Regularna praca terapeutyczna w nurcie poznawczo-behawioralnym i w terapii schematu.",
+        "short": "Regularna terapia psychologiczna z psychologiem, w gabinecie lub online.",
         "path": "/terapia-indywidualna/",
         "price": 200,
         "price_prefix": "od",
@@ -375,10 +375,9 @@ FAQ = {
             "Ramy ustalamy wspólnie na początku i weryfikujemy w trakcie.",
         ),
         (
-            "W jakim nurcie pracujecie?",
-            "Pracujemy głównie w nurcie poznawczo-behawioralnym (CBT) oraz w terapii schematu. "
-            "CBT koncentruje się na związku między myślami, emocjami i zachowaniem; terapia schematu "
-            "sięga do utrwalonych wzorców z wcześniejszych etapów życia.",
+            "Kto prowadzi terapię?",
+            "Terapię psychologiczną prowadzą u nas psycholodzy. Na pierwszym spotkaniu rozmawiamy "
+            "o tym, z czym przychodzisz, i wspólnie ustalamy cele oraz sposób pracy.",
         ),
         (
             "Czym różni się terapia od konsultacji?",
@@ -431,8 +430,7 @@ FAQ = {
     "wsparcie_online": [
         (
             "Czy terapia online jest tak samo skuteczna jak w gabinecie?",
-            "Dla większości trudności, tak. Badania nad terapią poznawczo-behawioralną prowadzoną "
-            "zdalnie pokazują skuteczność porównywalną z pracą w gabinecie. Wyjątkiem są sytuacje "
+            "Dla większości trudności, tak. Wyjątkiem są sytuacje "
             "wymagające bezpośredniego kontaktu, np. diagnoza ADOS-2, której nie prowadzimy zdalnie.",
         ),
         (
